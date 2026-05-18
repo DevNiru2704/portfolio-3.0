@@ -1,0 +1,41 @@
+'use client';
+
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
+import { Monitor, Moon, Sun } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+const options = [
+  { value: 'light', icon: Sun, label: 'Light' },
+  { value: 'system', icon: Monitor, label: 'System' },
+  { value: 'dark', icon: Moon, label: 'Dark' },
+];
+
+export function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return <div className="h-8 w-[108px] rounded-full border border-border bg-card/50" />;
+
+  return (
+    <div className="relative inline-flex h-8 items-center rounded-full border border-border bg-card/60 p-0.5 backdrop-blur">
+      {options.map((o) => {
+        const Icon = o.icon;
+        const active = theme === o.value;
+        return (
+          <button
+            key={o.value}
+            onClick={() => setTheme(o.value)}
+            aria-label={o.label}
+            className={cn(
+              'relative z-10 grid h-7 w-9 place-items-center rounded-full text-muted-foreground transition-colors',
+              active && 'bg-foreground text-background',
+            )}
+          >
+            <Icon className="h-3.5 w-3.5" />
+          </button>
+        );
+      })}
+    </div>
+  );
+}
