@@ -139,21 +139,22 @@ export function HomeView({ projects, labs }: HomeViewProps) {
         />
         <ol className="relative grid gap-4 md:grid-cols-5">
           {experience.map((e, i) => (
-            <motion.li
-              key={e.year}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: i * 0.06 }}
-              className="relative rounded-2xl border border-border bg-card/60 p-5"
-            >
-              <div className="flex items-center gap-2">
-                <CircleDot className="h-3.5 w-3.5 text-[hsl(var(--glow-cyan))]" />
-                <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{e.year}</span>
-              </div>
-              <div className="mt-2 text-sm font-semibold">{e.title}</div>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{e.description}</p>
-            </motion.li>
+            <li key={e.year}>
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: i * 0.06 }}
+                className="relative rounded-2xl border border-border bg-card/60 p-5"
+              >
+                <div className="flex items-center gap-2">
+                  <CircleDot className="h-3.5 w-3.5 text-[hsl(var(--glow-cyan))]" />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{e.year}</span>
+                </div>
+                <div className="mt-2 text-sm font-semibold">{e.title}</div>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{e.description}</p>
+              </motion.div>
+            </li>
           ))}
         </ol>
       </section>
@@ -264,7 +265,7 @@ export function HomeView({ projects, labs }: HomeViewProps) {
         <div className="relative overflow-hidden rounded-3xl border border-border bg-card/40 p-10 md:p-16">
           <div className="absolute inset-0 bg-grid mask-radial opacity-30" />
           <div
-            className="absolute -top-32 left-1/2 h-[300px] w-[800px] -translate-x-1/2 rounded-full blur-3xl opacity-50"
+            className="absolute -top-32 left-1/2 h-75 w-200 -translate-x-1/2 rounded-full blur-3xl opacity-50"
             style={{ background: "radial-gradient(60% 60% at 50% 50%, hsl(var(--glow-cyan) / 0.18), transparent 60%)" }}
           />
           <div className="relative grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
@@ -329,7 +330,7 @@ function CommandPreview({ onOpen }: { onOpen: () => void }) {
       </div>
       <div className="divide-y divide-border">
         {rows.map((row, i) => (
-          <div key={row.label} className={`flex items-center gap-3 px-3 py-2.5 transition-colors ${i === 0 ? "bg-foreground/[0.04]" : ""}`}>
+          <div key={row.label} className={`flex items-center gap-3 px-3 py-2.5 transition-colors ${i === 0 ? "bg-foreground/4" : ""}`}>
             <span className="grid h-6 w-6 place-items-center rounded-md border border-border bg-background font-mono text-[10px] text-muted-foreground">
               {row.icon}
             </span>

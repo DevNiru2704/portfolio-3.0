@@ -29,14 +29,6 @@ export function CursorSpotlight() {
   }, []);
 
   return (
-    <div
-      ref={ref}
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-0 hidden lg:block"
-      style={{
-        background:
-          "radial-gradient(600px circle at var(--mx,50%) var(--my,50%), hsl(var(--glow-cyan) / 0.06), transparent 50%)",
-      }}
-    />
+    <div ref={ref} aria-hidden className="spotlight pointer-events-none fixed inset-0 z-0 hidden lg:block" />
   );
 }

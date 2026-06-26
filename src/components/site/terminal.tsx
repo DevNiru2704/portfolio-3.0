@@ -129,7 +129,7 @@ export function Terminal() {
 
       <div
         ref={wrapRef}
-        className="scrollbar-thin h-[360px] overflow-y-auto px-4 py-4 font-mono text-[13px] leading-relaxed"
+        className="scrollbar-thin h-90 overflow-y-auto px-4 py-4 font-mono text-[13px] leading-relaxed"
       >
         {lines.map((l, i) => (
           <Line key={i} {...l} />

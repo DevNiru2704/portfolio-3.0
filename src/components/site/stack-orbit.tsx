@@ -30,7 +30,7 @@ export function StackOrbit() {
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center">
       {/* Orbit */}
-      <div className="relative mx-auto aspect-square w-full max-w-[420px]">
+      <div className="relative mx-auto aspect-square w-full max-w-105">
         {[1, 2, 3].map((ring) => (
           <div key={ring} className="absolute rounded-full border border-border" style={{ inset: `${ring * 12}%` }} />
         ))}

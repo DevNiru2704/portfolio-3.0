@@ -27,7 +27,7 @@ export function DeploymentPipeline() {
         <div className="font-mono text-[10px] text-muted-foreground">flow → main · a4f9d12</div>
       </div>
       <div className="relative px-5 py-8">
-        <div className="pointer-events-none absolute inset-x-5 top-1/2 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+        <div className="pointer-events-none absolute inset-x-5 top-1/2 h-px bg-linear-to-r from-transparent via-border to-transparent" />
         <div className="relative grid grid-cols-2 gap-y-8 gap-x-4 md:grid-cols-3 lg:grid-cols-6">
           {stages.map((s, i) => (
             <motion.div

@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Pin the workspace root to this project (a parent lockfile exists above it).
   turbopack: { root: projectRoot },
+  // Keep Prisma and the pg driver out of the server bundle.
+  serverExternalPackages: ["@prisma/client", "@prisma/adapter-pg", "pg"],
 };
 
 export default nextConfig;

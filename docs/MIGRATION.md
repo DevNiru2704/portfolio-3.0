@@ -11,7 +11,7 @@ This project was regenerated from a fresh `create-next-app` (TypeScript, App Rou
 | Next.js  | 14.2.3 (Pages-era config)       | 16.2.9 (App Router, Turbopack)          |
 | React    | 18                              | 19                                      |
 | Styling  | Tailwind CSS v3 (JS config)     | Tailwind CSS v4 (CSS `@theme`)          |
-| Database | MongoDB (`mongodb`, catch-all API route) | PostgreSQL via Prisma          |
+| Database | MongoDB (`mongodb`, catch-all API route) | PostgreSQL via Prisma 7 (pg driver adapter) |
 | Forms    | `fetch('/api/contact')`         | Server Action + Zod + React Hook Form   |
 | Email    | —                               | Resend                                  |
 
@@ -24,7 +24,9 @@ This project was regenerated from a fresh `create-next-app` (TypeScript, App Rou
 
 ## Data layer
 
-- `prisma/schema.prisma` — `Project`, `BlogPost`, `Lab`, `Message`.
+- `prisma/schema.prisma` — `Project`, `BlogPost`, `Lab`, `Message`. The datasource has
+  no `url` (Prisma 7): the runtime client connects through the `@prisma/adapter-pg`
+  driver adapter in `src/lib/prisma.ts`, and the CLI reads the URL from `prisma.config.ts`.
 - `prisma/seed.ts` — seeds projects/blog/lab (run `npm run db:seed`).
 - `src/repositories/*` — data access; UI never imports Prisma directly.
 - DB-backed pages use `export const dynamic = "force-dynamic"` so the build does not
@@ -46,7 +48,8 @@ Kept: `framer-motion`, `lucide-react`, `next-themes`, `sonner`, `cmdk`,
 `@radix-ui/react-dialog`, `class-variance-authority`, `clsx`, `tailwind-merge`,
 `react-hook-form`, `@hookform/resolvers`, `zod`.
 
-Added: `@prisma/client` + `prisma`, `resend`, `tw-animate-css`, `tsx`.
+Added: `@prisma/client` + `prisma` (v7), `@prisma/adapter-pg` + `pg`, `resend`,
+`tw-animate-css`, `tsx`, `dotenv`.
 
 ## Environment
 

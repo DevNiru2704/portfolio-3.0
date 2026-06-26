@@ -68,20 +68,22 @@ export default function AboutPage() {
 
       <section className="container py-14">
         <SectionHeading eyebrow="Timeline" title="How the engineering arc has unfolded." />
-        <ol className="relative space-y-4 md:space-y-0">
+        <div className="relative">
           <div className="absolute left-3 top-3 hidden h-[calc(100%-24px)] w-px bg-border md:block" />
-          {experience.map((e) => (
-            <li key={e.year} className="relative rounded-2xl border border-border bg-card/60 p-6 md:ml-12">
-              <span className="absolute left-[-44px] top-7 hidden h-3 w-3 rounded-full bg-[hsl(var(--glow-cyan))] shadow-[0_0_10px_hsl(var(--glow-cyan))] md:block" />
+          <ol className="space-y-4 md:space-y-0">
+            {experience.map((e) => (
+              <li key={e.year} className="relative rounded-2xl border border-border bg-card/60 p-6 md:ml-12">
+                <span className="absolute -left-11 top-7 hidden h-3 w-3 rounded-full bg-[hsl(var(--glow-cyan))] shadow-[0_0_10px_hsl(var(--glow-cyan))] md:block" />
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">{e.year}</span>
                 <span className="h-px flex-1 bg-border" />
               </div>
-              <h3 className="mt-2 text-lg font-semibold">{e.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{e.description}</p>
-            </li>
-          ))}
-        </ol>
+                <h3 className="mt-2 text-lg font-semibold">{e.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{e.description}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
       <section className="container py-14">

@@ -59,9 +59,9 @@ export function GitHubHeatmap() {
           <span>Fri</span>
         </div>
         <div className="scrollbar-thin overflow-x-auto">
-          <div className="flex gap-[3px]">
+          <div className="flex gap-0.75">
             {grid.map((col, w) => (
-              <div key={w} className="flex flex-col gap-[3px]">
+              <div key={w} className="flex flex-col gap-0.75">
                 {col.map((lv, d) => (
                   <div
                     key={d}

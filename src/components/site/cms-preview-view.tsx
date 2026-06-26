@@ -74,10 +74,14 @@ export function CmsPreviewView({ projects, posts, labs }: CmsPreviewViewProps) {
               read-only preview
             </span>
             <span className="text-muted-foreground">
-              This is a live preview of the CMS powering this portfolio. All data shown is for demonstration.
+              This is a live preview of the CMS powering this portfolio. All
+              data shown is for demonstration.
             </span>
           </div>
-          <Link href="/dashboard" className="inline-flex items-center gap-1 text-foreground hover:underline">
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center gap-1 text-foreground hover:underline"
+          >
             Open private dashboard <ArrowUpRight className="h-3 w-3" />
           </Link>
         </div>
@@ -92,7 +96,9 @@ export function CmsPreviewView({ projects, posts, labs }: CmsPreviewViewProps) {
               </span>
               <div className="leading-none">
                 <div className="text-xs font-semibold">NIRMALYA</div>
-                <div className="font-mono text-[10px] text-muted-foreground">CMS · demo</div>
+                <div className="font-mono text-[10px] text-muted-foreground">
+                  CMS · demo
+                </div>
               </div>
             </div>
             <div className="mt-3 space-y-0.5">
@@ -104,7 +110,9 @@ export function CmsPreviewView({ projects, posts, labs }: CmsPreviewViewProps) {
                     onClick={() => setView(n.id)}
                     className={cn(
                       "group flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-left text-sm transition-colors",
-                      active ? "bg-foreground/10 text-foreground" : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
+                      active
+                        ? "bg-foreground/10 text-foreground"
+                        : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
                     )}
                   >
                     <span className="flex items-center gap-2">
@@ -112,7 +120,9 @@ export function CmsPreviewView({ projects, posts, labs }: CmsPreviewViewProps) {
                       {n.label}
                     </span>
                     {n.badge ? (
-                      <span className="rounded-full bg-foreground px-1.5 py-0.5 font-mono text-[10px] text-background">{n.badge}</span>
+                      <span className="rounded-full bg-foreground px-1.5 py-0.5 font-mono text-[10px] text-background">
+                        {n.badge}
+                      </span>
                     ) : (
                       <ChevronRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
                     )}
@@ -126,7 +136,8 @@ export function CmsPreviewView({ projects, posts, labs }: CmsPreviewViewProps) {
                 <span className="text-muted-foreground">Read-only mode</span>
               </div>
               <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-                Editing is disabled in the public preview. Open the private dashboard to make changes.
+                Editing is disabled in the public preview. Open the private
+                dashboard to make changes.
               </p>
             </div>
           </div>
@@ -149,27 +160,59 @@ export function CmsPreviewView({ projects, posts, labs }: CmsPreviewViewProps) {
   );
 }
 
-function TopBar({ title, subtitle, actions }: { title: string; subtitle: string; actions?: ReactNode }) {
+function TopBar({
+  title,
+  subtitle,
+  actions,
+}: {
+  title: string;
+  subtitle: string;
+  actions?: ReactNode;
+}) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-3 pb-5">
       <div>
-        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{subtitle}</div>
-        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-gradient">{title}</h2>
+        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+          {subtitle}
+        </div>
+        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-gradient">
+          {title}
+        </h2>
       </div>
       {actions}
     </div>
   );
 }
 
-function Panel({ title, subtitle, children, className }: { title: string; subtitle: string; children: ReactNode; className?: string }) {
+function Panel({
+  title,
+  subtitle,
+  children,
+  className,
+}: {
+  title: string;
+  subtitle: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <section className={cn("rounded-2xl border border-border bg-card/60 p-5", className)}>
+    <section
+      className={cn(
+        "rounded-2xl border border-border bg-card/60 p-5",
+        className,
+      )}
+    >
       <div className="flex items-center justify-between border-b border-border pb-3">
         <div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{subtitle}</div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+            {subtitle}
+          </div>
           <div className="text-sm font-semibold">{title}</div>
         </div>
-        <button className="text-xs text-muted-foreground hover:text-foreground" aria-label="More">
+        <button
+          className="text-xs text-muted-foreground hover:text-foreground"
+          aria-label="More"
+        >
           <Filter className="h-3.5 w-3.5" />
         </button>
       </div>
@@ -179,11 +222,24 @@ function Panel({ title, subtitle, children, className }: { title: string; subtit
 }
 
 function Spark() {
-  const points = [4, 8, 6, 12, 9, 14, 11, 16, 13, 18, 14, 22, 20, 24].map((y, i) => `${i * 8},${30 - y}`).join(" ");
+  const points = [4, 8, 6, 12, 9, 14, 11, 16, 13, 18, 14, 22, 20, 24]
+    .map((y, i) => `${i * 8},${30 - y}`)
+    .join(" ");
   return (
     <svg viewBox="0 0 112 32" className="mt-3 h-8 w-full">
-      <polyline points={points} fill="none" stroke="hsl(var(--glow-cyan))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <polyline points={`${points} 112,32 0,32`} fill="hsl(var(--glow-cyan) / 0.12)" stroke="none" />
+      <polyline
+        points={points}
+        fill="none"
+        stroke="hsl(var(--glow-cyan))"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <polyline
+        points={`${points} 112,32 0,32`}
+        fill="hsl(var(--glow-cyan) / 0.12)"
+        stroke="none"
+      />
     </svg>
   );
 }
@@ -198,7 +254,11 @@ function Overview() {
   const topContent = [
     { t: "Why I Switched to Arch Linux + Hyprland", v: 2412, type: "post" },
     { t: "InfraPilot — Case Study", v: 1842, type: "project" },
-    { t: "Building Production-Grade Terraform Pipelines", v: 1238, type: "post" },
+    {
+      t: "Building Production-Grade Terraform Pipelines",
+      v: 1238,
+      type: "post",
+    },
     { t: "DevSync — Case Study", v: 1110, type: "project" },
     { t: "Fine-Tuning LLMs with LoRA", v: 928, type: "post" },
   ];
@@ -224,26 +284,44 @@ function Overview() {
           >
             <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
               <span>{m.label}</span>
-              <span className={cn("rounded-full px-1.5 py-0.5 text-[10px]", m.up ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400")}>
+              <span
+                className={cn(
+                  "rounded-full px-1.5 py-0.5 text-[10px]",
+                  m.up
+                    ? "bg-emerald-500/10 text-emerald-400"
+                    : "bg-red-500/10 text-red-400",
+                )}
+              >
                 {m.delta}
               </span>
             </div>
-            <div className="mt-2 text-3xl font-semibold tabular-nums">{m.value}</div>
+            <div className="mt-2 text-3xl font-semibold tabular-nums">
+              {m.value}
+            </div>
             <Spark />
           </motion.div>
         ))}
       </div>
 
       <div className="mt-5 grid gap-3 lg:grid-cols-3">
-        <Panel title="Live system status" subtitle="production" className="lg:col-span-2">
+        <Panel
+          title="Live system status"
+          subtitle="production"
+          className="lg:col-span-2"
+        >
           <ul className="divide-y divide-border">
             {systemStatus.services.map((s) => (
-              <li key={s.name} className="flex items-center justify-between py-2.5 text-sm">
+              <li
+                key={s.name}
+                className="flex items-center justify-between py-2.5 text-sm"
+              >
                 <span className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse-dot" />
                   {s.name}
                 </span>
-                <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">{s.label}</span>
+                <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+                  {s.label}
+                </span>
               </li>
             ))}
           </ul>
@@ -253,8 +331,13 @@ function Overview() {
               ["P95", systemStatus.metrics.p95Latency],
               ["Build success", systemStatus.metrics.buildSuccess],
             ].map(([k, v]) => (
-              <div key={k} className="rounded-xl border border-border bg-background p-3">
-                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{k}</div>
+              <div
+                key={k}
+                className="rounded-xl border border-border bg-background p-3"
+              >
+                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  {k}
+                </div>
                 <div className="text-sm font-semibold tabular-nums">{v}</div>
               </div>
             ))}
@@ -264,7 +347,10 @@ function Overview() {
         <Panel title="Recent deploys" subtitle="vercel">
           <ul className="space-y-2">
             {systemStatus.deploys.map((d) => (
-              <li key={d.sha} className="flex items-start gap-3 rounded-xl border border-border bg-background p-3">
+              <li
+                key={d.sha}
+                className="flex items-start gap-3 rounded-xl border border-border bg-background p-3"
+              >
                 <span className="mt-1 grid h-6 w-6 place-items-center rounded-md border border-border bg-card">
                   <CheckCircle2 className="h-3 w-3 text-emerald-400" />
                 </span>
@@ -273,10 +359,14 @@ function Overview() {
                     <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                       {d.ref} · {d.sha}
                     </span>
-                    <span className="font-mono text-[10px] text-muted-foreground">{d.duration}</span>
+                    <span className="font-mono text-[10px] text-muted-foreground">
+                      {d.duration}
+                    </span>
                   </div>
                   <div className="truncate text-sm">{d.message}</div>
-                  <div className="text-[10px] text-muted-foreground">{d.when}</div>
+                  <div className="text-[10px] text-muted-foreground">
+                    {d.when}
+                  </div>
                 </div>
               </li>
             ))}
@@ -288,13 +378,20 @@ function Overview() {
         <Panel title="Top content" subtitle="7d" className="lg:col-span-2">
           <ul className="divide-y divide-border">
             {topContent.map((row, i) => (
-              <li key={row.t} className="flex items-center gap-3 py-2.5 text-sm">
-                <span className="w-5 text-right font-mono text-[11px] text-muted-foreground">{i + 1}</span>
+              <li
+                key={row.t}
+                className="flex items-center gap-3 py-2.5 text-sm"
+              >
+                <span className="w-5 text-right font-mono text-[11px] text-muted-foreground">
+                  {i + 1}
+                </span>
                 <span className="flex-1 truncate">{row.t}</span>
                 <span className="rounded-md border border-border bg-background px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                   {row.type}
                 </span>
-                <span className="font-mono text-xs tabular-nums text-muted-foreground">{row.v.toLocaleString()}</span>
+                <span className="font-mono text-xs tabular-nums text-muted-foreground">
+                  {row.v.toLocaleString()}
+                </span>
               </li>
             ))}
           </ul>
@@ -342,29 +439,49 @@ function ProjectsManager({ projects }: { projects: Project[] }) {
           </thead>
           <tbody>
             {projects.map((p) => (
-              <tr key={p.id} className="border-b border-border last:border-none hover:bg-foreground/[0.03]">
+              <tr
+                key={p.id}
+                className="border-b border-border last:border-none hover:bg-foreground/3"
+              >
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full" style={{ background: `hsl(${p.accent ?? DEFAULT_ACCENT})` }} />
+                    <span
+                      className="h-1.5 w-1.5 rounded-full"
+                      style={{
+                        background: `hsl(${p.accent ?? DEFAULT_ACCENT})`,
+                      }}
+                    />
                     <span className="font-medium">{p.title}</span>
                     {p.featured && (
-                      <Badge variant="secondary" className="rounded-md bg-secondary/50 font-mono text-[9px] uppercase text-muted-foreground">
+                      <Badge
+                        variant="secondary"
+                        className="rounded-md bg-secondary/50 font-mono text-[9px] uppercase text-muted-foreground"
+                      >
                         featured
                       </Badge>
                     )}
                   </div>
-                  <div className="mt-0.5 truncate text-xs text-muted-foreground">/projects/{p.slug}</div>
+                  <div className="mt-0.5 truncate text-xs text-muted-foreground">
+                    /projects/{p.slug}
+                  </div>
                 </td>
-                <td className="px-4 py-3 text-muted-foreground">{p.category}</td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {p.category}
+                </td>
                 <td className="px-4 py-3">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-emerald-300">
                     <span className="h-1 w-1 rounded-full bg-emerald-400" />
                     {p.status}
                   </span>
                 </td>
-                <td className="px-4 py-3 tabular-nums">{p.metrics?.stars ?? "—"}</td>
+                <td className="px-4 py-3 tabular-nums">
+                  {p.metrics?.stars ?? "—"}
+                </td>
                 <td className="px-4 py-3 text-right">
-                  <Link href={`/projects/${p.slug}`} className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
+                  <Link
+                    href={`/projects/${p.slug}`}
+                    className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+                  >
                     Preview <Eye className="h-3 w-3" />
                   </Link>
                 </td>
@@ -379,7 +496,8 @@ function ProjectsManager({ projects }: { projects: Project[] }) {
 
 function BlogManager({ posts }: { posts: BlogPost[] }) {
   const post = posts[0];
-  if (!post) return <div className="text-sm text-muted-foreground">No posts yet.</div>;
+  if (!post)
+    return <div className="text-sm text-muted-foreground">No posts yet.</div>;
   return (
     <div>
       <TopBar
@@ -398,17 +516,21 @@ function BlogManager({ posts }: { posts: BlogPost[] }) {
       />
       <div className="grid gap-3 lg:grid-cols-2">
         <Panel title="Editor" subtitle="markdown · mdx">
-          <pre className="scrollbar-thin h-[420px] overflow-auto rounded-xl border border-border bg-background p-4 font-mono text-[12px] leading-relaxed text-foreground/90">
+          <pre className="scrollbar-thin h-105 overflow-auto rounded-xl border border-border bg-background p-4 font-mono text-[12px] leading-relaxed text-foreground/90">
             {`# ${post.title}\n\n> ${post.excerpt}\n\n## Background\n\n${post.body}\n\n\`\`\`bash\n# example install\nnpx create-next-app neural-cmd --typescript\n\`\`\`\n`}
           </pre>
         </Panel>
         <Panel title="Live preview" subtitle="rendered">
           <article className="prose prose-invert max-w-none">
-            <h2 className="text-2xl font-semibold tracking-tight">{post.title}</h2>
+            <h2 className="text-2xl font-semibold tracking-tight">
+              {post.title}
+            </h2>
             <p className="mt-2 text-sm text-muted-foreground">{post.excerpt}</p>
             <hr className="my-4 border-border" />
             <h3 className="text-base font-semibold">Background</h3>
-            <p className="mt-1 text-sm leading-relaxed text-foreground/90 whitespace-pre-wrap">{post.body}</p>
+            <p className="mt-1 text-sm leading-relaxed text-foreground/90 whitespace-pre-wrap">
+              {post.body}
+            </p>
           </article>
         </Panel>
       </div>
@@ -430,12 +552,17 @@ function MediaPanel() {
       />
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="group relative aspect-square overflow-hidden rounded-xl border border-border bg-card/60">
+          <div
+            key={i}
+            className="group relative aspect-square overflow-hidden rounded-xl border border-border bg-card/60"
+          >
             <div
               className="absolute inset-0"
               style={{
                 background: `radial-gradient(80% 80% at ${20 + i * 8}% ${30 + i * 5}%, hsl(${
-                  ["199 89% 74%", "213 94% 78%", "250 91% 85%", "30 80% 65%"][i % 4]
+                  ["199 89% 74%", "213 94% 78%", "250 91% 85%", "30 80% 65%"][
+                    i % 4
+                  ]
                 } / 0.35), transparent 60%), linear-gradient(140deg, hsl(var(--surface-2)), hsl(var(--surface-3)))`,
               }}
             />
@@ -453,18 +580,52 @@ function MediaPanel() {
 
 function MessagesPanel() {
   const samples = [
-    { name: "Ananya Sharma", email: "ananya@fintechco.io", subject: "Infrastructure consulting", preview: "Hi Nirmalya — we're building a payments backbone…", when: "2h", unread: true },
-    { name: "Marcus Lee", email: "marcus@devtools.dev", subject: "Open source collaboration", preview: "Loved DevSync. Any chance you'd be open to…", when: "8h", unread: true },
-    { name: "Priya Iyer", email: "priya@ai.infra", subject: "Engineering lead role", preview: "Following up on the call — we're ready to make…", when: "1d", unread: false },
-    { name: "Sam Patel", email: "sam@gridworks.io", subject: "Terraform pipeline help", preview: "Read your post on production Terraform…", when: "2d", unread: false },
+    {
+      name: "Ananya Sharma",
+      email: "ananya@fintechco.io",
+      subject: "Infrastructure consulting",
+      preview: "Hi Nirmalya — we're building a payments backbone…",
+      when: "2h",
+      unread: true,
+    },
+    {
+      name: "Marcus Lee",
+      email: "marcus@devtools.dev",
+      subject: "Open source collaboration",
+      preview: "Loved DevSync. Any chance you'd be open to…",
+      when: "8h",
+      unread: true,
+    },
+    {
+      name: "Priya Iyer",
+      email: "priya@ai.infra",
+      subject: "Engineering lead role",
+      preview: "Following up on the call — we're ready to make…",
+      when: "1d",
+      unread: false,
+    },
+    {
+      name: "Sam Patel",
+      email: "sam@gridworks.io",
+      subject: "Terraform pipeline help",
+      preview: "Read your post on production Terraform…",
+      when: "2d",
+      unread: false,
+    },
   ];
   return (
     <div>
-      <TopBar title="Messages" subtitle={`${samples.filter((s) => s.unread).length} unread`} />
+      <TopBar
+        title="Messages"
+        subtitle={`${samples.filter((s) => s.unread).length} unread`}
+      />
       <div className="overflow-hidden rounded-2xl border border-border bg-card/60">
         <ul className="divide-y divide-border">
           {samples.map((m, i) => (
-            <li key={i} className="flex items-start gap-3 px-5 py-4 hover:bg-foreground/[0.03]">
+            <li
+              key={i}
+              className="flex items-start gap-3 px-5 py-4 hover:bg-foreground/3"
+            >
               <span className="grid h-9 w-9 place-items-center rounded-full border border-border bg-background text-xs font-semibold">
                 {m.name
                   .split(" ")
@@ -474,15 +635,23 @@ function MessagesPanel() {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 truncate">
-                    <span className="truncate text-sm font-medium">{m.name}</span>
-                    {m.unread && <span className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--glow-cyan))]" />}
+                    <span className="truncate text-sm font-medium">
+                      {m.name}
+                    </span>
+                    {m.unread && (
+                      <span className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--glow-cyan))]" />
+                    )}
                   </div>
-                  <span className="font-mono text-[10px] text-muted-foreground">{m.when}</span>
+                  <span className="font-mono text-[10px] text-muted-foreground">
+                    {m.when}
+                  </span>
                 </div>
                 <div className="truncate text-xs text-muted-foreground">
                   {m.email} · {m.subject}
                 </div>
-                <p className="mt-1 truncate text-sm text-foreground/80">{m.preview}</p>
+                <p className="mt-1 truncate text-sm text-foreground/80">
+                  {m.preview}
+                </p>
               </div>
             </li>
           ))}
@@ -498,15 +667,27 @@ function LabPanel({ labs }: { labs: Lab[] }) {
       <TopBar title="Lab experiments" subtitle={`${labs.length} total`} />
       <div className="grid gap-3 md:grid-cols-2">
         {labs.map((l) => (
-          <div key={l.id} className="rounded-2xl border border-border bg-card/60 p-5">
+          <div
+            key={l.id}
+            className="rounded-2xl border border-border bg-card/60 p-5"
+          >
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{l.status}</span>
-              <span className="font-mono text-[10px] text-muted-foreground tabular-nums">{l.progress}%</span>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                {l.status}
+              </span>
+              <span className="font-mono text-[10px] text-muted-foreground tabular-nums">
+                {l.progress}%
+              </span>
             </div>
             <h3 className="mt-2 text-base font-semibold">{l.title}</h3>
-            <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{l.description}</p>
+            <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
+              {l.description}
+            </p>
             <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-secondary">
-              <div className="h-full rounded-full bg-[hsl(var(--glow-cyan))]" style={{ width: `${l.progress}%` }} />
+              <div
+                className="h-full rounded-full bg-[hsl(var(--glow-cyan))]"
+                style={{ width: `${l.progress}%` }}
+              />
             </div>
           </div>
         ))}
@@ -516,19 +697,26 @@ function LabPanel({ labs }: { labs: Lab[] }) {
 }
 
 function AnalyticsPanel() {
-  const buckets = [12, 14, 9, 16, 22, 19, 14, 18, 24, 28, 22, 18, 26, 32, 28, 30, 27, 22, 18, 14, 11, 9, 12, 8];
+  const buckets = [
+    12, 14, 9, 16, 22, 19, 14, 18, 24, 28, 22, 18, 26, 32, 28, 30, 27, 22, 18,
+    14, 11, 9, 12, 8,
+  ];
   const max = Math.max(...buckets);
   return (
     <div>
       <TopBar title="Analytics" subtitle="site · last 24h" />
       <div className="grid gap-3 lg:grid-cols-[1.4fr_1fr]">
         <Panel title="Pageviews" subtitle="hourly">
-          <div className="flex h-[220px] items-end gap-1">
+          <div className="flex h-55 items-end gap-1">
             {buckets.map((b, i) => (
               <div
                 key={i}
                 className="flex-1 rounded-t-md"
-                style={{ height: `${(b / max) * 100}%`, background: "linear-gradient(to top, hsl(var(--glow-cyan) / 0.15), hsl(var(--glow-cyan) / 0.6))" }}
+                style={{
+                  height: `${(b / max) * 100}%`,
+                  background:
+                    "linear-gradient(to top, hsl(var(--glow-cyan) / 0.15), hsl(var(--glow-cyan) / 0.6))",
+                }}
               />
             ))}
           </div>
@@ -546,10 +734,18 @@ function AnalyticsPanel() {
               <li key={l.name}>
                 <div className="flex justify-between text-xs">
                   <span>{l.name}</span>
-                  <span className="font-mono tabular-nums text-muted-foreground">{l.percentage}%</span>
+                  <span className="font-mono tabular-nums text-muted-foreground">
+                    {l.percentage}%
+                  </span>
                 </div>
                 <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-secondary">
-                  <div className="h-full rounded-full" style={{ width: `${l.percentage}%`, background: `hsl(${l.color})` }} />
+                  <div
+                    className="h-full rounded-full"
+                    style={{
+                      width: `${l.percentage}%`,
+                      background: `hsl(${l.color})`,
+                    }}
+                  />
                 </div>
               </li>
             ))}
@@ -577,7 +773,10 @@ function DeploysPanel() {
           </thead>
           <tbody>
             {systemStatus.deploys.map((d) => (
-              <tr key={d.sha} className="border-b border-border last:border-none">
+              <tr
+                key={d.sha}
+                className="border-b border-border last:border-none"
+              >
                 <td className="px-4 py-3">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-emerald-300">
                     <span className="h-1 w-1 rounded-full bg-emerald-400" />
@@ -588,7 +787,9 @@ function DeploysPanel() {
                   {d.ref} · {d.sha}
                 </td>
                 <td className="px-4 py-3">{d.message}</td>
-                <td className="px-4 py-3 font-mono text-xs tabular-nums">{d.duration}</td>
+                <td className="px-4 py-3 font-mono text-xs tabular-nums">
+                  {d.duration}
+                </td>
                 <td className="px-4 py-3 text-muted-foreground">{d.when}</td>
               </tr>
             ))}
@@ -613,16 +814,24 @@ function AssistantPanel() {
 function AssistantMini({ big = false }: { big?: boolean }) {
   return (
     <div>
-      <div className={cn("space-y-2 overflow-auto pr-1 scrollbar-thin", big ? "max-h-[420px]" : "max-h-[180px]")}>
+      <div
+        className={cn(
+          "space-y-2 overflow-auto pr-1 scrollbar-thin",
+          big ? "max-h-105" : "max-h-45",
+        )}
+      >
         <Bubble role="user">What&apos;s the architecture of DevSync?</Bubble>
         <Bubble role="ai">
-          DevSync is a Next.js App Router app with Supabase Realtime for collaborative state. Authentication is via Clerk;
-          analytics flow through Vercel + a custom RUM endpoint. Bundle stays under 150KB initial JS.
+          DevSync is a Next.js App Router app with Supabase Realtime for
+          collaborative state. Authentication is via Clerk; analytics flow
+          through Vercel + a custom RUM endpoint. Bundle stays under 150KB
+          initial JS.
         </Bubble>
         <Bubble role="user">Compare it to InfraPilot.</Bubble>
         <Bubble role="ai">
-          InfraPilot is a Go CLI that translates NL → Terraform plans, gated by a static analysis layer. It&apos;s a much
-          smaller surface area than DevSync but with stricter safety properties.
+          InfraPilot is a Go CLI that translates NL → Terraform plans, gated by
+          a static analysis layer. It&apos;s a much smaller surface area than
+          DevSync but with stricter safety properties.
         </Bubble>
       </div>
       <div className="mt-3 flex items-center gap-2 rounded-full border border-border bg-background pr-1 pl-3">
@@ -632,7 +841,7 @@ function AssistantMini({ big = false }: { big?: boolean }) {
           disabled
           className="h-9 flex-1 bg-transparent text-sm placeholder:text-muted-foreground focus:outline-none"
         />
-        <button className="inline-grid h-7 w-7 place-items-center rounded-full bg-foreground text-background opacity-60">
+        <button aria-label="Send message" className="inline-grid h-7 w-7 place-items-center rounded-full bg-foreground text-background opacity-60">
           <Send className="h-3 w-3" />
         </button>
       </div>
@@ -640,14 +849,22 @@ function AssistantMini({ big = false }: { big?: boolean }) {
   );
 }
 
-function Bubble({ role, children }: { role: "ai" | "user"; children: ReactNode }) {
+function Bubble({
+  role,
+  children,
+}: {
+  role: "ai" | "user";
+  children: ReactNode;
+}) {
   const isAi = role === "ai";
   return (
     <div className={cn("flex", isAi ? "justify-start" : "justify-end")}>
       <div
         className={cn(
           "max-w-[85%] rounded-2xl px-3 py-2 text-xs leading-relaxed",
-          isAi ? "bg-card/80 border border-border text-foreground/90" : "bg-foreground text-background",
+          isAi
+            ? "bg-card/80 border border-border text-foreground/90"
+            : "bg-foreground text-background",
         )}
       >
         {children}

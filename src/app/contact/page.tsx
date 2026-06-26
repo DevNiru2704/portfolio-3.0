@@ -41,9 +41,9 @@ export default function ContactPage() {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-2">
-              <Social icon={Github} href={owner.github} />
-              <Social icon={Linkedin} href={owner.linkedin} />
-              <Social icon={Twitter} href={owner.twitter} />
+              <Social icon={Github} href={owner.github} label="GitHub" />
+              <Social icon={Linkedin} href={owner.linkedin} label="LinkedIn" />
+              <Social icon={Twitter} href={owner.twitter} label="Twitter/X" />
             </div>
           </div>
 
@@ -85,12 +85,13 @@ function InfoRow({ icon: Icon, label, value, href, external }: InfoRowProps) {
   );
 }
 
-function Social({ icon: Icon, href }: { icon: ComponentType<{ className?: string }>; href: string }) {
+function Social({ icon: Icon, href, label }: { icon: ComponentType<{ className?: string }>; href: string; label: string }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
+      aria-label={label}
       className="inline-grid h-10 w-10 place-items-center rounded-full border border-border bg-card/60 text-muted-foreground transition-colors hover:text-foreground"
     >
       <Icon className="h-4 w-4" />

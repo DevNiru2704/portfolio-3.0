@@ -23,7 +23,7 @@ export function ThemeToggle() {
   // Mount guard prevents a theme hydration mismatch.
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
-  if (!mounted) return <div className="h-8 w-[108px] rounded-full border border-border bg-card/50" />;
+  if (!mounted) return <div className="h-8 w-27 rounded-full border border-border bg-card/50" />;
 
   return (
     <div className="relative inline-flex h-8 items-center rounded-full border border-border bg-card/60 p-0.5 backdrop-blur">
