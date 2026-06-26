@@ -60,7 +60,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const projects = await getPaletteProjects();
 
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${mono.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} ${mono.variable}`}
+    >
       <body className="font-display bg-background text-foreground min-h-screen antialiased">
         <SiteProviders projects={projects}>
           <div className="relative flex min-h-screen flex-col">

@@ -62,8 +62,9 @@ export function StackOrbit() {
         {items.map((it, i) => {
           const angle = (i / items.length) * Math.PI * 2;
           const r = 38;
-          const x = 50 + Math.cos(angle) * r;
-          const y = 50 + Math.sin(angle) * r;
+          // Round so the server string matches what the browser reparses (avoids hydration mismatch).
+          const x = (50 + Math.cos(angle) * r).toFixed(4);
+          const y = (50 + Math.sin(angle) * r).toFixed(4);
           return (
             <div key={it} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${x}%`, top: `${y}%` }}>
               <div className="group relative">
