@@ -1,0 +1,71 @@
+// Prisma schema — Postgres source of truth for portfolio content.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  title        String
+  category     String
+  tags         String[]
+  description  String
+  overview     String?
+  featured     Boolean  @default(false)
+  github       String?
+  live         String?
+  status       String   @default("draft")
+  year         Int
+  metrics      Json?
+  features     String[]
+  architecture String?
+  challenges   String?
+  tradeoffs    String?
+  performance  String?
+  accent       String?
+  cover        String?
+  createdAt    DateTime @default(now())
+
+  @@index([featured])
+}
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  excerpt   String
+  tags      String[]
+  readTime  String
+  date      String
+  status    String   @default("draft")
+  body      String
+  createdAt DateTime @default(now())
+}
+
+model Lab {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  status      String
+  tags        String[]
+  progress    Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
