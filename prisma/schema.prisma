@@ -31,7 +31,9 @@ model Project {
   cover        String?
   createdAt    DateTime @default(now())
 
-  @@index([featured])
+  // Matches projectRepository.findAll (featured desc, year desc) and
+  // findFeatured (where featured, year desc).
+  @@index([featured, year])
 }
 
 model BlogPost {
@@ -45,6 +47,10 @@ model BlogPost {
   status    String   @default("draft")
   body      String
   createdAt DateTime @default(now())
+
+  // Matches blogRepository.findAll (date desc). date is an ISO YYYY-MM-DD
+  // string, so lexicographic ordering equals chronological ordering.
+  @@index([date])
 }
 
 model Lab {
@@ -56,6 +62,9 @@ model Lab {
   tags        String[]
   progress    Int      @default(0)
   createdAt   DateTime @default(now())
+
+  // Matches labRepository.findAll (createdAt asc).
+  @@index([createdAt])
 }
 
 model Message {

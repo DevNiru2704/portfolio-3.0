@@ -49,9 +49,10 @@ and static config files (identity, experience, skills, philosophy).
 - `src/config/owner.ts` - identity: name, role, contact links, domain (`owner.url`
   drives metadataBase, sitemap, robots, OG). Change the domain here and nowhere else.
 - `src/config/content.ts` - experience timeline, skills by layer, now snapshot,
-  philosophy principles. **Everything here must stay factually true** - fabricated
-  demo content was deliberately removed in 2026-07; do not reintroduce invented
-  metrics, testimonials, or fake telemetry.
+  philosophy principles. These are **static config, not database rows**: they ship
+  with the build and need no seeding. **Everything here must stay factually true** -
+  fabricated demo content was deliberately removed in 2026-07; do not reintroduce
+  invented metrics, testimonials, or fake telemetry.
 - `prisma/seed.ts` - projects, blog posts, labs. Same truthfulness rule. Company
   projects (DokLink, Glass Automation, Vayita Grow, A Fashions) get no GitHub links.
   `BlogPost.date` is a String sorted lexicographically - always use `YYYY-MM-DD`.
@@ -75,14 +76,51 @@ use em dashes or en dashes; use plain hyphens.
 
 ## Environment
 
-Copy `.env.example` to `.env`. Variables:
+Copy `.env.example` to `.env` (local dev). `.env.prod` holds the production values
+and is gitignored - never commit either.
 
-- `DATABASE_URL` - PostgreSQL. Locally: any Postgres. Production runtime (Vercel):
-  Supabase **pooled** connection string (pgBouncer, port 6543). For `prisma migrate
-  deploy` / `db:push` / `db:seed` use the **session/direct** string (port 5432) -
-  pgBouncer breaks migrations.
+- `DATABASE_URL` - PostgreSQL. Locally: any Postgres.
 - `RESEND_API_KEY` - contact email (optional; failure is soft, message still persists)
-- `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` - contact routing
+- `CONTACT_FROM_EMAIL` - must be on a Resend-verified domain (`send.devniru.in`).
+  Falls back to `onboarding@resend.dev`, which can only deliver to the Resend
+  account owner.
+- `CONTACT_TO_EMAIL` - where contact notifications land.
+
+### Supabase connection strings (two different ones)
+
+| Use | Port | Why |
+| --- | --- | --- |
+| Vercel runtime (`DATABASE_URL` env var) | **6543** transaction pooler | serverless-safe; many short-lived function instances |
+| `prisma migrate deploy` / `db:seed` from a laptop | **5432** session pooler | the transaction pooler cannot run DDL (no advisory locks) |
+
+Both use the `postgres.<project-ref>` username. **The session pooler needs
+`?sslmode=require` appended** - without it Prisma fails with a misleading
+`P1001: Can't reach database server`. The direct host (`db.<ref>.supabase.co`)
+is IPv6-only and generally not reachable from IPv4 networks; use the pooler.
+
+Applying migrations, without printing secrets:
+
+```bash
+export DATABASE_URL="$(grep '^DATABASE_URL=' .env.prod | cut -d'"' -f2 | sed 's|:6543/|:5432/|')?sslmode=require"
+npx prisma migrate deploy
+```
+
+Seeding works through either pooler (it is DML, not DDL).
+
+### Connection pooling
+
+`src/lib/prisma.ts` sets `max: 3` on the `PrismaPg` adapter. With Prisma 7 driver
+adapters, `?connection_limit=` and `?pgbouncer=true` in the URL are **ignored** -
+node-postgres owns the pool, so the ceiling must be set in code.
+
+### Row level security
+
+Supabase publishes every `public` table through its PostgREST API. This app never
+uses that API (Prisma connects as the table owner, which bypasses RLS), so the
+migration `20260717000000_indexes_and_rls` enables RLS with **no policies** and
+revokes `anon` / `authenticated` grants - closing the REST surface entirely.
+`Message` holds contact-form PII and must never become publicly readable. If a
+future feature needs supabase-js, add explicit policies then; do not disable RLS.
 
 ## Deployment (Vercel + Supabase)
 
