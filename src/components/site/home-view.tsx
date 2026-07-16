@@ -129,7 +129,7 @@ export function HomeView({ projects, labs, counts }: HomeViewProps) {
         />
         <ol className="relative grid gap-4 md:grid-cols-5">
           {experience.map((e, i) => (
-            <li key={e.year}>
+            <li key={e.title}>
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
