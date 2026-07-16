@@ -38,11 +38,10 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+// Dark only - no light theme, so a single theme colour.
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
-    { media: "(prefers-color-scheme: dark)", color: "#090909" },
-  ],
+  themeColor: "#090909",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -59,12 +58,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const projects = await getPaletteProjects();
 
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      data-scroll-behavior="smooth"
-      className={`${inter.variable} ${mono.variable}`}
-    >
+    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${mono.variable}`}>
       {/* suppressHydrationWarning: browser extensions inject attributes into
           <body> before hydration; this silences that one-element mismatch. */}
       <body suppressHydrationWarning className="font-display bg-background text-foreground min-h-screen antialiased">

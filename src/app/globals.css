@@ -1,9 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
-/* Design tokens mapped to Tailwind v4 theme (inline so .dark overrides resolve at runtime). */
+/* This site is dark only - there is no light theme and no theme switcher.
+   Tokens live in :root with no .dark override, so nothing needs a class. */
 @theme inline {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -31,39 +30,9 @@
 }
 
 :root {
-  /* Neural Command Interface - Light Mode */
-  --background: 0 0% 98%;
-  --foreground: 0 0% 9%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 9%;
-  --primary: 0 0% 9%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 96%;
-  --secondary-foreground: 0 0% 9%;
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 40%;
-  --accent: 0 0% 96%;
-  --accent-foreground: 0 0% 9%;
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 90%;
-  --input: 0 0% 90%;
-  --ring: 199 89% 60%;
-  --radius: 0.625rem;
+  /* Neural Command Interface */
+  color-scheme: dark;
 
-  /* Custom glow + surface tokens */
-  --glow-cyan: 199 89% 74%;
-  --glow-blue: 213 94% 78%;
-  --glow-purple: 250 91% 85%;
-  --surface-1: 0 0% 100%;
-  --surface-2: 0 0% 97%;
-  --surface-3: 0 0% 94%;
-}
-
-.dark {
-  /* Neural Command Interface - Dark Mode */
   --background: 0 0% 3.5%;
   --foreground: 0 0% 98%;
   --card: 0 0% 6.7%;
@@ -83,7 +52,9 @@
   --border: 0 0% 13%;
   --input: 0 0% 13%;
   --ring: 199 89% 74%;
+  --radius: 0.625rem;
 
+  /* Custom glow + surface tokens */
   --glow-cyan: 199 89% 74%;
   --glow-blue: 213 94% 78%;
   --glow-purple: 250 91% 85%;

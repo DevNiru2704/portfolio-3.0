@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Command, Download, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { owner, navigation, secondaryNav } from "@/config/owner";
-import { ThemeToggle } from "./theme-toggle";
 import { useCommandPalette } from "./command-palette";
 
 export function SiteNav() {
@@ -91,7 +90,6 @@ export function SiteNav() {
               <Download className="h-3.5 w-3.5" />
               Download CV
             </a>
-            <ThemeToggle />
             <button
               onClick={() => setOpen((v) => !v)}
               aria-label="Toggle menu"

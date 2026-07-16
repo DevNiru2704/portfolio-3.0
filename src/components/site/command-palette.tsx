@@ -11,7 +11,6 @@ import {
   type ReactNode,
 } from "react";
 import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
 import {
   ArrowRight,
   Download,
@@ -21,10 +20,7 @@ import {
   Home,
   Linkedin,
   Mail,
-  Moon,
   Newspaper,
-  Sun,
-  Monitor,
   Terminal as TerminalIcon,
   LayoutDashboard,
   Sparkles,
@@ -61,7 +57,6 @@ interface CommandPaletteProviderProps {
 export function CommandPaletteProvider({ children, projects }: CommandPaletteProviderProps) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const { setTheme } = useTheme();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -148,14 +143,6 @@ export function CommandPaletteProvider({ children, projects }: CommandPalettePro
                 }, 60);
               }}
             />
-          </CommandGroup>
-
-          <CommandSeparator />
-
-          <CommandGroup heading="Theme">
-            <Item icon={Sun} label="Light mode" onSelect={() => { setTheme("light"); setOpen(false); }} />
-            <Item icon={Moon} label="Dark mode" onSelect={() => { setTheme("dark"); setOpen(false); }} />
-            <Item icon={Monitor} label="System theme" onSelect={() => { setTheme("system"); setOpen(false); }} />
           </CommandGroup>
 
           <CommandSeparator />

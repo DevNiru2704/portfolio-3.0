@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: Params) {
       </section>
 
       <section className="container grid gap-10 py-14 lg:grid-cols-[1fr_260px]">
-        <article className="prose prose-invert max-w-prose dark:prose-invert">
+        <article className="prose prose-invert max-w-prose">
           {post.body.split(/\n\n+/).map((para, i) => (
             <p key={i} className="mb-5 text-balance leading-relaxed text-foreground/90">
               {para.trim()}
