@@ -11,9 +11,18 @@ interface MagneticButtonProps {
   className?: string;
   variant?: "primary" | "ghost";
   external?: boolean;
+  /** Filename to save as. Renders a plain anchor that downloads instead of navigating. */
+  download?: string;
 }
 
-export function MagneticButton({ href, children, className, variant = "primary", external = false }: MagneticButtonProps) {
+export function MagneticButton({
+  href,
+  children,
+  className,
+  variant = "primary",
+  external = false,
+  download,
+}: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
   const x = useSpring(useMotionValue(0), { stiffness: 200, damping: 18 });
   const y = useSpring(useMotionValue(0), { stiffness: 200, damping: 18 });
@@ -38,11 +47,15 @@ export function MagneticButton({ href, children, className, variant = "primary",
       ? "bg-foreground text-background hover:bg-foreground/90"
       : "border border-border bg-card/60 text-foreground hover:border-foreground/30 backdrop-blur";
 
-  const Cmp = (href ? (external ? "a" : Link) : "button") as ElementType;
+  // A download needs a real anchor: next/link would try to route to the file.
+  const isAnchor = Boolean(href) && (external || Boolean(download));
+  const Cmp = (href ? (isAnchor ? "a" : Link) : "button") as ElementType;
   const linkProps: Record<string, unknown> = href
-    ? external
-      ? { href, target: "_blank", rel: "noreferrer" }
-      : { href }
+    ? download
+      ? { href, download, target: "_blank", rel: "noreferrer" }
+      : external
+        ? { href, target: "_blank", rel: "noreferrer" }
+        : { href }
     : {};
 
   return (

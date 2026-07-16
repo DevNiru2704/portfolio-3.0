@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ComponentType } from "react";
 import Link from "next/link";
-import { Github, Linkedin, Mail, Code2, Terminal as TerminalIcon, Cpu } from "lucide-react";
+import { Github, Linkedin, Mail, Download, Code2, Terminal as TerminalIcon, Cpu } from "lucide-react";
 import { owner } from "@/config/owner";
 import { experience, stack } from "@/config/content";
 import { GridBg } from "@/components/site/grid-bg";
@@ -45,6 +45,15 @@ export default function AboutPage() {
               architecture, and performance-first engineering.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
+              <a
+                href={owner.resumeUrl}
+                download={owner.resumeFileName}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-10 items-center gap-2 rounded-full bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90"
+              >
+                <Download className="h-4 w-4" /> Download CV
+              </a>
               <Social icon={Github} href={owner.github} label="GitHub" />
               <Social icon={Linkedin} href={owner.linkedin} label="LinkedIn" />
               <Social icon={Mail} href="/contact" label="Email" external={false} />

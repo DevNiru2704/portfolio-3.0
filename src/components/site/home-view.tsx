@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Command, Github, Mail, Sparkles, Cpu, Activity, Zap, ChevronRight, CircleDot } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Command, Download, Github, Mail, Sparkles, Cpu, Activity, Zap, ChevronRight, CircleDot } from "lucide-react";
 import { owner } from "@/config/owner";
 import { experience } from "@/config/content";
 import type { Project, Lab } from "@/types/content";
@@ -53,6 +53,10 @@ export function HomeView({ projects, labs, counts }: HomeViewProps) {
               <MagneticButton href="/projects">
                 View Projects
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </MagneticButton>
+              <MagneticButton variant="ghost" href={owner.resumeUrl} download={owner.resumeFileName}>
+                <Download className="h-4 w-4" />
+                Download CV
               </MagneticButton>
               <MagneticButton variant="ghost" href="/cms-preview">
                 <Sparkles className="h-4 w-4" />

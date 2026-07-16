@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   ArrowRight,
+  Download,
   FileCode2,
   FlaskConical,
   Github,
@@ -81,6 +82,19 @@ export function CommandPaletteProvider({ children, projects }: CommandPalettePro
     [router],
   );
 
+  // The palette has no anchors, so trigger the download through a throwaway one
+  // rather than navigating away from the page.
+  const downloadResume = useCallback(() => {
+    setOpen(false);
+    const link = document.createElement("a");
+    link.href = owner.resumeUrl;
+    link.download = owner.resumeFileName;
+    link.rel = "noreferrer";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }, []);
+
   const value = useMemo(() => ({ open, setOpen }), [open]);
 
   return (
@@ -98,12 +112,13 @@ export function CommandPaletteProvider({ children, projects }: CommandPalettePro
         <CommandList className="max-h-105">
           <CommandEmpty>No results. Try &lsquo;projects&rsquo;, &lsquo;contact&rsquo; or &lsquo;dark&rsquo;.</CommandEmpty>
 
+          {/* Order mirrors `navigation` in config/owner.ts - keep them in sync. */}
           <CommandGroup heading="Navigation">
             <Item icon={Home} label="Home" onSelect={() => go("/")} />
+            <Item icon={User} label="About" onSelect={() => go("/about")} />
             <Item icon={FileCode2} label="Projects" hint="↳ case studies" onSelect={() => go("/projects")} />
             <Item icon={FlaskConical} label="Lab" onSelect={() => go("/lab")} />
             <Item icon={Newspaper} label="Blog" onSelect={() => go("/blog")} />
-            <Item icon={User} label="About" onSelect={() => go("/about")} />
             <Item icon={CalendarDays} label="Now" onSelect={() => go("/now")} />
             <Item icon={Atom} label="Philosophy" onSelect={() => go("/philosophy")} />
             <Item icon={Mail} label="Contact" onSelect={() => go("/contact")} />
@@ -120,6 +135,7 @@ export function CommandPaletteProvider({ children, projects }: CommandPalettePro
           <CommandSeparator />
 
           <CommandGroup heading="Actions">
+            <Item icon={Download} label="Download CV" hint="pdf" onSelect={downloadResume} />
             <Item icon={LayoutDashboard} label="Open CMS Preview" hint="public demo" onSelect={() => go("/cms-preview")} />
             <Item icon={Compass} label="Open Dashboard" hint="private" onSelect={() => go("/dashboard")} />
             <Item

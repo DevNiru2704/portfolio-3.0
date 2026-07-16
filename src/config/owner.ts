@@ -21,7 +21,10 @@ export const owner = {
   location: "Kolkata, India",
   timezone: "IST (UTC+5:30)",
   availability: "Open to full-time roles and freelance work",
+  // Served from public/resume.pdf. resumeFileName is what the visitor's browser
+  // saves it as, so keep it recognisable rather than "resume.pdf".
   resumeUrl: "/resume.pdf",
+  resumeFileName: "Nirmalya_Mandal_Resume.pdf",
 
   brand: {
     name: "NIRMALYA",
@@ -43,12 +46,14 @@ export const owner = {
   ],
 } as const;
 
+// Order matters: this drives the desktop nav, the mobile drawer, and the
+// command palette's Navigation group. Keep those three in sync.
 export const navigation: NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
   { label: "Lab", href: "/lab" },
   { label: "Blog", href: "/blog" },
-  { label: "About", href: "/about" },
   { label: "Now", href: "/now" },
   { label: "Philosophy", href: "/philosophy" },
   { label: "Contact", href: "/contact" },
