@@ -42,7 +42,8 @@ model BlogPost {
   title     String
   excerpt   String
   tags      String[]
-  readTime  String
+  // No readTime column: it is derived from `body` in blogRepository, so it
+  // cannot drift when the text changes.
   date      String
   status    String   @default("draft")
   body      String
