@@ -184,7 +184,7 @@ const posts: Prisma.BlogPostCreateInput[] = [
       "I wrote an infrastructure rulebook for my own projects, and the most useful rule is the one that keeps telling me no. Here is the decision framework that stops me from over-engineering.",
     tags: ["DevOps", "Architecture", "Opinion"],
     readTime: "8 min",
-    date: "2026-03-08",
+    date: "2026-06-17",
     status: "published",
     body: `There is a moment in every side project where you catch yourself opening the Kubernetes docs, and you need someone to ask you a simple question: how many users do you have? If the honest answer is "me, and sometimes my friend testing on staging", close the tab.
 
@@ -215,7 +215,7 @@ So before the next kubectl tutorial, ask the staged question: what stage am I ac
       "AI agents now write a lot of my infrastructure code, so I gave them a binding rulebook with hard reject gates. Then I turned it on my own project, and it failed.",
     tags: ["DevOps", "AI", "Automation"],
     readTime: "9 min",
-    date: "2026-04-05",
+    date: "2026-06-24",
     status: "published",
     body: `A growing share of my infrastructure work is done with AI agents in the loop. They draft Terraform, write deploy scripts, and propose CI pipelines. They are fast, tireless, and occasionally catastrophically confident. Speed without judgment is a liability, so I did the only reasonable thing: I wrote them a constitution.
 
@@ -246,7 +246,7 @@ If you are letting AI write infrastructure, write the constitution first. Make t
       "A client handed me a generic security checklist. Instead of nodding and filing it away, I mapped every item to actual code in the project, and learned that the mapping is where all the value lives.",
     tags: ["Security", "Full Stack", "Engineering"],
     readTime: "9 min",
-    date: "2026-05-10",
+    date: "2026-07-02",
     status: "published",
     body: `Every developer eventually receives The Checklist. A client or manager forwards a PDF titled something like "essential security practices", assembled by someone selling a course, and asks: are we doing all this? Most of these checklists are not wrong. They are just unfalsifiable. "Validate all inputs" is advice nobody can disagree with and nobody can verify.
 
@@ -273,7 +273,7 @@ So next time The Checklist lands in your inbox, resist both failure modes: do no
       "The best design rule I use is brutally simple: if removing an element does not hurt the page, it should not be there. Notes from the design system I apply to client work.",
     tags: ["Design", "Frontend", "UX"],
     readTime: "7 min",
-    date: "2026-06-14",
+    date: "2026-07-08",
     status: "published",
     body: `Open any portfolio site built last year and count the animations. Cursor trails, tilting cards, letters that scatter when you scroll. Each one screams effort. And that is exactly the problem: premium design is usually quieter than amateur attempts at luxury.
 
@@ -302,7 +302,7 @@ So here is the exercise I give every interface I touch, and it costs nothing: pi
       "I copy the same engineering principles document into every repo I start, then layer framework-specific rules on top. Here is why the boring duplicated file outperforms clever tooling.",
     tags: ["Engineering", "TypeScript", "Best Practices"],
     readTime: "8 min",
-    date: "2026-07-05",
+    date: "2026-07-14",
     status: "published",
     body: `There is a file I copy, nearly byte for byte, into every serious project I start. It is not a utility library or a config. It is a document: mandatory software engineering principles, the same SOLID, DRY, KISS, and YAGNI canon every senior engineer claims to know, written down as binding rules with a code-review checklist at the end. It has now shipped inside a healthcare platform, a manufacturing automation system, and a B2B agricultural platform.
 
