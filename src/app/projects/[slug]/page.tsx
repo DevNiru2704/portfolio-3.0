@@ -179,7 +179,7 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div>
       <SectionEyebrow>{title}</SectionEyebrow>
-      <p className="mt-3 max-w-prose text-balance leading-relaxed text-foreground/90">{children}</p>
+      <div className="mt-3 max-w-prose text-balance leading-relaxed text-foreground/90">{children}</div>
     </div>
   );
 }
