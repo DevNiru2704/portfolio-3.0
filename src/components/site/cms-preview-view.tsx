@@ -29,8 +29,9 @@ import {
   Upload,
   Atom,
   GripVertical,
+  Radio,
 } from "lucide-react";
-import type { Project, BlogPost, Lab, Principle } from "@/types/content";
+import type { Project, BlogPost, Lab, Principle, NowItem, NowCategory } from "@/types/content";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -82,6 +83,7 @@ const NAV: NavItem[] = [
   { id: "projects", label: "Projects", icon: Code2 },
   { id: "blog", label: "Blog", icon: FileText },
   { id: "philosophy", label: "Philosophy", icon: Atom },
+  { id: "now", label: "Now", icon: Radio },
   { id: "media", label: "Media", icon: ImageIcon },
   { id: "messages", label: "Messages", icon: Mail, badge: 12 },
   { id: "lab", label: "Lab", icon: FlaskConical },
@@ -96,9 +98,10 @@ interface CmsPreviewViewProps {
   posts: BlogPost[];
   labs: Lab[];
   principles: Principle[];
+  nowItems: NowItem[];
 }
 
-export function CmsPreviewView({ projects, posts, labs, principles }: CmsPreviewViewProps) {
+export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: CmsPreviewViewProps) {
   const [view, setView] = useState("overview");
 
   return (
@@ -185,6 +188,7 @@ export function CmsPreviewView({ projects, posts, labs, principles }: CmsPreview
           {view === "projects" && <ProjectsManager projects={projects} />}
           {view === "blog" && <BlogManager posts={posts} />}
           {view === "philosophy" && <PhilosophyManager principles={principles} />}
+          {view === "now" && <NowManager items={nowItems} />}
           {view === "media" && <MediaPanel />}
           {view === "messages" && <MessagesPanel />}
           {view === "lab" && <LabPanel labs={labs} />}
@@ -616,6 +620,72 @@ function PhilosophyManager({ principles }: { principles: Principle[] }) {
             </button>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+const NOW_GROUPS: { key: NowCategory; label: string }[] = [
+  { key: "building", label: "Building" },
+  { key: "learning", label: "Learning" },
+  { key: "experimenting", label: "Experimenting" },
+  { key: "stack", label: "Stack" },
+  { key: "goal", label: "Goal" },
+];
+
+function NowManager({ items }: { items: NowItem[] }) {
+  return (
+    <div>
+      <TopBar
+        title="Now"
+        subtitle={`${items.length} items · ${NOW_GROUPS.length} sections`}
+        actions={
+          <button className="inline-flex h-9 items-center gap-2 rounded-full bg-foreground px-4 text-xs font-medium text-background opacity-60">
+            <Plus className="h-3.5 w-3.5" /> New item
+          </button>
+        }
+      />
+      <div className="grid gap-3 md:grid-cols-2">
+        {NOW_GROUPS.map((g) => {
+          const groupItems = items.filter((i) => i.category === g.key);
+          return (
+            <div key={g.key} className="rounded-2xl border border-border bg-card/60 p-5">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                  {g.label}
+                </span>
+                <span className="font-mono text-[10px] tabular-nums text-muted-foreground/60">
+                  {groupItems.length}
+                </span>
+              </div>
+              <ul className="mt-3 space-y-2">
+                {groupItems.map((it) => (
+                  <li
+                    key={it.id}
+                    className="group flex items-start gap-2 rounded-lg border border-border bg-background px-3 py-2"
+                  >
+                    <span className="mt-0.5 font-mono text-[10px] tabular-nums text-muted-foreground/60">
+                      {String(it.order).padStart(2, "0")}
+                    </span>
+                    <span className="min-w-0 flex-1 text-xs leading-relaxed text-foreground/90">{it.body}</span>
+                    <button
+                      disabled
+                      aria-label={`Edit ${it.slug}`}
+                      className="shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-60"
+                    >
+                      <Save className="h-3 w-3" />
+                    </button>
+                  </li>
+                ))}
+                {groupItems.length === 0 && (
+                  <li className="rounded-lg border border-dashed border-border px-3 py-2 text-xs text-muted-foreground">
+                    No items yet.
+                  </li>
+                )}
+              </ul>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

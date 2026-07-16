@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import type { ComponentType } from "react";
 import { Rocket, BookOpen, FlaskConical, Target, Layers } from "lucide-react";
-import { now } from "@/config/content";
+import { nowRepository } from "@/repositories/now-repository";
+import type { NowCategory } from "@/types/content";
 import { GridBg } from "@/components/site/grid-bg";
 import { SectionHeading } from "@/components/site/section-heading";
 
@@ -10,20 +11,22 @@ export const metadata: Metadata = {
   description: "A snapshot of what I'm building, learning and experimenting with this quarter.",
 };
 
-interface NowSection {
-  key: string;
-  title: string;
-  icon: ComponentType<{ className?: string }>;
-  items: string[];
-}
+// Sections are sourced from Postgres at request time.
+export const dynamic = "force-dynamic";
 
-const sections: NowSection[] = [
-  { key: "building", title: "Currently building", icon: Rocket, items: now.building },
-  { key: "learning", title: "Currently learning", icon: BookOpen, items: now.learning },
-  { key: "experimenting", title: "Currently experimenting", icon: FlaskConical, items: now.experimenting },
+const sections: { key: NowCategory; title: string; icon: ComponentType<{ className?: string }> }[] = [
+  { key: "building", title: "Currently building", icon: Rocket },
+  { key: "learning", title: "Currently learning", icon: BookOpen },
+  { key: "experimenting", title: "Currently experimenting", icon: FlaskConical },
 ];
 
-export default function NowPage() {
+export default async function NowPage() {
+  const items = await nowRepository.findAll();
+  // findAll already orders by (category, order), so filtering preserves it.
+  const inCategory = (category: NowCategory) => items.filter((i) => i.category === category);
+  const stack = inCategory("stack");
+  const goal = inCategory("goal")[0]?.body;
+
   return (
     <div>
       <section className="relative isolate overflow-hidden border-b border-border">
@@ -51,10 +54,10 @@ export default function NowPage() {
                 </div>
               </div>
               <ul className="mt-5 space-y-3">
-                {s.items.map((it) => (
-                  <li key={it} className="flex items-start gap-2 rounded-lg border border-border bg-background p-3 text-sm">
+                {inCategory(s.key).map((it) => (
+                  <li key={it.id} className="flex items-start gap-2 rounded-lg border border-border bg-background p-3 text-sm">
                     <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[hsl(var(--glow-cyan))]" />
-                    <span className="text-foreground/90">{it}</span>
+                    <span className="text-foreground/90">{it.body}</span>
                   </li>
                 ))}
               </ul>
@@ -76,25 +79,27 @@ export default function NowPage() {
               </div>
             </div>
             <div className="mt-5 flex flex-wrap gap-2">
-              {now.stack.map((s) => (
-                <span key={s} className="rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs">
-                  {s}
+              {stack.map((s) => (
+                <span key={s.id} className="rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs">
+                  {s.body}
                 </span>
               ))}
             </div>
           </div>
-          <div className="rounded-2xl border border-border bg-card/60 p-6">
-            <div className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-lg border border-border bg-background">
-                <Target className="h-4 w-4" />
-              </span>
-              <div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">current goal</div>
-                <div className="text-sm font-semibold">Single-objective focus</div>
+          {goal && (
+            <div className="rounded-2xl border border-border bg-card/60 p-6">
+              <div className="flex items-center gap-2">
+                <span className="grid h-9 w-9 place-items-center rounded-lg border border-border bg-background">
+                  <Target className="h-4 w-4" />
+                </span>
+                <div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">current goal</div>
+                  <div className="text-sm font-semibold">Single-objective focus</div>
+                </div>
               </div>
+              <p className="mt-4 text-lg font-medium text-gradient">{goal}</p>
             </div>
-            <p className="mt-4 text-lg font-medium text-gradient">{now.goal}</p>
-          </div>
+          )}
         </div>
       </section>
     </div>

@@ -6,16 +6,9 @@ export interface ExperienceItem {
   description: string;
 }
 
-// Philosophy principles live in Postgres (see prisma/seed.ts and
-// principleRepository) so they can be managed alongside the other content.
-
-export interface NowSnapshot {
-  building: string[];
-  learning: string[];
-  experimenting: string[];
-  stack: string[];
-  goal: string;
-}
+// Philosophy principles and the /now sections live in Postgres (see
+// prisma/seed.ts, principleRepository, nowRepository) so they can be managed
+// alongside the other content.
 
 export const experience: ExperienceItem[] = [
   {
@@ -58,22 +51,4 @@ export const stack: Record<string, string[]> = {
   DevOps: ["Docker", "Nginx", "Linux", "Git", "CI/CD"],
 };
 
-export const now: NowSnapshot = {
-  building: [
-    "DokLink - emergency healthcare platform. CTO and sole developer: React Native app, Django backend, deployment pipeline.",
-    "This portfolio - Next.js 16, Prisma 7, PostgreSQL on Supabase, deployed on Vercel.",
-  ],
-  learning: [
-    "System design and distributed systems fundamentals",
-    "Java ecosystem beyond DSA - build tools and frameworks",
-    "Compiler internals, by building one",
-  ],
-  experimenting: [
-    "CONTEXT - a custom programming language interpreter written in Python",
-    "Hyprland configuration and dotfiles automation on Arch Linux",
-    "Local LLM workflows for development tooling",
-  ],
-  stack: ["Next.js", "React Native", "Django", "PostgreSQL", "Docker"],
-  goal: "Ship DokLink's next release and keep raising the bar on every system I own.",
-};
 

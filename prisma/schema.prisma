@@ -67,6 +67,27 @@ model Lab {
   @@index([createdAt])
 }
 
+// Sections of the /now page. `goal` is expected to hold a single item.
+enum NowCategory {
+  building
+  learning
+  experimenting
+  stack
+  goal
+}
+
+model NowItem {
+  id        String      @id @default(cuid())
+  slug      String      @unique
+  category  NowCategory
+  body      String
+  order     Int
+  createdAt DateTime    @default(now())
+
+  // Matches nowRepository.findAll (category, order asc).
+  @@index([category, order])
+}
+
 model Principle {
   id        String   @id @default(cuid())
   slug      String   @unique

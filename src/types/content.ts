@@ -60,6 +60,16 @@ export interface Principle {
   order: number;
 }
 
+export type NowCategory = "building" | "learning" | "experimenting" | "stack" | "goal";
+
+export interface NowItem {
+  id: string;
+  slug: string;
+  category: NowCategory;
+  body: string;
+  order: number;
+}
+
 export interface Message {
   id: string;
   name: string;

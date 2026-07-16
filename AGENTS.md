@@ -48,16 +48,18 @@ and static config files (identity, experience, skills, philosophy).
 
 - `src/config/owner.ts` - identity: name, role, contact links, domain (`owner.url`
   drives metadataBase, sitemap, robots, OG). Change the domain here and nowhere else.
-- `src/config/content.ts` - experience timeline, skills by layer, now snapshot.
-  These are **static config, not database rows**: they ship with the build and need
-  no seeding. **Everything here must stay factually true** - fabricated demo content
+- `src/config/content.ts` - experience timeline and skills by layer. These are
+  **static config, not database rows**: they ship with the build and need no
+  seeding. **Everything here must stay factually true** - fabricated demo content
   was deliberately removed in 2026-07; do not reintroduce invented metrics,
   testimonials, or fake telemetry.
-- `prisma/seed.ts` - projects, blog posts, labs, philosophy principles. Same
-  truthfulness rule. Company projects (DokLink, Glass Automation, Vayita Grow,
-  A Fashions) get no GitHub links. `BlogPost.date` is a String sorted
-  lexicographically - always use `YYYY-MM-DD`. `Principle.order` drives the
-  sequence on /philosophy; keep the values contiguous when adding or reordering.
+- `prisma/seed.ts` - projects, blog posts, labs, philosophy principles, and the
+  /now sections. Same truthfulness rule. Company projects (DokLink, Glass
+  Automation, Vayita Grow, A Fashions) get no GitHub links. `BlogPost.date` is a
+  String sorted lexicographically - always use `YYYY-MM-DD`. `Principle.order`
+  and `NowItem.order` drive display sequence; keep values contiguous when adding
+  or reordering. `NowItem.category` is a Postgres enum (`NowCategory`) - adding a
+  category needs a migration, and the `goal` category is rendered as a single item.
 - Blog bodies render as plain paragraphs split on blank lines
   (`blog/[slug]/page.tsx`) - no markdown headers, lists, or code blocks.
 - `/cms-preview` and `/dashboard` are labeled concept demos. `cms-preview-view.tsx`

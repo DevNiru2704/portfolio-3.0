@@ -411,6 +411,69 @@ const principles: Prisma.PrincipleCreateInput[] = [
   },
 ];
 
+// Sections of the /now page. `order` sequences items within a category.
+const nowItems: Prisma.NowItemCreateInput[] = [
+  {
+    slug: "building-doklink",
+    category: "building",
+    body: "DokLink - emergency healthcare platform. CTO and sole developer: React Native app, Django backend, deployment pipeline.",
+    order: 1,
+  },
+  {
+    slug: "building-portfolio",
+    category: "building",
+    body: "This portfolio - Next.js 16, Prisma 7, PostgreSQL on Supabase, deployed on Vercel.",
+    order: 2,
+  },
+  {
+    slug: "learning-system-design",
+    category: "learning",
+    body: "System design and distributed systems fundamentals",
+    order: 1,
+  },
+  {
+    slug: "learning-java-ecosystem",
+    category: "learning",
+    body: "Java ecosystem beyond DSA - build tools and frameworks",
+    order: 2,
+  },
+  {
+    slug: "learning-compiler-internals",
+    category: "learning",
+    body: "Compiler internals, by building one",
+    order: 3,
+  },
+  {
+    slug: "experimenting-context-interpreter",
+    category: "experimenting",
+    body: "CONTEXT - a custom programming language interpreter written in Python",
+    order: 1,
+  },
+  {
+    slug: "experimenting-hyprland-dotfiles",
+    category: "experimenting",
+    body: "Hyprland configuration and dotfiles automation on Arch Linux",
+    order: 2,
+  },
+  {
+    slug: "experimenting-local-llm",
+    category: "experimenting",
+    body: "Local LLM workflows for development tooling",
+    order: 3,
+  },
+  { slug: "stack-nextjs", category: "stack", body: "Next.js", order: 1 },
+  { slug: "stack-react-native", category: "stack", body: "React Native", order: 2 },
+  { slug: "stack-django", category: "stack", body: "Django", order: 3 },
+  { slug: "stack-postgresql", category: "stack", body: "PostgreSQL", order: 4 },
+  { slug: "stack-docker", category: "stack", body: "Docker", order: 5 },
+  {
+    slug: "goal-current",
+    category: "goal",
+    body: "Ship DokLink's next release and keep raising the bar on every system I own.",
+    order: 1,
+  },
+];
+
 async function main() {
   // Remove rows whose slugs are no longer seeded (e.g. the old demo content),
   // then upsert the real content.
@@ -418,6 +481,7 @@ async function main() {
   await prisma.blogPost.deleteMany({ where: { slug: { notIn: posts.map((p) => p.slug) } } });
   await prisma.lab.deleteMany({ where: { slug: { notIn: labs.map((l) => l.slug) } } });
   await prisma.principle.deleteMany({ where: { slug: { notIn: principles.map((p) => p.slug) } } });
+  await prisma.nowItem.deleteMany({ where: { slug: { notIn: nowItems.map((n) => n.slug) } } });
 
   for (const data of projects) {
     await prisma.project.upsert({ where: { slug: data.slug }, update: data, create: data });
@@ -431,8 +495,12 @@ async function main() {
   for (const data of principles) {
     await prisma.principle.upsert({ where: { slug: data.slug }, update: data, create: data });
   }
+  for (const data of nowItems) {
+    await prisma.nowItem.upsert({ where: { slug: data.slug }, update: data, create: data });
+  }
   console.log(
-    `Seeded ${projects.length} projects, ${posts.length} posts, ${labs.length} labs, ${principles.length} principles.`,
+    `Seeded ${projects.length} projects, ${posts.length} posts, ${labs.length} labs, ` +
+      `${principles.length} principles, ${nowItems.length} now items.`,
   );
 }
 

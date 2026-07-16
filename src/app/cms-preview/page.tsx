@@ -3,6 +3,7 @@ import { projectRepository } from "@/repositories/project-repository";
 import { blogRepository } from "@/repositories/blog-repository";
 import { labRepository } from "@/repositories/lab-repository";
 import { principleRepository } from "@/repositories/principle-repository";
+import { nowRepository } from "@/repositories/now-repository";
 import { CmsPreviewView } from "@/components/site/cms-preview-view";
 
 export const metadata: Metadata = {
@@ -13,11 +14,20 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function CmsPreviewPage() {
-  const [projects, posts, labs, principles] = await Promise.all([
+  const [projects, posts, labs, principles, nowItems] = await Promise.all([
     projectRepository.findAll(),
     blogRepository.findAll(),
     labRepository.findAll(),
     principleRepository.findAll(),
+    nowRepository.findAll(),
   ]);
-  return <CmsPreviewView projects={projects} posts={posts} labs={labs} principles={principles} />;
+  return (
+    <CmsPreviewView
+      projects={projects}
+      posts={posts}
+      labs={labs}
+      principles={principles}
+      nowItems={nowItems}
+    />
+  );
 }
