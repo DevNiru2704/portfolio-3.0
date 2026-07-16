@@ -16,17 +16,21 @@ Personal portfolio of Nirmalya Mandal - live at [devniru.in](https://devniru.in)
 npm install
 cp .env.example .env   # fill in DATABASE_URL (any local Postgres works)
 npm run db:push        # create tables
-npm run db:seed        # load projects, blog posts, labs
+npm run db:seed        # load content
 npm run dev
 ```
 
-The build never needs a live database (DB pages are `force-dynamic`), so
+The build never needs a live database (content pages are `force-dynamic`), so
 `npm run build` works without one.
 
 ## Content
 
-- Projects, blog posts, and labs live in PostgreSQL, seeded from `prisma/seed.ts`.
-- Identity, experience, skills, and philosophy live in `src/config/owner.ts` and
-  `src/config/content.ts`.
+Projects, blog posts, labs, philosophy principles, and the `/now` sections live in
+PostgreSQL and are seeded from `prisma/seed.ts`. Identity, the experience timeline,
+and the skills list live in `src/config/owner.ts` and `src/config/content.ts`.
 
-See `AGENTS.md` for architecture details and deployment notes.
+Editing content currently means updating the seed and re-running `npm run db:seed`.
+An authenticated CMS is planned - `/cms-preview` is a read-only interface concept
+for now.
+
+See `AGENTS.md` for architecture, deployment, database, and CMS notes.

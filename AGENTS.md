@@ -1,8 +1,13 @@
 # Portfolio 3.0 - Agent Guide
 
-Personal portfolio of Nirmalya Mandal, served at https://devniru.in. Next.js App Router
-site with content split between PostgreSQL (projects, blog posts, labs, contact messages)
-and static config files (identity, experience, skills, philosophy).
+Personal portfolio of Nirmalya Mandal. **Live in production** on Vercel at
+https://devniru.in, with PostgreSQL on Supabase (ap-south-1). Next.js App Router site
+with content split between the database (projects, blog posts, labs, philosophy
+principles, /now sections, contact messages) and static config (identity, experience,
+skills).
+
+This site is the website listed on Nirmalya's CV, so recruiters land here: keep it
+truthful, working, and free of placeholder content.
 
 ## Stack
 
@@ -62,9 +67,10 @@ and static config files (identity, experience, skills, philosophy).
   category needs a migration, and the `goal` category is rendered as a single item.
 - Blog bodies render as plain paragraphs split on blank lines
   (`blog/[slug]/page.tsx`) - no markdown headers, lists, or code blocks.
-- `/cms-preview` and `/dashboard` are labeled concept demos. `cms-preview-view.tsx`
-  contains inline sample telemetry constants - that is intentional and labeled;
-  keep the "sample data" labeling if you touch those pages.
+- `/cms-preview` and `/dashboard` are labeled concept demos - read-only, no writes
+  wired up. `cms-preview-view.tsx` contains inline sample telemetry constants; that
+  is intentional and labeled, so keep the "sample data" labeling if you touch those
+  pages. See **CMS status** below before building on them.
 
 ## Styling
 
@@ -126,12 +132,72 @@ revokes `anon` / `authenticated` grants - closing the REST surface entirely.
 `Message` holds contact-form PII and must never become publicly readable. If a
 future feature needs supabase-js, add explicit policies then; do not disable RLS.
 
-## Deployment (Vercel + Supabase)
+## Deployment (live)
 
-- GitHub integration on `main` of DevNiru2704/portfolio-3.0; custom domain devniru.in.
-- Build command is the default `npm run build`; `postinstall` runs `prisma generate`.
-- Migrations/seed are NOT run by the build - run them manually against Supabase:
-  `npx prisma migrate deploy` then `npm run db:seed` (with the direct URL).
-- Static assets: `public/og.png` (1200x630, regenerate via a PIL script if branding
-  changes), `public/resume.pdf` (copy of the current resume - keep in sync with the
-  Resume repo), `src/app/icon.svg` (favicon).
+Deployed and serving since 2026-07-17.
+
+- **Hosting**: Vercel, GitHub integration on `main` of `DevNiru2704/portfolio-3.0`.
+  Every push to `main` deploys; branches get preview deployments. Build command is
+  the default `npm run build`; `postinstall` runs `prisma generate`.
+- **Database**: Supabase PostgreSQL (ap-south-1), reached through the transaction
+  pooler. Vercel env vars: `DATABASE_URL`, `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`,
+  `CONTACT_TO_EMAIL`.
+- **Email**: Resend on the verified sending subdomain `send.devniru.in` (SPF + DKIM
+  at GoDaddy; Tokyo region). Contact notifications go to the Outlook address with
+  the visitor's address as reply-to.
+- **DNS**: GoDaddy. The apex `devniru.in` 308-redirects to `www.devniru.in`, which
+  is the domain Vercel actually serves. **Known inconsistency**: `owner.url` is the
+  apex, so `sitemap.xml`, `og:url` and canonical tags advertise `devniru.in` while
+  the served canonical is `www`. Everything resolves through the redirect, but if
+  this is ever tidied, either make the apex primary in Vercel or set
+  `owner.url = "https://www.devniru.in"` - do not change one without the other.
+
+### Shipping a content change
+
+Migrations and seeding are **not** part of the build, on purpose (the build must not
+depend on a live DB). After changing `prisma/seed.ts` or the schema:
+
+1. Local: `npx prisma migrate deploy && npm run db:seed`
+2. Production: `migrate deploy` with the **5432** session pooler URL (see above),
+   then seed with either pooler.
+3. Push to `main` only if app code changed - content-only edits take effect as soon
+   as the DB is seeded, because every content page is `force-dynamic`.
+
+### Static assets
+
+`public/og.png` (1200x630, generated with a PIL script; regenerate if branding
+changes), `public/resume.pdf` (copy of the current CV - keep in sync with the Resume
+project), `src/app/icon.svg` (favicon).
+
+## CMS status (next piece of work)
+
+Content is fully database-backed, but **editing it still means changing
+`prisma/seed.ts` and re-seeding**. Writing a real CMS is the next planned task.
+
+What exists today:
+
+- `/cms-preview` - a **read-only concept UI**, public and `force-dynamic`. Panels for
+  Projects, Blog, Philosophy, and Now render real rows from Postgres; Overview,
+  Media, Messages, Analytics, Deployments, AI Assistant and Settings render inline
+  **sample data** that is clearly labeled as such. Every write control (New entry,
+  Save, Upload) is deliberately `disabled`.
+- `/dashboard` - a stub that says "coming soon", `robots: noindex`. There is **no
+  auth library installed**; earlier copy claiming Clerk was removed as untrue.
+- Unused-but-ready repository methods: `messageRepository.findRecent` / `.count`,
+  `principleRepository.findBySlug`, `projectRepository.count`, `blogRepository.count`,
+  `nowRepository.count`.
+
+What a real CMS needs:
+
+1. **Auth** on `/dashboard` (nothing is installed yet - pick a library first).
+2. **Write paths**: Server Actions per model, Zod-validated, mirroring
+   `src/actions/contact.ts`. Keep the repository pattern - actions call repositories,
+   never Prisma directly.
+3. **Ordering**: `Principle.order` and `NowItem.order` need reorder handling; slugs
+   are the stable upsert keys the seed relies on, so keep them unique and stable.
+4. **Seed coexistence**: `npm run db:seed` **deletes rows whose slugs are not in the
+   seed file**. Once content is edited through a CMS, that behaviour will destroy
+   CMS-created rows - change the seed to upsert-only, or stop running it against
+   production, before shipping writes.
+5. Decide whether `/cms-preview` stays a public showcase (it is a portfolio piece)
+   or becomes the authenticated editor.
