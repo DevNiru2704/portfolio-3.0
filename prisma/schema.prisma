@@ -67,6 +67,18 @@ model Lab {
   @@index([createdAt])
 }
 
+model Principle {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  body      String
+  order     Int
+  createdAt DateTime @default(now())
+
+  // Matches principleRepository.findAll (order asc).
+  @@index([order])
+}
+
 model Message {
   id        String   @id @default(cuid())
   name      String

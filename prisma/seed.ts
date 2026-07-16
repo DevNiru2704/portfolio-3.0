@@ -365,12 +365,59 @@ const labs: Prisma.LabCreateInput[] = [
   },
 ];
 
+// The `order` field drives the sequence shown on /philosophy.
+const principles: Prisma.PrincipleCreateInput[] = [
+  {
+    slug: "automation-first",
+    title: "Automation First",
+    body: "If I do something twice, I automate it the third time. Repetition is a signal that a system is missing.",
+    order: 1,
+  },
+  {
+    slug: "architecture-over-features",
+    title: "Architecture Over Features",
+    body: "A well-designed system can absorb new features gracefully. A poorly designed one collapses under them.",
+    order: 2,
+  },
+  {
+    slug: "performance-is-respect",
+    title: "Performance Is Respect",
+    body: "Fast software respects the user's time. Every unnecessary millisecond is a form of disrespect.",
+    order: 3,
+  },
+  {
+    slug: "tools-shape-thinking",
+    title: "Tools Shape Thinking",
+    body: "The tools you use define how you think about problems. Choose them carefully. Build them when necessary.",
+    order: 4,
+  },
+  {
+    slug: "linux-is-freedom",
+    title: "Linux Is Freedom",
+    body: "Running your own stack, knowing your system, owning your environment - this is engineering, not just usage.",
+    order: 5,
+  },
+  {
+    slug: "simplicity-is-hard",
+    title: "Simplicity Is Hard",
+    body: "Complex solutions are easy. Simple, elegant, maintainable systems are where real engineering lives.",
+    order: 6,
+  },
+  {
+    slug: "ownership",
+    title: "Ownership",
+    body: "If it's deployed, it's mine. If it breaks, I fix it. No blame, no handoffs. Full ownership.",
+    order: 7,
+  },
+];
+
 async function main() {
   // Remove rows whose slugs are no longer seeded (e.g. the old demo content),
   // then upsert the real content.
   await prisma.project.deleteMany({ where: { slug: { notIn: projects.map((p) => p.slug) } } });
   await prisma.blogPost.deleteMany({ where: { slug: { notIn: posts.map((p) => p.slug) } } });
   await prisma.lab.deleteMany({ where: { slug: { notIn: labs.map((l) => l.slug) } } });
+  await prisma.principle.deleteMany({ where: { slug: { notIn: principles.map((p) => p.slug) } } });
 
   for (const data of projects) {
     await prisma.project.upsert({ where: { slug: data.slug }, update: data, create: data });
@@ -381,7 +428,12 @@ async function main() {
   for (const data of labs) {
     await prisma.lab.upsert({ where: { slug: data.slug }, update: data, create: data });
   }
-  console.log(`Seeded ${projects.length} projects, ${posts.length} posts, ${labs.length} labs.`);
+  for (const data of principles) {
+    await prisma.principle.upsert({ where: { slug: data.slug }, update: data, create: data });
+  }
+  console.log(
+    `Seeded ${projects.length} projects, ${posts.length} posts, ${labs.length} labs, ${principles.length} principles.`,
+  );
 }
 
 main()

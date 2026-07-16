@@ -27,8 +27,8 @@ and static config files (identity, experience, skills, philosophy).
 
 - **Repository pattern**: UI never imports Prisma. All data access goes through
   `src/repositories/*` which return domain types from `src/types/content.ts`.
-  `messageRepository.findRecent` is intentionally unused - reserved for the planned
-  private dashboard.
+  `messageRepository.findRecent` and `principleRepository.findBySlug` are
+  intentionally unused - reserved for the planned private dashboard.
 - **Prisma 7 driver adapter**: `prisma/schema.prisma` has NO `url` on the datasource.
   The runtime client (`src/lib/prisma.ts`) connects through `new PrismaPg({...})`;
   the CLI (push/migrate/seed/studio) reads the URL from `prisma.config.ts`. Do not
@@ -48,14 +48,16 @@ and static config files (identity, experience, skills, philosophy).
 
 - `src/config/owner.ts` - identity: name, role, contact links, domain (`owner.url`
   drives metadataBase, sitemap, robots, OG). Change the domain here and nowhere else.
-- `src/config/content.ts` - experience timeline, skills by layer, now snapshot,
-  philosophy principles. These are **static config, not database rows**: they ship
-  with the build and need no seeding. **Everything here must stay factually true** -
-  fabricated demo content was deliberately removed in 2026-07; do not reintroduce
-  invented metrics, testimonials, or fake telemetry.
-- `prisma/seed.ts` - projects, blog posts, labs. Same truthfulness rule. Company
-  projects (DokLink, Glass Automation, Vayita Grow, A Fashions) get no GitHub links.
-  `BlogPost.date` is a String sorted lexicographically - always use `YYYY-MM-DD`.
+- `src/config/content.ts` - experience timeline, skills by layer, now snapshot.
+  These are **static config, not database rows**: they ship with the build and need
+  no seeding. **Everything here must stay factually true** - fabricated demo content
+  was deliberately removed in 2026-07; do not reintroduce invented metrics,
+  testimonials, or fake telemetry.
+- `prisma/seed.ts` - projects, blog posts, labs, philosophy principles. Same
+  truthfulness rule. Company projects (DokLink, Glass Automation, Vayita Grow,
+  A Fashions) get no GitHub links. `BlogPost.date` is a String sorted
+  lexicographically - always use `YYYY-MM-DD`. `Principle.order` drives the
+  sequence on /philosophy; keep the values contiguous when adding or reordering.
 - Blog bodies render as plain paragraphs split on blank lines
   (`blog/[slug]/page.tsx`) - no markdown headers, lists, or code blocks.
 - `/cms-preview` and `/dashboard` are labeled concept demos. `cms-preview-view.tsx`

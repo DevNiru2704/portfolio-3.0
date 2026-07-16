@@ -27,8 +27,10 @@ import {
   Settings,
   Filter,
   Upload,
+  Atom,
+  GripVertical,
 } from "lucide-react";
-import type { Project, BlogPost, Lab } from "@/types/content";
+import type { Project, BlogPost, Lab, Principle } from "@/types/content";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -79,6 +81,7 @@ const NAV: NavItem[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "projects", label: "Projects", icon: Code2 },
   { id: "blog", label: "Blog", icon: FileText },
+  { id: "philosophy", label: "Philosophy", icon: Atom },
   { id: "media", label: "Media", icon: ImageIcon },
   { id: "messages", label: "Messages", icon: Mail, badge: 12 },
   { id: "lab", label: "Lab", icon: FlaskConical },
@@ -92,9 +95,10 @@ interface CmsPreviewViewProps {
   projects: Project[];
   posts: BlogPost[];
   labs: Lab[];
+  principles: Principle[];
 }
 
-export function CmsPreviewView({ projects, posts, labs }: CmsPreviewViewProps) {
+export function CmsPreviewView({ projects, posts, labs, principles }: CmsPreviewViewProps) {
   const [view, setView] = useState("overview");
 
   return (
@@ -180,6 +184,7 @@ export function CmsPreviewView({ projects, posts, labs }: CmsPreviewViewProps) {
           {view === "overview" && <Overview />}
           {view === "projects" && <ProjectsManager projects={projects} />}
           {view === "blog" && <BlogManager posts={posts} />}
+          {view === "philosophy" && <PhilosophyManager principles={principles} />}
           {view === "media" && <MediaPanel />}
           {view === "messages" && <MessagesPanel />}
           {view === "lab" && <LabPanel labs={labs} />}
@@ -566,6 +571,51 @@ function BlogManager({ posts }: { posts: BlogPost[] }) {
             </p>
           </article>
         </Panel>
+      </div>
+    </div>
+  );
+}
+
+function PhilosophyManager({ principles }: { principles: Principle[] }) {
+  return (
+    <div>
+      <TopBar
+        title="Philosophy"
+        subtitle={`${principles.length} principles · ordered`}
+        actions={
+          <button className="inline-flex h-9 items-center gap-2 rounded-full bg-foreground px-4 text-xs font-medium text-background opacity-60">
+            <Plus className="h-3.5 w-3.5" /> New principle
+          </button>
+        }
+      />
+      <div className="space-y-2">
+        {principles.map((p) => (
+          <div
+            key={p.id}
+            className="group flex items-start gap-3 rounded-2xl border border-border bg-card/60 p-4 transition-colors hover:border-foreground/20"
+          >
+            <span className="mt-0.5 text-muted-foreground/50" aria-hidden>
+              <GripVertical className="h-4 w-4" />
+            </span>
+            <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-md border border-border bg-background font-mono text-[10px] tabular-nums text-muted-foreground">
+              {String(p.order).padStart(2, "0")}
+            </span>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2">
+                <h3 className="truncate text-sm font-semibold">{p.title}</h3>
+                <span className="font-mono text-[10px] text-muted-foreground/60">/{p.slug}</span>
+              </div>
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{p.body}</p>
+            </div>
+            <button
+              disabled
+              aria-label={`Edit ${p.title}`}
+              className="shrink-0 rounded-md border border-border bg-background p-1.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-60"
+            >
+              <Save className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

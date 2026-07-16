@@ -52,6 +52,14 @@ export interface Lab {
   progress: number;
 }
 
+export interface Principle {
+  id: string;
+  slug: string;
+  title: string;
+  body: string;
+  order: number;
+}
+
 export interface Message {
   id: string;
   name: string;

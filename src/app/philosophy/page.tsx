@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { philosophy } from "@/config/content";
+import { principleRepository } from "@/repositories/principle-repository";
 import { GridBg } from "@/components/site/grid-bg";
 import { SectionHeading } from "@/components/site/section-heading";
 
@@ -8,7 +8,12 @@ export const metadata: Metadata = {
   description: "The engineering principles I build by.",
 };
 
-export default function PhilosophyPage() {
+// Principles are sourced from Postgres at request time.
+export const dynamic = "force-dynamic";
+
+export default async function PhilosophyPage() {
+  const principles = await principleRepository.findAll();
+
   return (
     <div>
       <section className="relative isolate overflow-hidden border-b border-border">
@@ -24,8 +29,8 @@ export default function PhilosophyPage() {
 
       <section className="container py-12">
         <ol className="grid gap-4 md:grid-cols-2">
-          {philosophy.map((p, i) => (
-            <li key={p.title} className="group relative overflow-hidden rounded-2xl border border-border bg-card/60 p-6">
+          {principles.map((p, i) => (
+            <li key={p.id} className="group relative overflow-hidden rounded-2xl border border-border bg-card/60 p-6">
               <div className="flex items-center justify-between">
                 <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                   principle · 0{i + 1}

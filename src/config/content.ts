@@ -6,10 +6,8 @@ export interface ExperienceItem {
   description: string;
 }
 
-export interface PhilosophyPrinciple {
-  title: string;
-  body: string;
-}
+// Philosophy principles live in Postgres (see prisma/seed.ts and
+// principleRepository) so they can be managed alongside the other content.
 
 export interface NowSnapshot {
   building: string[];
@@ -79,33 +77,3 @@ export const now: NowSnapshot = {
   goal: "Ship DokLink's next release and keep raising the bar on every system I own.",
 };
 
-export const philosophy: PhilosophyPrinciple[] = [
-  {
-    title: "Automation First",
-    body: "If I do something twice, I automate it the third time. Repetition is a signal that a system is missing.",
-  },
-  {
-    title: "Architecture Over Features",
-    body: "A well-designed system can absorb new features gracefully. A poorly designed one collapses under them.",
-  },
-  {
-    title: "Performance Is Respect",
-    body: "Fast software respects the user's time. Every unnecessary millisecond is a form of disrespect.",
-  },
-  {
-    title: "Tools Shape Thinking",
-    body: "The tools you use define how you think about problems. Choose them carefully. Build them when necessary.",
-  },
-  {
-    title: "Linux Is Freedom",
-    body: "Running your own stack, knowing your system, owning your environment - this is engineering, not just usage.",
-  },
-  {
-    title: "Simplicity Is Hard",
-    body: "Complex solutions are easy. Simple, elegant, maintainable systems are where real engineering lives.",
-  },
-  {
-    title: "Ownership",
-    body: "If it's deployed, it's mine. If it breaks, I fix it. No blame, no handoffs. Full ownership.",
-  },
-];
