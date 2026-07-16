@@ -136,19 +136,27 @@ export function Terminal() {
         ))}
         <div className="flex items-center gap-2">
           <span className="text-[hsl(var(--glow-cyan))]">{PROMPT}</span>
-          <input
-            ref={inputRef}
-            value={input}
-            spellCheck={false}
-            autoCapitalize="off"
-            autoComplete="off"
-            autoCorrect="off"
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={onKey}
-            className="flex-1 bg-transparent text-foreground outline-none placeholder:text-muted-foreground"
-            placeholder="type a command…"
-          />
-          <span className="inline-block h-4 w-1.5 animate-blink bg-foreground/80" />
+          {/* The block cursor stands in for the caret, so the input is sized to
+              its content (1ch per character in this monospace font) and the
+              native caret is hidden. A flexible input would push the cursor to
+              the end of the row instead of trailing the text. */}
+          <span className="flex items-center">
+            <input
+              ref={inputRef}
+              value={input}
+              spellCheck={false}
+              autoCapitalize="off"
+              autoComplete="off"
+              autoCorrect="off"
+              aria-label="Terminal command input"
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={onKey}
+              style={{ width: `${input.length}ch` }}
+              className="bg-transparent text-foreground caret-transparent outline-none"
+            />
+            <span className="inline-block h-4 w-1.5 shrink-0 animate-blink bg-foreground/80" />
+            {!input && <span className="ml-2 select-none text-muted-foreground">type a command…</span>}
+          </span>
         </div>
       </div>
     </div>
