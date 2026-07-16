@@ -357,3 +357,12 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Hide scrollbars globally; scrolling itself still works. */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}

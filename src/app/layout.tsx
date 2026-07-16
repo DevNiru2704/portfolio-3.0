@@ -65,7 +65,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       data-scroll-behavior="smooth"
       className={`${inter.variable} ${mono.variable}`}
     >
-      <body className="font-display bg-background text-foreground min-h-screen antialiased">
+      {/* suppressHydrationWarning: browser extensions inject attributes into
+          <body> before hydration; this silences that one-element mismatch. */}
+      <body suppressHydrationWarning className="font-display bg-background text-foreground min-h-screen antialiased">
         <SiteProviders projects={projects}>
           <div className="relative flex min-h-screen flex-col">
             <SiteNav />
