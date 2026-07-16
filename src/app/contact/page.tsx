@@ -34,7 +34,8 @@ export default function ContactPage() {
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              <InfoRow icon={Mail} label="Email" value={owner.email} href={`mailto:${owner.email}`} />
+              {/* Display only: visitors reach out through the form, not a mail client. */}
+              <InfoRow icon={Mail} label="Email" value={owner.email} />
               <InfoRow icon={MapPin} label="Location" value={owner.location} />
               <InfoRow icon={Clock} label="Timezone" value={owner.timezone} />
               <InfoRow icon={Github} label="GitHub" value={`@${owner.githubUser}`} href={owner.github} external />

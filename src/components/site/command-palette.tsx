@@ -147,7 +147,7 @@ export function CommandPaletteProvider({ children, projects }: CommandPalettePro
           <CommandGroup heading="Social">
             <Item icon={Github} label={`GitHub - @${owner.githubUser}`} onSelect={() => { window.open(owner.github, "_blank"); setOpen(false); }} />
             <Item icon={Linkedin} label="LinkedIn" onSelect={() => { window.open(owner.linkedin, "_blank"); setOpen(false); }} />
-            <Item icon={Mail} label={`Email · ${owner.email}`} onSelect={() => { window.location.href = `mailto:${owner.email}`; setOpen(false); }} />
+            <Item icon={Mail} label={`Email · ${owner.email}`} onSelect={() => { router.push("/contact"); setOpen(false); }} />
           </CommandGroup>
         </CommandList>
       </CommandDialog>

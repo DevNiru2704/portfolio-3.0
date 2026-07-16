@@ -23,7 +23,7 @@ export function SiteFooter() {
           <div className="mt-5 flex flex-wrap items-center gap-2">
             <SocialIcon href={owner.github} icon={Github} label="GitHub" />
             <SocialIcon href={owner.linkedin} icon={Linkedin} label="LinkedIn" />
-            <SocialIcon href={`mailto:${owner.email}`} icon={Mail} label="Email" />
+            <SocialIcon href="/contact" icon={Mail} label="Email" external={false} />
           </div>
         </div>
 
@@ -62,15 +62,29 @@ export function SiteFooter() {
   );
 }
 
-function SocialIcon({ href, icon: Icon, label }: { href: string; icon: ComponentType<{ className?: string }>; label: string }) {
+function SocialIcon({
+  href,
+  icon: Icon,
+  label,
+  external = true,
+}: {
+  href: string;
+  icon: ComponentType<{ className?: string }>;
+  label: string;
+  external?: boolean;
+}) {
+  const className =
+    "group inline-grid h-9 w-9 place-items-center rounded-lg border border-border bg-card/60 text-muted-foreground transition-all hover:-translate-y-0.5 hover:text-foreground";
+
+  if (!external) {
+    return (
+      <Link href={href} aria-label={label} className={className}>
+        <Icon className="h-4 w-4" />
+      </Link>
+    );
+  }
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={label}
-      className="group inline-grid h-9 w-9 place-items-center rounded-lg border border-border bg-card/60 text-muted-foreground transition-all hover:-translate-y-0.5 hover:text-foreground"
-    >
+    <a href={href} target="_blank" rel="noreferrer" aria-label={label} className={className}>
       <Icon className="h-4 w-4" />
     </a>
   );

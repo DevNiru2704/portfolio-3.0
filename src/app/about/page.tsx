@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ComponentType } from "react";
+import Link from "next/link";
 import { Github, Linkedin, Mail, Code2, Terminal as TerminalIcon, Cpu } from "lucide-react";
 import { owner } from "@/config/owner";
 import { experience, stack } from "@/config/content";
@@ -46,7 +47,7 @@ export default function AboutPage() {
             <div className="mt-6 flex flex-wrap gap-2">
               <Social icon={Github} href={owner.github} label="GitHub" />
               <Social icon={Linkedin} href={owner.linkedin} label="LinkedIn" />
-              <Social icon={Mail} href={`mailto:${owner.email}`} label="Email" />
+              <Social icon={Mail} href="/contact" label="Email" external={false} />
             </div>
           </div>
           <div className="relative">
@@ -110,15 +111,35 @@ export default function AboutPage() {
   );
 }
 
-function Social({ icon: Icon, href, label }: { icon: ComponentType<{ className?: string }>; href: string; label: string }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex h-10 items-center gap-2 rounded-full border border-border bg-card/60 px-4 text-sm text-muted-foreground transition-colors hover:text-foreground"
-    >
+function Social({
+  icon: Icon,
+  href,
+  label,
+  external = true,
+}: {
+  icon: ComponentType<{ className?: string }>;
+  href: string;
+  label: string;
+  external?: boolean;
+}) {
+  const className =
+    "inline-flex h-10 items-center gap-2 rounded-full border border-border bg-card/60 px-4 text-sm text-muted-foreground transition-colors hover:text-foreground";
+  const content = (
+    <>
       <Icon className="h-4 w-4" /> {label}
+    </>
+  );
+
+  if (!external) {
+    return (
+      <Link href={href} className={className}>
+        {content}
+      </Link>
+    );
+  }
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className={className}>
+      {content}
     </a>
   );
 }
