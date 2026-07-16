@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ComponentType } from "react";
-import { Github, Linkedin, Twitter, Mail, ArrowUpRight } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
 import { owner, navigation, secondaryNav, type NavItem } from "@/config/owner";
 
 export function SiteFooter() {
@@ -23,7 +23,6 @@ export function SiteFooter() {
           <div className="mt-5 flex flex-wrap items-center gap-2">
             <SocialIcon href={owner.github} icon={Github} label="GitHub" />
             <SocialIcon href={owner.linkedin} icon={Linkedin} label="LinkedIn" />
-            <SocialIcon href={owner.twitter} icon={Twitter} label="Twitter" />
             <SocialIcon href={`mailto:${owner.email}`} icon={Mail} label="Email" />
           </div>
         </div>

@@ -71,9 +71,9 @@ export default async function BlogPostPage({ params }: Params) {
               <Link href="/contact" className="text-foreground underline">
                 Send me a note
               </Link>{" "}
-              or follow along on{" "}
-              <a href={owner.twitter} target="_blank" rel="noreferrer" className="text-foreground underline">
-                Twitter/X
+              or connect on{" "}
+              <a href={owner.linkedin} target="_blank" rel="noreferrer" className="text-foreground underline">
+                LinkedIn
               </a>
               .
             </p>

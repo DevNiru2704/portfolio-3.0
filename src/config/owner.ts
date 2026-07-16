@@ -7,22 +7,20 @@ export interface NavItem {
 }
 
 export const owner = {
-  name: "Nirmalya",
-  fullName: "Nirmalya",
-  role: "Full Stack Engineer · Systems Developer · AI + Infrastructure",
-  shortRole: "Full Stack · Systems · AI/Infra",
+  name: "Nirmalya Mandal",
+  fullName: "Nirmalya Mandal",
+  role: "Full Stack Developer · Web + Mobile · AI Integrations",
+  shortRole: "Full Stack · Web + Mobile · AI",
   tagline:
-    "I build scalable web applications, intelligent systems, and developer tools with a focus on performance, automation and thoughtful design.",
-  bio: "Nirmalya is a full stack engineer and systems developer based in Kolkata, India. He builds scalable web applications, intelligent developer tools, and infrastructure automation systems.",
-  email: "nirmalya@example.com",
-  github: "https://github.com/nirmalya",
-  githubUser: "nirmalya",
-  linkedin: "https://linkedin.com/in/nirmalya",
-  twitter: "https://twitter.com/nirmalya",
-  twitterHandle: "@nirmalya",
+    "I build production web and mobile applications end to end - from design and APIs to deployment and monitoring - with a focus on performance, security and thoughtful design.",
+  bio: "Nirmalya Mandal is a full stack developer based in Kolkata, India - CTO at DokLink Services, building production web and mobile applications, secure backend systems, and AI-integrated platforms.",
+  email: "nirmalya.mandal@outlook.com",
+  github: "https://github.com/DevNiru2704",
+  githubUser: "DevNiru2704",
+  linkedin: "https://www.linkedin.com/in/nirmalya-mandal-9b2475313",
   location: "Kolkata, India",
   timezone: "IST (UTC+5:30)",
-  availability: "Available for freelance and full-time opportunities",
+  availability: "Open to full-time roles and freelance work",
   resumeUrl: "/resume.pdf",
 
   brand: {
@@ -31,17 +29,16 @@ export const owner = {
     productLine: "Neural Command Interface",
   },
 
-  url: "https://nirmalya.dev",
+  url: "https://devniru.in",
   ogImage: "/og.png",
   keywords: [
-    "Nirmalya",
-    "Full Stack Engineer",
-    "Systems Developer",
+    "Nirmalya Mandal",
+    "Full Stack Developer",
+    "React",
     "Next.js",
-    "Infrastructure",
-    "DevOps",
-    "AI Engineer",
-    "Terraform",
+    "React Native",
+    "Django",
+    "AI Integrations",
     "Kolkata",
   ],
 } as const;

@@ -9,4 +9,8 @@ export const blogRepository = {
   findBySlug(slug: string): Promise<BlogPost | null> {
     return prisma.blogPost.findUnique({ where: { slug } });
   },
+
+  count(): Promise<number> {
+    return prisma.blogPost.count();
+  },
 };

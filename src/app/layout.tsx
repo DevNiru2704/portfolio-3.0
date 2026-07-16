@@ -14,7 +14,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", 
 export const metadata: Metadata = {
   metadataBase: new URL(owner.url),
   title: {
-    default: `${owner.name} — ${owner.role}`,
+    default: `${owner.name} - ${owner.role}`,
     template: `%s · ${owner.name}`,
   },
   description: owner.tagline,
@@ -24,16 +24,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: owner.url,
-    title: `${owner.name} — ${owner.role}`,
+    title: `${owner.name} - ${owner.role}`,
     description: owner.tagline,
     siteName: `${owner.name} · ${owner.brand.productLine}`,
     images: [{ url: owner.ogImage, width: 1200, height: 630, alt: owner.name }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${owner.name} — ${owner.role}`,
+    title: `${owner.name} - ${owner.role}`,
     description: owner.tagline,
-    creator: owner.twitterHandle,
     images: [owner.ogImage],
   },
   robots: { index: true, follow: true },

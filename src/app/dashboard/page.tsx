@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 };
 
 const stats = [
-  { k: "Auth provider", v: "Clerk" },
+  { k: "Status", v: "Planned" },
   { k: "DB", v: "PostgreSQL" },
-  { k: "Edge", v: "Vercel + RUM" },
+  { k: "Hosting", v: "Vercel" },
 ];
 
 export default function DashboardPage() {
@@ -25,11 +25,11 @@ export default function DashboardPage() {
               <Lock className="h-3 w-3" /> Protected route
             </div>
             <h1 className="mt-5 text-balance text-4xl font-semibold tracking-tight md:text-6xl">
-              <span className="text-gradient">Dashboard</span> <span className="text-gradient-accent">requires auth.</span>
+              <span className="text-gradient">Dashboard</span> <span className="text-gradient-accent">coming soon.</span>
             </h1>
             <p className="mt-4 text-balance text-muted-foreground">
-              This is the real CMS — protected by Clerk in production. While running locally without auth keys, the public,
-              read-only preview lives at{" "}
+              A private admin area for managing this site is planned but not built yet. In the meantime, the public,
+              read-only interface concept lives at{" "}
               <Link className="text-foreground underline" href="/cms-preview">
                 /cms-preview
               </Link>
@@ -46,7 +46,7 @@ export default function DashboardPage() {
                 disabled
                 className="inline-flex h-11 items-center gap-2 rounded-full border border-border bg-card/60 px-5 text-sm font-medium opacity-60"
               >
-                <KeyRound className="h-4 w-4" /> Sign in (disabled in demo)
+                <KeyRound className="h-4 w-4" /> Sign in (not yet available)
               </button>
             </div>
             <div className="mt-10 grid grid-cols-3 gap-3 text-left">

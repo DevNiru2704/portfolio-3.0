@@ -24,7 +24,7 @@ export default async function LabPage() {
           <SectionHeading
             eyebrow="Lab"
             title="Experimental engineering playground."
-            description="Half-finished prototypes, shaders, CLI tools, infra experiments. The unfiltered work that doesn't belong on the project page — yet."
+            description="Half-finished prototypes, shaders, CLI tools, infra experiments. The unfiltered work that doesn't belong on the project page - yet."
           />
           <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em]">

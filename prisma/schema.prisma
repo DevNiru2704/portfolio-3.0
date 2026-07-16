@@ -1,4 +1,4 @@
-// Prisma schema — Postgres source of truth for portfolio content.
+// Prisma schema - Postgres source of truth for portfolio content.
 
 generator client {
   provider = "prisma-client-js"

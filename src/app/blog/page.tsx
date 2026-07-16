@@ -24,7 +24,7 @@ export default async function BlogPage() {
           <SectionHeading
             eyebrow="Blog"
             title="Technical writing about systems, AI, and engineering."
-            description="Long-form pieces on the things I learn while building. No quick tips, no listicles — actual engineering writing."
+            description="Long-form pieces on the things I learn while building. No quick tips, no listicles - actual engineering writing."
           />
         </div>
       </section>

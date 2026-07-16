@@ -31,7 +31,7 @@
 }
 
 :root {
-  /* Neural Command Interface — Light Mode */
+  /* Neural Command Interface - Light Mode */
   --background: 0 0% 98%;
   --foreground: 0 0% 9%;
   --card: 0 0% 100%;
@@ -63,7 +63,7 @@
 }
 
 .dark {
-  /* Neural Command Interface — Dark Mode */
+  /* Neural Command Interface - Dark Mode */
   --background: 0 0% 3.5%;
   --foreground: 0 0% 98%;
   --card: 0 0% 6.7%;

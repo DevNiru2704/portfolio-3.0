@@ -38,7 +38,7 @@ async function notifyOwner({ name, email, subject, message }: ContactInput): Pro
     from: process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>",
     to: process.env.CONTACT_TO_EMAIL ?? owner.email,
     replyTo: email,
-    subject: `New contact — ${subject?.trim() || "(no subject)"} · ${name}`,
+    subject: `New contact - ${subject?.trim() || "(no subject)"} · ${name}`,
     text: `From: ${name} <${email}>\n\n${message}`,
   });
 }

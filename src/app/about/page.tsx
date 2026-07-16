@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ComponentType } from "react";
-import { Github, Linkedin, Mail, Twitter, Code2, Terminal as TerminalIcon, Cpu } from "lucide-react";
+import { Github, Linkedin, Mail, Code2, Terminal as TerminalIcon, Cpu } from "lucide-react";
 import { owner } from "@/config/owner";
 import { experience, stack } from "@/config/content";
 import { GridBg } from "@/components/site/grid-bg";
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 
 const workstation = [
   { icon: TerminalIcon, k: "OS", v: "Arch Linux + Hyprland" },
-  { icon: Code2, k: "Editor", v: "Neovim + tmux" },
-  { icon: Cpu, k: "Languages", v: "TS · Go · Python · Rust" },
+  { icon: Code2, k: "Editor", v: "Neovim + VS Code" },
+  { icon: Cpu, k: "Languages", v: "TS · Python · Java · C++" },
 ];
 
 export default function AboutPage() {
@@ -32,18 +32,20 @@ export default function AboutPage() {
               <span className="text-gradient">Engineer, by intent.</span>
             </h1>
             <p className="mt-4 max-w-xl text-muted-foreground">
-              {owner.bio} He runs Arch Linux with Hyprland, uses Neovim as his primary editor, and believes deeply in
-              automation, clean architecture, and performance-first engineering.
+              I&apos;m a full stack developer based in Kolkata, India - currently CTO at DokLink Services, where I own
+              an emergency healthcare platform end to end as the sole developer: React Native app, Django backend, and
+              the infrastructure it runs on. Alongside that I&apos;m pursuing a B.Tech in Computer Science at Amity
+              University Kolkata and have co-authored two peer-reviewed publications on XR and pedestrian-autonomous
+              vehicle interaction.
             </p>
             <p className="mt-3 max-w-xl text-muted-foreground">
-              His stack spans React, Next.js, Django, PostgreSQL, Docker, Terraform, and Go. He is currently exploring
-              AI/ML systems, fine-tuning LLMs, and building developer tools that remove friction from engineering
-              workflows.
+              My stack spans React, Next.js, React Native, Django, FastAPI, PostgreSQL, and Docker. I run Arch Linux
+              with Hyprland, split my time between Neovim and VS Code, and believe deeply in automation, clean
+              architecture, and performance-first engineering.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               <Social icon={Github} href={owner.github} label="GitHub" />
               <Social icon={Linkedin} href={owner.linkedin} label="LinkedIn" />
-              <Social icon={Twitter} href={owner.twitter} label="Twitter/X" />
               <Social icon={Mail} href={`mailto:${owner.email}`} label="Email" />
             </div>
           </div>

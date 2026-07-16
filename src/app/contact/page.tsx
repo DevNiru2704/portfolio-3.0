@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ComponentType } from "react";
-import { Github, Linkedin, Mail, Twitter, MapPin, Clock } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Clock } from "lucide-react";
 import { owner } from "@/config/owner";
 import { GridBg } from "@/components/site/grid-bg";
 import { ContactForm } from "@/components/site/contact-form";
@@ -29,7 +29,7 @@ export default function ContactPage() {
               <span className="text-gradient-accent">something</span>.
             </h1>
             <p className="mt-4 max-w-xl text-muted-foreground">
-              Tell me about the system you&apos;re trying to build. Freelance, full-time, advisory, or open source — I read
+              Tell me about the system you&apos;re trying to build. Freelance, full-time, advisory, or open source - I read
               every message.
             </p>
 
@@ -43,7 +43,6 @@ export default function ContactPage() {
             <div className="mt-6 flex flex-wrap gap-2">
               <Social icon={Github} href={owner.github} label="GitHub" />
               <Social icon={Linkedin} href={owner.linkedin} label="LinkedIn" />
-              <Social icon={Twitter} href={owner.twitter} label="Twitter/X" />
             </div>
           </div>
 

@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, ExternalLink, Github, Star, GitFork, Users, ShieldCheck } from "lucide-react";
 import { projectRepository } from "@/repositories/project-repository";
 import { GridBg } from "@/components/site/grid-bg";
-import { DeploymentPipeline } from "@/components/site/deployment-pipeline";
 import { Badge } from "@/components/ui/badge";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -69,12 +68,14 @@ export default async function ProjectPage({ params }: Params) {
               </a>
             )}
           </div>
-          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
-            <Metric icon={Star} label="Stars" value={project.metrics?.stars ?? "—"} />
-            <Metric icon={GitFork} label="Forks" value={project.metrics?.forks ?? "—"} />
-            <Metric icon={Users} label="Users" value={project.metrics?.users ?? "—"} />
-            <Metric icon={ShieldCheck} label="Uptime" value={project.metrics?.uptime ?? "—"} />
-          </div>
+          {project.metrics && (
+            <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+              {project.metrics.stars !== undefined && <Metric icon={Star} label="Stars" value={project.metrics.stars} />}
+              {project.metrics.forks !== undefined && <Metric icon={GitFork} label="Forks" value={project.metrics.forks} />}
+              {project.metrics.users !== undefined && <Metric icon={Users} label="Users" value={project.metrics.users} />}
+              {project.metrics.uptime !== undefined && <Metric icon={ShieldCheck} label="Uptime" value={project.metrics.uptime} />}
+            </div>
+          )}
         </div>
       </section>
 
@@ -95,13 +96,6 @@ export default async function ProjectPage({ params }: Params) {
           <Block title="Challenges & Solutions">{project.challenges}</Block>
           <Block title="Tradeoffs">{project.tradeoffs}</Block>
           <Block title="Performance">{project.performance}</Block>
-
-          <div>
-            <SectionEyebrow>Deployment pipeline</SectionEyebrow>
-            <div className="mt-3">
-              <DeploymentPipeline />
-            </div>
-          </div>
         </div>
 
         <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">

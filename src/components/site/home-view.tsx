@@ -4,27 +4,31 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Command, Github, Mail, Sparkles, Cpu, Activity, Zap, ChevronRight, CircleDot } from "lucide-react";
 import { owner } from "@/config/owner";
-import { experience, testimonials, systemStatus } from "@/config/content";
+import { experience } from "@/config/content";
 import type { Project, Lab } from "@/types/content";
 import { AvailabilityPill } from "@/components/site/availability-pill";
 import { MagneticButton } from "@/components/site/magnetic-button";
 import { ProjectCard } from "@/components/site/project-card";
 import { SectionHeading } from "@/components/site/section-heading";
 import { StackOrbit } from "@/components/site/stack-orbit";
-import { GitHubHeatmap } from "@/components/site/github-heatmap";
-import { DeploymentPipeline } from "@/components/site/deployment-pipeline";
-import { SystemStatusPanel } from "@/components/site/system-status";
 import { Terminal } from "@/components/site/terminal";
 import { Marquee } from "@/components/site/marquee";
 import { GridBg } from "@/components/site/grid-bg";
 import { useCommandPalette } from "@/components/site/command-palette";
 
+export interface HomeCounts {
+  projects: number;
+  posts: number;
+  messages: number;
+}
+
 interface HomeViewProps {
   projects: Project[];
   labs: Lab[];
+  counts: HomeCounts;
 }
 
-export function HomeView({ projects, labs }: HomeViewProps) {
+export function HomeView({ projects, labs, counts }: HomeViewProps) {
   const palette = useCommandPalette();
 
   return (
@@ -37,10 +41,10 @@ export function HomeView({ projects, labs }: HomeViewProps) {
             <AvailabilityPill label="Available · Freelance + Full-time" />
             <h1 className="font-display text-balance text-[clamp(2.5rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.04em]">
               <span className="block text-gradient">FULL STACK</span>
-              <span className="block text-gradient">ENGINEER · SYSTEMS</span>
+              <span className="block text-gradient">DEVELOPER · WEB</span>
               <span className="block">
-                <span className="text-gradient-accent">DEVELOPER</span> <span className="text-muted-foreground/60">·</span>{" "}
-                <span className="text-gradient">AI + INFRA</span>
+                <span className="text-gradient-accent">+ MOBILE</span> <span className="text-muted-foreground/60">·</span>{" "}
+                <span className="text-gradient">AI SYSTEMS</span>
               </span>
             </h1>
             <p className="max-w-2xl text-balance text-base leading-relaxed text-muted-foreground md:text-lg">{owner.tagline}</p>
@@ -64,10 +68,10 @@ export function HomeView({ projects, labs }: HomeViewProps) {
             </div>
           </div>
 
-          {/* Hero composition: command bar preview + system status */}
+          {/* Hero composition: command bar preview + quick facts */}
           <div className="mt-14 grid gap-5 lg:grid-cols-[1.4fr_1fr]">
             <CommandPreview onOpen={() => palette.setOpen(true)} />
-            <SystemStatusPanel />
+            <FactsPanel />
           </div>
 
           <Marquee
@@ -77,9 +81,8 @@ export function HomeView({ projects, labs }: HomeViewProps) {
               "BUILT WITH NEXT.JS · TYPESCRIPT · TAILWIND",
               owner.location,
               owner.timezone,
-              "◎ p95 74ms",
-              "◎ uptime 99.98%",
-              "CI/CD · EDGE · STREAMING",
+              "REACT NATIVE · DJANGO · POSTGRESQL",
+              "DOCKER · NGINX · CI/CD",
             ]}
           />
         </div>
@@ -90,7 +93,7 @@ export function HomeView({ projects, labs }: HomeViewProps) {
         <SectionHeading
           eyebrow="Featured Work"
           title="Selected projects, engineered end to end."
-          description="Real systems shipped to real users. Each is a full case study — architecture, tradeoffs, and the receipts."
+          description="Real systems shipped to real users - architecture, tradeoffs, and the receipts."
         >
           <div className="absolute right-0 top-1">
             <Link href="/projects" className="group inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground">
@@ -110,23 +113,10 @@ export function HomeView({ projects, labs }: HomeViewProps) {
         <SectionHeading
           eyebrow="Stack Visualization"
           title="The toolchain, by layer."
-          description="Click a layer to inspect the tools. The orbit shows current operating context — not a badge cloud."
+          description="Click a layer to inspect the tools. The orbit shows current operating context - not a badge cloud."
         />
         <div className="rounded-3xl border border-border bg-card/40 p-8 md:p-12">
           <StackOrbit />
-        </div>
-      </section>
-
-      {/* ---------------- GITHUB + PIPELINE ---------------- */}
-      <section className="container py-20">
-        <SectionHeading
-          eyebrow="Engineering Telemetry"
-          title="GitHub activity · deployment pipeline"
-          description="Tracked the same way I'd track a production service. Live signals, not vanity metrics."
-        />
-        <div className="grid gap-5 lg:grid-cols-1">
-          <GitHubHeatmap />
-          <DeploymentPipeline />
         </div>
       </section>
 
@@ -135,7 +125,7 @@ export function HomeView({ projects, labs }: HomeViewProps) {
         <SectionHeading
           eyebrow="Experience"
           title="A short engineering history."
-          description="From first Django app to building autonomous infrastructure agents."
+          description="From first React app to running production systems as a CTO."
         />
         <ol className="relative grid gap-4 md:grid-cols-5">
           {experience.map((e, i) => (
@@ -173,10 +163,10 @@ export function HomeView({ projects, labs }: HomeViewProps) {
                   <Sparkles className="h-3 w-3 text-[hsl(var(--glow-cyan))]" />
                   CMS Preview
                 </div>
-                <h3 className="mt-4 text-2xl font-semibold tracking-tight md:text-3xl">The dashboard that runs this site.</h3>
+                <h3 className="mt-4 text-2xl font-semibold tracking-tight md:text-3xl">A CMS concept, built in the open.</h3>
                 <p className="mt-2 max-w-md text-sm text-muted-foreground">
-                  Live, public, read-only walkthrough of the real CMS — analytics, project manager, markdown editor,
-                  deployment logs.
+                  A read-only interface concept for managing this site - analytics, project manager, markdown editor.
+                  Sample data, real engineering.
                 </p>
               </div>
               <div className="grid h-10 w-10 place-items-center rounded-full border border-border bg-background transition-transform group-hover:rotate-45">
@@ -184,10 +174,16 @@ export function HomeView({ projects, labs }: HomeViewProps) {
               </div>
             </div>
             <div className="relative mt-8 grid grid-cols-3 gap-3 text-xs">
-              {["Projects", "Posts", "Messages"].map((l, i) => (
+              {(
+                [
+                  ["Projects", counts.projects],
+                  ["Posts", counts.posts],
+                  ["Messages", counts.messages],
+                ] as const
+              ).map(([l, n], i) => (
                 <div key={l} className="rounded-xl border border-border bg-background p-3">
                   <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{l}</div>
-                  <div className="mt-1 text-xl font-semibold tabular-nums text-gradient-accent">{[12, 27, 184][i]}</div>
+                  <div className="mt-1 text-xl font-semibold tabular-nums text-gradient-accent">{n}</div>
                   <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-secondary">
                     <div className="h-full rounded-full bg-[hsl(var(--glow-cyan))]" style={{ width: `${[60, 80, 45][i]}%` }} />
                   </div>
@@ -228,38 +224,6 @@ export function HomeView({ projects, labs }: HomeViewProps) {
         <Terminal />
       </section>
 
-      {/* ---------------- TESTIMONIALS ---------------- */}
-      <section className="container py-20">
-        <SectionHeading eyebrow="Signal" title="What people say after working with me." />
-        <div className="grid gap-5 md:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <motion.figure
-              key={t.name}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: i * 0.06 }}
-              className="relative overflow-hidden rounded-2xl border border-border bg-card/60 p-6"
-            >
-              <div className="absolute -right-6 -top-6 text-7xl font-bold text-muted/30">&rdquo;</div>
-              <blockquote className="relative text-sm leading-relaxed text-foreground/90">&ldquo;{t.quote}&rdquo;</blockquote>
-              <figcaption className="relative mt-4 flex items-center gap-3">
-                <span className="grid h-9 w-9 place-items-center rounded-full border border-border bg-background text-xs font-semibold" aria-hidden>
-                  {t.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </span>
-                <span className="flex flex-col leading-tight">
-                  <span className="text-sm font-medium">{t.name}</span>
-                  <span className="text-xs text-muted-foreground">{t.role}</span>
-                </span>
-              </figcaption>
-            </motion.figure>
-          ))}
-        </div>
-      </section>
-
       {/* ---------------- FINAL CTA ---------------- */}
       <section className="container pb-24 pt-10">
         <div className="relative overflow-hidden rounded-3xl border border-border bg-card/40 p-10 md:p-16">
@@ -277,8 +241,7 @@ export function HomeView({ projects, labs }: HomeViewProps) {
                 <span className="text-gradient-accent">Let&apos;s engineer it together.</span>
               </h3>
               <p className="mt-3 max-w-xl text-muted-foreground">
-                Currently available for freelance and full-time roles. Based in {owner.location} · working with teams
-                worldwide.
+                Open to full-time roles and freelance work. Based in {owner.location} · working with teams worldwide.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <MagneticButton href="/contact">
@@ -291,9 +254,9 @@ export function HomeView({ projects, labs }: HomeViewProps) {
             </div>
             <div className="grid gap-3">
               {[
-                { icon: Activity, label: "Avg response", value: "≤ 24h" },
-                { icon: Cpu, label: "Active projects", value: systemStatus.metrics.activeProjects },
-                { icon: Zap, label: "P95 latency", value: systemStatus.metrics.p95Latency },
+                { icon: Activity, label: "Avg response", value: "under 24h" },
+                { icon: Cpu, label: "Current role", value: "CTO @ DokLink" },
+                { icon: Zap, label: "Timezone", value: owner.timezone },
               ].map((m) => (
                 <div key={m.label} className="flex items-center justify-between rounded-xl border border-border bg-background px-4 py-3">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -306,6 +269,32 @@ export function HomeView({ projects, labs }: HomeViewProps) {
           </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+function FactsPanel() {
+  const facts = [
+    { label: "current", value: "CTO @ DokLink Services" },
+    { label: "education", value: "B.Tech CSE '27 · Amity University Kolkata" },
+    { label: "location", value: `${owner.location} · ${owner.timezone}` },
+    { label: "open to", value: "full-time · freelance" },
+    { label: "research", value: "2 peer-reviewed publications (XR / AV interaction)" },
+  ];
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-border bg-card/70 p-1 backdrop-blur">
+      <div className="flex items-center gap-2 border-b border-border px-3 py-2">
+        <CircleDot className="h-3.5 w-3.5 text-[hsl(var(--glow-cyan))]" />
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">quick facts</span>
+      </div>
+      <ul className="divide-y divide-border">
+        {facts.map((f) => (
+          <li key={f.label} className="flex items-baseline gap-3 px-3 py-2.5">
+            <span className="w-20 shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{f.label}</span>
+            <span className="text-sm text-foreground/90">{f.value}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

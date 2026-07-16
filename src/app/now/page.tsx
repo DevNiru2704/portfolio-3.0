@@ -32,7 +32,7 @@ export default function NowPage() {
           <SectionHeading
             eyebrow={`/now · ${new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}`}
             title="What I'm focused on right now."
-            description="A snapshot of the current quarter. Updated when the focus actually shifts — not for show."
+            description="A snapshot of the current quarter. Updated when the focus actually shifts - not for show."
           />
         </div>
       </section>

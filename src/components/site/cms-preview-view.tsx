@@ -28,10 +28,43 @@ import {
   Filter,
   Upload,
 } from "lucide-react";
-import { systemStatus, githubStats } from "@/config/content";
 import type { Project, BlogPost, Lab } from "@/types/content";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+
+// Sample data for this concept demo only. Nothing below reflects real
+// telemetry - the page is a read-only UI showcase seeded with fake numbers.
+const systemStatus = {
+  services: [
+    { name: "Portfolio", state: "operational", label: "Online" },
+    { name: "API", state: "operational", label: "Operational" },
+    { name: "Database", state: "operational", label: "Operational" },
+    { name: "Edge Network", state: "operational", label: "Operational" },
+  ],
+  metrics: {
+    lastDeploy: "2 hours ago",
+    uptime90d: "99.98%",
+    p95Latency: "74ms",
+    buildSuccess: "98.4%",
+  },
+  deploys: [
+    { ref: "main", sha: "a4f9d12", status: "success", when: "2h ago", duration: "38s", message: "feat(home): add command palette teaser" },
+    { ref: "feat/lab", sha: "7be2c01", status: "success", when: "9h ago", duration: "42s", message: "lab: add interpreter case study" },
+    { ref: "main", sha: "e1c83d4", status: "success", when: "1d ago", duration: "36s", message: "chore: tune motion timings" },
+    { ref: "main", sha: "f00ab12", status: "success", when: "2d ago", duration: "40s", message: "refactor(dashboard): split widgets into atoms" },
+  ],
+};
+
+const githubStats = {
+  topLanguages: [
+    { name: "TypeScript", percentage: 34, color: "199 89% 74%" },
+    { name: "Python", percentage: 28, color: "250 91% 85%" },
+    { name: "JavaScript", percentage: 18, color: "213 94% 78%" },
+    { name: "Java", percentage: 10, color: "30 80% 65%" },
+    { name: "C++", percentage: 6, color: "160 60% 55%" },
+    { name: "Other", percentage: 4, color: "0 0% 60%" },
+  ],
+};
 
 const DEFAULT_ACCENT = "199 89% 74%";
 
@@ -74,8 +107,8 @@ export function CmsPreviewView({ projects, posts, labs }: CmsPreviewViewProps) {
               read-only preview
             </span>
             <span className="text-muted-foreground">
-              This is a live preview of the CMS powering this portfolio. All
-              data shown is for demonstration.
+              This is a concept CMS interface built as a UI showcase. All data
+              shown is sample data for demonstration.
             </span>
           </div>
           <Link
@@ -252,15 +285,15 @@ function Overview() {
     { label: "Messages", value: "184", delta: "+22", up: true },
   ];
   const topContent = [
-    { t: "Why I Switched to Arch Linux + Hyprland", v: 2412, type: "post" },
-    { t: "InfraPilot — Case Study", v: 1842, type: "project" },
+    { t: "Kubernetes Is Not a Badge of Honor", v: 2412, type: "post" },
+    { t: "DokLink - Case Study", v: 1842, type: "project" },
     {
-      t: "Building Production-Grade Terraform Pipelines",
+      t: "From a Security Checklist PDF to Real Auth Code",
       v: 1238,
       type: "post",
     },
-    { t: "DevSync — Case Study", v: 1110, type: "project" },
-    { t: "Fine-Tuning LLMs with LoRA", v: 928, type: "post" },
+    { t: "FloatChat - Case Study", v: 1110, type: "project" },
+    { t: "The Remove-It Test", v: 928, type: "post" },
   ];
   return (
     <div>
@@ -475,7 +508,7 @@ function ProjectsManager({ projects }: { projects: Project[] }) {
                   </span>
                 </td>
                 <td className="px-4 py-3 tabular-nums">
-                  {p.metrics?.stars ?? "—"}
+                  {p.metrics?.stars ?? "-"}
                 </td>
                 <td className="px-4 py-3 text-right">
                   <Link
@@ -579,36 +612,37 @@ function MediaPanel() {
 }
 
 function MessagesPanel() {
+  // Fictional sample messages for the concept demo.
   const samples = [
     {
-      name: "Ananya Sharma",
-      email: "ananya@fintechco.io",
-      subject: "Infrastructure consulting",
-      preview: "Hi Nirmalya — we're building a payments backbone…",
+      name: "Sample: Recruiter",
+      email: "recruiter@example.org",
+      subject: "Full stack role",
+      preview: "Hi Nirmalya - came across your portfolio and…",
       when: "2h",
       unread: true,
     },
     {
-      name: "Marcus Lee",
-      email: "marcus@devtools.dev",
-      subject: "Open source collaboration",
-      preview: "Loved DevSync. Any chance you'd be open to…",
+      name: "Sample: Founder",
+      email: "founder@example.org",
+      subject: "Freelance project inquiry",
+      preview: "We need a web + mobile build for our…",
       when: "8h",
       unread: true,
     },
     {
-      name: "Priya Iyer",
-      email: "priya@ai.infra",
-      subject: "Engineering lead role",
-      preview: "Following up on the call — we're ready to make…",
+      name: "Sample: Developer",
+      email: "dev@example.org",
+      subject: "Question about FloatChat",
+      preview: "Read your case study - how did you validate the SQL…",
       when: "1d",
       unread: false,
     },
     {
-      name: "Sam Patel",
-      email: "sam@gridworks.io",
-      subject: "Terraform pipeline help",
-      preview: "Read your post on production Terraform…",
+      name: "Sample: Student",
+      email: "student@example.org",
+      subject: "Advice on interpreters",
+      preview: "Saw the CONTEXT lab entry. Where should I start…",
       when: "2d",
       unread: false,
     },
@@ -820,18 +854,17 @@ function AssistantMini({ big = false }: { big?: boolean }) {
           big ? "max-h-105" : "max-h-45",
         )}
       >
-        <Bubble role="user">What&apos;s the architecture of DevSync?</Bubble>
+        <Bubble role="user">What&apos;s the architecture of FloatChat?</Bubble>
         <Bubble role="ai">
-          DevSync is a Next.js App Router app with Supabase Realtime for
-          collaborative state. Authentication is via Clerk; analytics flow
-          through Vercel + a custom RUM endpoint. Bundle stays under 150KB
-          initial JS.
+          FloatChat is a Next.js frontend over a FastAPI backend. LangChain
+          orchestrates Mistral 7B for natural language to SQL, and Supabase
+          provides PostgreSQL plus vector storage for retrieval.
         </Bubble>
-        <Bubble role="user">Compare it to InfraPilot.</Bubble>
+        <Bubble role="user">Compare it to DokLink.</Bubble>
         <Bubble role="ai">
-          InfraPilot is a Go CLI that translates NL → Terraform plans, gated by
-          a static analysis layer. It&apos;s a much smaller surface area than
-          DevSync but with stricter safety properties.
+          DokLink is a React Native app on a Django REST backend - a
+          transactional system where correctness under concurrency matters
+          most, while FloatChat is read-heavy analytics over a static dataset.
         </Bubble>
       </div>
       <div className="mt-3 flex items-center gap-2 rounded-full border border-border bg-background pr-1 pl-3">
@@ -885,9 +918,9 @@ function SettingsPanel() {
         </Panel>
         <Panel title="Integrations" subtitle="connected">
           <Setting k="Vercel" v="production" ok />
-          <Setting k="GitHub" v="@nirmalya" ok />
-          <Setting k="Supabase" v="prod · db-east-1" ok />
-          <Setting k="OpenAI" v="gpt-4o" ok />
+          <Setting k="GitHub" v="@DevNiru2704" ok />
+          <Setting k="Supabase" v="production" ok />
+          <Setting k="Resend" v="contact email" ok />
         </Panel>
         <Panel title="SEO" subtitle="meta">
           <Setting k="Title template" v="%s · NIRMALYA" />
@@ -896,8 +929,8 @@ function SettingsPanel() {
         </Panel>
         <Panel title="Analytics" subtitle="events">
           <Setting k="Vercel Analytics" v="enabled" ok />
-          <Setting k="Plausible" v="nirmalya.dev" ok />
-          <Setting k="Custom RUM" v="/api/rum" ok />
+          <Setting k="Domain" v="devniru.in" ok />
+          <Setting k="Sitemap ping" v="on deploy" ok />
         </Panel>
       </div>
     </div>
