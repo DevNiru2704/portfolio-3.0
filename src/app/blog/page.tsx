@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Clock, Calendar } from "lucide-react";
+import { ArrowUpRight, BookOpen, Calendar } from "lucide-react";
 import { blogRepository } from "@/repositories/blog-repository";
 import { GridBg } from "@/components/site/grid-bg";
 import { SectionHeading } from "@/components/site/section-heading";
@@ -46,8 +46,8 @@ export default async function BlogPage() {
                       {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Clock className="h-3 w-3" />
-                      {post.readTime}
+                      <BookOpen className="h-3 w-3" />
+                      {post.readTime} read
                     </span>
                     <span className="font-mono text-[10px] uppercase tracking-[0.18em]">post 0{i + 1}</span>
                   </div>

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, BookOpen, Calendar } from "lucide-react";
 import { blogRepository } from "@/repositories/blog-repository";
 import { owner } from "@/config/owner";
 import { GridBg } from "@/components/site/grid-bg";
+import { ArticleBody } from "@/components/site/article-body";
 import { Badge } from "@/components/ui/badge";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -39,8 +40,8 @@ export default async function BlogPostPage({ params }: Params) {
               {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <Clock className="h-3 w-3" />
-              {post.readTime}
+              <BookOpen className="h-3 w-3" />
+              Expected reading time: {post.readTime}
             </span>
             <div className="flex flex-wrap gap-1.5">
               {post.tags.map((t) => (
@@ -59,11 +60,7 @@ export default async function BlogPostPage({ params }: Params) {
 
       <section className="container grid gap-10 py-14 lg:grid-cols-[1fr_260px]">
         <article className="prose prose-invert max-w-prose">
-          {post.body.split(/\n\n+/).map((para, i) => (
-            <p key={i} className="mb-5 text-balance leading-relaxed text-foreground/90">
-              {para.trim()}
-            </p>
-          ))}
+          <ArticleBody body={post.body} />
           <div className="mt-10 rounded-2xl border border-border bg-card/60 p-6">
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">end of article</div>
             <p className="mt-2 text-sm text-muted-foreground">
