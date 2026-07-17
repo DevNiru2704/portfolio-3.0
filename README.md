@@ -5,7 +5,7 @@ Personal portfolio of Nirmalya Mandal - live at [devniru.in](https://devniru.in)
 ## Stack
 
 - Next.js 16 (App Router) + React 19, TypeScript
-- Tailwind CSS v4 (CSS-first config in `src/app/globals.css`)
+- Tailwind CSS v4 (CSS-first config in `src/app/globals.css`), dark only
 - PostgreSQL via Prisma 7 (pg driver adapter), Supabase in production
 - Server Actions + Zod for the contact form, Resend for email
 - Deployed on Vercel

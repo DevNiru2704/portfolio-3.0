@@ -11,11 +11,12 @@ truthful, working, and free of placeholder content.
 
 ## Stack
 
-- Next.js 16 (App Router, Turbopack) + React 19, strict TypeScript
+- Next.js 16 (App Router, Turbopack) + React 19, strict TypeScript (target ES2017:
+  no unicode property escapes like `\p{L}` or the regex `s` flag)
 - Tailwind CSS v4, CSS-first config (no tailwind.config.js - see Styling below)
 - Prisma 7 with the `@prisma/adapter-pg` driver adapter on PostgreSQL (Supabase in prod)
 - Server Actions + Zod + React Hook Form for the contact flow; Resend for email
-- framer-motion, lucide-react, next-themes, sonner, cmdk
+- framer-motion, lucide-react, sonner, cmdk
 
 ## Commands
 
@@ -32,8 +33,14 @@ truthful, working, and free of placeholder content.
 
 - **Repository pattern**: UI never imports Prisma. All data access goes through
   `src/repositories/*` which return domain types from `src/types/content.ts`.
-  `messageRepository.findRecent` and `principleRepository.findBySlug` are
-  intentionally unused - reserved for the planned private dashboard.
+  Repositories may also *derive* fields the database does not store - see
+  `blogRepository.toPost()`, which computes `readTime` from the body.
+  `messageRepository.findRecent`, `principleRepository.findBySlug` and
+  `nowRepository.count` are intentionally unused - reserved for the private dashboard.
+- **Dark only**: there is no light theme, no theme switcher, and `next-themes` is
+  not installed. Do not add `dark:` utilities (the `dark` variant no longer
+  exists, so they would silently never apply) and do not reintroduce a toggle.
+  See Styling below.
 - **Prisma 7 driver adapter**: `prisma/schema.prisma` has NO `url` on the datasource.
   The runtime client (`src/lib/prisma.ts`) connects through `new PrismaPg({...})`;
   the CLI (push/migrate/seed/studio) reads the URL from `prisma.config.ts`. Do not
@@ -53,6 +60,10 @@ truthful, working, and free of placeholder content.
 
 - `src/config/owner.ts` - identity: name, role, contact links, domain (`owner.url`
   drives metadataBase, sitemap, robots, OG). Change the domain here and nowhere else.
+  Also holds `resumeUrl` / `resumeFileName` (the Download CV buttons) and the
+  `navigation` array, which is **the single source of nav order** for the desktop
+  nav and the mobile drawer. The command palette's Navigation group is hand-written
+  in `command-palette.tsx` - if you reorder `navigation`, reorder that to match.
 - `src/config/content.ts` - experience timeline and skills by layer. These are
   **static config, not database rows**: they ship with the build and need no
   seeding. **Everything here must stay factually true** - fabricated demo content
@@ -65,8 +76,13 @@ truthful, working, and free of placeholder content.
   and `NowItem.order` drive display sequence; keep values contiguous when adding
   or reordering. `NowItem.category` is a Postgres enum (`NowCategory`) - adding a
   category needs a migration, and the `goal` category is rendered as a single item.
-- Blog bodies render as plain paragraphs split on blank lines
-  (`blog/[slug]/page.tsx`) - no markdown headers, lists, or code blocks.
+- **Reading time is derived, never stored.** `BlogPost` has no `readTime` column:
+  `src/lib/reading-time.ts` computes it from the body (200 wpm) inside
+  `blogRepository`. It previously was a hand-typed string claiming 8-9 minutes for
+  3-4 minute posts. Do not add the column back - derived data in the database drifts
+  from the text it describes.
+- Blog bodies render as plain paragraphs split on blank lines, via the
+  `ArticleBody` client component - no markdown headers, lists, or code blocks.
 - `/cms-preview` and `/dashboard` are labeled concept demos - read-only, no writes
   wired up. `cms-preview-view.tsx` contains inline sample telemetry constants; that
   is intentional and labeled, so keep the "sample data" labeling if you touch those
@@ -74,15 +90,36 @@ truthful, working, and free of placeholder content.
 
 ## Styling
 
-Tailwind v4: all design tokens, custom utilities (`container`, `glass`,
-`text-gradient`, `glow-cyan`, `bg-grid`, `animate-marquee`, ...) and the dark
-variant live in `src/app/globals.css` via `@theme inline` and `@utility`. There is
-no JS config. Dynamic per-project accent colors use inline `style={{...}}` with HSL
-triplets (e.g. `"199 89% 74%"`) - this is the accepted pattern (webhint inline-style
-warnings are silenced in `.hintrc`).
+Tailwind v4: all design tokens and custom utilities (`container`, `glass`,
+`text-gradient`, `glow-cyan`, `bg-grid`, `animate-marquee`, ...) live in
+`src/app/globals.css` via `@theme inline` and `@utility`. There is no JS config.
+
+**The site is dark only.** Tokens sit in a single `:root` with `color-scheme: dark`;
+there is no `.dark` class, no `@custom-variant dark`, and no `dark:` utilities
+anywhere. A `dark:` class would compile to nothing, so do not write one.
+
+Dynamic per-project accent colors use inline `style={{...}}` with HSL triplets
+(e.g. `"199 89% 74%"`) - the accepted pattern (webhint inline-style warnings are
+silenced in `.hintrc`). Inline styles are also the only way to do computed sizing:
+a dynamic class like `w-[${n}ch]` is silently dropped by Tailwind's JIT, which is
+why the terminal input and similar sizing use `style` instead.
 
 Writing style rule (applies to all content and code written for this repo): never
 use em dashes or en dashes; use plain hyphens.
+
+## Prefetch reading mode
+
+`ArticleBody` (blog post pages) has a toggle called **Prefetch** that bolds the
+opening ~40% of each word so the eye has an anchor - an accessibility feature aimed
+at ADHD and dyslexic readers. The preference persists in `localStorage` under
+`prefetch-reading`, read in an effect after mount so hydration does not mismatch.
+
+**Do not rename it "Bionic Reading".** That is a registered trademark (BRCG Casutt
+GmbH / Bionic Reading AG, marks in the US, EU, UK, CA, JP, AU, NZ, CH), and
+licensing it for a personal blog is not worth it. The technique itself is
+unencumbered; only the brand is. "Prefetch" is our own name, chosen to match the
+site's systems register - a CPU loads data before it is needed, which is what the
+bolded word-openings let the eye do.
 
 ## Environment
 
@@ -165,9 +202,13 @@ depend on a live DB). After changing `prisma/seed.ts` or the schema:
 
 ### Static assets
 
-`public/og.png` (1200x630, generated with a PIL script; regenerate if branding
-changes), `public/resume.pdf` (copy of the current CV - keep in sync with the Resume
-project), `src/app/icon.svg` (favicon).
+- `public/og.png` - 1200x630, generated with a PIL script; regenerate if branding changes.
+- `public/resume.pdf` - **a copy** of the CV kept in the separate Resume project
+  (`~/Personal Files/Programs/Resume`). Nothing syncs it: when the CV changes there,
+  copy it across again. It is served by the Download CV buttons in the nav, hero,
+  About page, mobile drawer, and command palette; `owner.resumeFileName` controls
+  the filename the visitor saves.
+- `src/app/icon.svg` - favicon.
 
 ## CMS status (next piece of work)
 
@@ -183,9 +224,9 @@ What exists today:
   Save, Upload) is deliberately `disabled`.
 - `/dashboard` - a stub that says "coming soon", `robots: noindex`. There is **no
   auth library installed**; earlier copy claiming Clerk was removed as untrue.
-- Unused-but-ready repository methods: `messageRepository.findRecent` / `.count`,
-  `principleRepository.findBySlug`, `projectRepository.count`, `blogRepository.count`,
-  `nowRepository.count`.
+- Unused-but-ready repository methods: `messageRepository.findRecent`,
+  `principleRepository.findBySlug`, `nowRepository.count`. (The other `count()`
+  methods are live - the home page teaser uses them.)
 
 What a real CMS needs:
 
