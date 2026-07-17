@@ -30,6 +30,8 @@ import {
   Atom,
   GripVertical,
   Radio,
+  Menu,
+  X,
 } from "lucide-react";
 import type { Project, BlogPost, Lab, Principle, NowItem, NowCategory } from "@/types/content";
 import { BrandMark } from "@/components/site/brand-mark";
@@ -105,6 +107,8 @@ interface CmsPreviewViewProps {
 
 export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: CmsPreviewViewProps) {
   const [view, setView] = useState("overview");
+  const [navOpen, setNavOpen] = useState(false);
+  const activeItem = NAV.find((n) => n.id === view);
 
   return (
     <div className="relative">
@@ -129,15 +133,17 @@ export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: 
         </div>
       </div>
 
+      {/* min-w-0 on both columns is load-bearing: grid items default to
+          min-width:auto, so they refuse to shrink below their content. Without
+          it the sidebar and the tables widen the grid past the viewport, the
+          page scrolls sideways, and mobile browsers zoom out to compensate. */}
       <div className="container grid gap-6 py-8 lg:grid-cols-[240px_1fr]">
         {/* Only sticky once there is a column to stick to: on narrow screens the
             sidebar sits above the content and pinning it would eat the viewport. */}
-        <aside className="lg:sticky lg:top-32 lg:self-start">
+        <aside className="min-w-0 lg:sticky lg:top-32 lg:self-start">
           <div className="rounded-2xl border border-border bg-card/60 p-3">
             <div className="flex items-center gap-2 px-2 py-1.5">
-              <span className="grid h-7 w-7 place-items-center rounded-md border border-border bg-background">
-                <BrandMark className="h-4 w-4 text-signal" />
-              </span>
+              <BrandMark className="h-5 w-5 shrink-0 text-signal" />
               <div className="leading-none">
                 <div className="text-xs font-semibold">NIRMALYA</div>
                 <div className="font-mono text-[10px] text-muted-foreground">
@@ -145,32 +151,57 @@ export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: 
                 </div>
               </div>
             </div>
-            {/* Twelve stacked items would push every panel below the fold on a
-                phone, so the nav scrolls horizontally until there is a sidebar. */}
-            <div className="scrollbar-thin mt-3 flex gap-1 overflow-x-auto pb-1 lg:block lg:space-y-0.5 lg:overflow-x-visible lg:pb-0">
+
+            {/* Twelve sections do not fit a phone in any arrangement: stacked
+                they bury the panels, in a row they overflow. Collapse them
+                behind the active section until there is a sidebar. */}
+            <button
+              type="button"
+              onClick={() => setNavOpen((v) => !v)}
+              aria-expanded={navOpen}
+              aria-controls="cms-sections"
+              className="mt-3 flex w-full items-center justify-between gap-2 rounded-lg border border-border bg-background px-2.5 py-2 text-sm lg:hidden"
+            >
+              <span className="flex min-w-0 items-center gap-2">
+                {activeItem ? <activeItem.icon className="h-3.5 w-3.5 shrink-0" /> : null}
+                <span className="truncate">{activeItem?.label}</span>
+              </span>
+              <span className="flex shrink-0 items-center gap-1.5 text-muted-foreground">
+                <span className="font-mono text-[10px] uppercase tracking-widest">sections</span>
+                {navOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              </span>
+            </button>
+
+            <div
+              id="cms-sections"
+              className={cn("mt-3 space-y-0.5", navOpen ? "block" : "hidden lg:block")}
+            >
               {NAV.map((n) => {
                 const active = n.id === view;
                 return (
                   <button
                     key={n.id}
-                    onClick={() => setView(n.id)}
+                    onClick={() => {
+                      setView(n.id);
+                      setNavOpen(false);
+                    }}
                     className={cn(
-                      "group flex shrink-0 items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-left text-sm transition-colors lg:w-full",
+                      "group flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-left text-sm transition-colors",
                       active
                         ? "bg-foreground/10 text-foreground"
                         : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
                     )}
                   >
-                    <span className="flex items-center gap-2 whitespace-nowrap">
+                    <span className="flex min-w-0 items-center gap-2">
                       <n.icon className="h-3.5 w-3.5 shrink-0" />
-                      {n.label}
+                      <span className="truncate">{n.label}</span>
                     </span>
                     {n.badge ? (
-                      <span className="rounded-full bg-foreground px-1.5 py-0.5 font-mono text-[10px] text-background">
+                      <span className="shrink-0 rounded-full bg-foreground px-1.5 py-0.5 font-mono text-[10px] text-background">
                         {n.badge}
                       </span>
                     ) : (
-                      <ChevronRight className="hidden h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100 lg:block" />
+                      <ChevronRight className="hidden h-3.5 w-3.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-100 lg:block" />
                     )}
                   </button>
                 );
@@ -189,7 +220,7 @@ export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: 
           </div>
         </aside>
 
-        <div>
+        <div className="min-w-0">
           {view === "overview" && <Overview />}
           {view === "projects" && <ProjectsManager projects={projects} />}
           {view === "blog" && <BlogManager posts={posts} />}
