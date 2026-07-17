@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import { Zap } from "lucide-react";
+import { Bold } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const STORAGE_KEY = "prefetch-reading";
@@ -76,7 +76,7 @@ export function ArticleBody({ body }: { body: string }) {
       <div className="mb-8 flex items-center justify-between gap-4 rounded-xl border border-border bg-card/60 px-4 py-3">
         <label htmlFor="prefetch-toggle" className="flex cursor-pointer items-center gap-3">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-border bg-background">
-            <Zap className={cn("h-4 w-4 transition-colors", prefetch ? "text-[hsl(var(--glow-cyan))]" : "text-muted-foreground")} />
+            <Bold className={cn("h-4 w-4 transition-colors", prefetch ? "text-[hsl(var(--glow-cyan))]" : "text-muted-foreground")} />
           </span>
           <span className="flex flex-col leading-tight">
             <span className="text-sm font-medium">Prefetch</span>

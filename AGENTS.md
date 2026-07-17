@@ -9,6 +9,27 @@ skills).
 This site is the website listed on Nirmalya's CV, so recruiters land here: keep it
 truthful, working, and free of placeholder content.
 
+## Keep this file true
+
+**Update this file in the same commit as the change it describes.** Stale docs are
+worse than none: an agent trusts them and acts on a fact that stopped being true.
+This has already happened here - the docs claimed `next-themes` was a dependency
+after it was uninstalled, and listed repository methods as unused after they were
+wired up.
+
+Update it whenever you:
+
+- add or remove a dependency, or change the stack
+- add, rename or drop a model, column, enum or migration
+- add a route, or change what a page reads from
+- change an architecture rule, a deploy step, an env var, or a connection string
+- rename a user-facing feature, especially where the old name was avoided for a
+  reason (see Prefetch below)
+- discover a gotcha that cost you time - write it down so it costs nobody else
+
+Before claiming something here, verify it against the code rather than memory. If a
+rule stops being true, delete it; do not leave it as "mostly right".
+
 ## Stack
 
 - Next.js 16 (App Router, Turbopack) + React 19, strict TypeScript (target ES2017:

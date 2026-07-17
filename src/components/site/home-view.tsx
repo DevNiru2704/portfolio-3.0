@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Command, Download, Github, Mail, Sparkles, Cpu, Activity, Zap, CircleDot } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Command, Download, Github, Mail, Sparkles, Cpu, Activity, Clock, CircleDot } from "lucide-react";
 import { owner } from "@/config/owner";
 import { experience } from "@/config/content";
 import type { Project, Lab } from "@/types/content";
@@ -254,7 +254,7 @@ export function HomeView({ projects, labs, counts }: HomeViewProps) {
               {[
                 { icon: Activity, label: "Avg response", value: "under 24h" },
                 { icon: Cpu, label: "Current role", value: "CTO @ DokLink" },
-                { icon: Zap, label: "Timezone", value: owner.timezone },
+                { icon: Clock, label: "Timezone", value: owner.timezone },
               ].map((m) => (
                 <div key={m.label} className="flex items-center justify-between rounded-xl border border-border bg-background px-4 py-3">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
