@@ -12,9 +12,9 @@ export function SiteFooter() {
       <div className="container relative grid gap-10 py-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-lg border border-border bg-card">
-              <BrandMark className="h-5 w-5 text-signal" />
-            </span>
+            {/* Bare, matching the nav: the footer sits on the dark background too.
+                Only the favicon keeps a plate, for light browser tab strips. */}
+            <BrandMark className="h-7 w-7 shrink-0 text-signal" />
             <div className="leading-none">
               <div className="text-sm font-semibold">{owner.brand.name}</div>
               <div className="font-mono text-[10px] text-muted-foreground">{owner.brand.productLine}</div>
