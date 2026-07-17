@@ -115,7 +115,7 @@ export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: 
               <AlertTriangle className="h-3 w-3" />
               read-only preview
             </span>
-            <span className="text-muted-foreground">
+            <span className="hidden text-muted-foreground sm:inline">
               This is a concept CMS interface built as a UI showcase. All data
               shown is sample data for demonstration.
             </span>
@@ -130,7 +130,9 @@ export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: 
       </div>
 
       <div className="container grid gap-6 py-8 lg:grid-cols-[240px_1fr]">
-        <aside className="sticky top-32 self-start">
+        {/* Only sticky once there is a column to stick to: on narrow screens the
+            sidebar sits above the content and pinning it would eat the viewport. */}
+        <aside className="lg:sticky lg:top-32 lg:self-start">
           <div className="rounded-2xl border border-border bg-card/60 p-3">
             <div className="flex items-center gap-2 px-2 py-1.5">
               <span className="grid h-7 w-7 place-items-center rounded-md border border-border bg-background">
@@ -143,7 +145,9 @@ export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: 
                 </div>
               </div>
             </div>
-            <div className="mt-3 space-y-0.5">
+            {/* Twelve stacked items would push every panel below the fold on a
+                phone, so the nav scrolls horizontally until there is a sidebar. */}
+            <div className="scrollbar-thin mt-3 flex gap-1 overflow-x-auto pb-1 lg:block lg:space-y-0.5 lg:overflow-x-visible lg:pb-0">
               {NAV.map((n) => {
                 const active = n.id === view;
                 return (
@@ -151,14 +155,14 @@ export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: 
                     key={n.id}
                     onClick={() => setView(n.id)}
                     className={cn(
-                      "group flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-left text-sm transition-colors",
+                      "group flex shrink-0 items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-left text-sm transition-colors lg:w-full",
                       active
                         ? "bg-foreground/10 text-foreground"
                         : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
                     )}
                   >
-                    <span className="flex items-center gap-2">
-                      <n.icon className="h-3.5 w-3.5" />
+                    <span className="flex items-center gap-2 whitespace-nowrap">
+                      <n.icon className="h-3.5 w-3.5 shrink-0" />
                       {n.label}
                     </span>
                     {n.badge ? (
@@ -166,7 +170,7 @@ export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: 
                         {n.badge}
                       </span>
                     ) : (
-                      <ChevronRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                      <ChevronRight className="hidden h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100 lg:block" />
                     )}
                   </button>
                 );
@@ -470,14 +474,16 @@ function ProjectsManager({ projects }: { projects: Project[] }) {
           </div>
         }
       />
-      <div className="overflow-hidden rounded-2xl border border-border bg-card/60">
-        <table className="w-full text-sm">
+      {/* overflow-x-auto, not overflow-hidden: hidden clipped the right-hand
+          columns on narrow screens with no way to reach them. */}
+      <div className="scrollbar-thin overflow-x-auto rounded-2xl border border-border bg-card/60">
+        <table className="w-full min-w-[560px] text-sm">
           <thead>
             <tr className="border-b border-border bg-background/40 text-left font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
               <th className="px-4 py-3">Title</th>
               <th className="px-4 py-3">Category</th>
               <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Stars</th>
+              <th className="px-4 py-3">Year</th>
               <th className="px-4 py-3"></th>
             </tr>
           </thead>
@@ -518,9 +524,7 @@ function ProjectsManager({ projects }: { projects: Project[] }) {
                     {p.status}
                   </span>
                 </td>
-                <td className="px-4 py-3 tabular-nums">
-                  {p.metrics?.stars ?? "-"}
-                </td>
+                <td className="px-4 py-3 tabular-nums">{p.year}</td>
                 <td className="px-4 py-3 text-right">
                   <Link
                     href={`/projects/${p.slug}`}
@@ -916,8 +920,8 @@ function DeploysPanel() {
   return (
     <div>
       <TopBar title="Deployments" subtitle="vercel · production" />
-      <div className="overflow-hidden rounded-2xl border border-border bg-card/60">
-        <table className="w-full text-sm">
+      <div className="scrollbar-thin overflow-x-auto rounded-2xl border border-border bg-card/60">
+        <table className="w-full min-w-[680px] text-sm">
           <thead className="border-b border-border bg-background/40 text-left font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
             <tr>
               <th className="px-4 py-3">Status</th>

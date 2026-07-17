@@ -37,10 +37,10 @@ export function SiteNav() {
       >
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="group flex items-center gap-2.5">
-            <span className="relative grid h-8 w-8 place-items-center rounded-lg border border-border bg-card">
-              <span className="absolute inset-0 rounded-lg bg-[hsl(var(--signal)/0.12)]" />
-              <BrandMark className="relative z-10 h-5 w-5 text-signal" />
-            </span>
+            {/* No plate here: the nav always sits on the dark background, so the
+                mark carries itself. The favicon keeps its plate because it has to
+                survive a light browser tab strip. */}
+            <BrandMark className="h-7 w-7 shrink-0 text-signal" />
             <div className="hidden flex-col leading-none sm:flex">
               <span className="text-[13px] font-semibold tracking-tight">{owner.brand.name}</span>
               <span className="font-mono text-[10px] text-muted-foreground">{owner.brand.productLine}</span>
