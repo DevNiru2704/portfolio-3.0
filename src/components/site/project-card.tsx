@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRef, type MouseEvent } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import { ArrowUpRight, GitFork, Star, Users } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/types/content";
@@ -86,21 +86,9 @@ export function ProjectCard({ project, index = 0, featured = false }: ProjectCar
           ))}
         </div>
 
-        <div className="relative mt-6 flex flex-1 items-end justify-between">
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <span className="inline-flex items-center gap-1">
-              <Star className="h-3 w-3" />
-              {project.metrics?.stars}
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <GitFork className="h-3 w-3" />
-              {project.metrics?.forks}
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <Users className="h-3 w-3" />
-              {project.metrics?.users}
-            </span>
-          </div>
+        {/* No stars/forks/watchers row: the real counts are 0-6, so it only ever
+            advertised zeros. Projects stand on their case studies. */}
+        <div className="relative mt-6 flex flex-1 items-end justify-end">
           <div className="grid h-9 w-9 place-items-center rounded-full border border-border bg-background transition-transform group-hover:rotate-45">
             <ArrowUpRight className="h-4 w-4" />
           </div>

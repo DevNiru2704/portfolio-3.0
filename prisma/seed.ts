@@ -16,6 +16,9 @@ const projects: Prisma.ProjectCreateInput[] = [
     overview:
       "DokLink helps people in medical emergencies find and reserve hospital beds in real time. Users trigger an emergency, see nearby hospitals sorted by distance with live general and ICU bed counts, and reserve a bed with a countdown window sized to their travel time. I run the platform as CTO and sole developer: the React Native app, the Django REST backend, and the infrastructure it ships on.",
     featured: true,
+    live: "https://www.doklink.in",
+    sourceNote: "Company confidential source, bound by NDA",
+    liveNote: "Landing page live; app in early access from August 2026",
     status: "published",
     year: 2025,
     features: [
@@ -74,6 +77,8 @@ const projects: Prisma.ProjectCreateInput[] = [
     overview:
       "AUKTAVE 2K26 is the official portal for a university fest, built to handle event discovery, registrations, schedules, and sponsor showcases. The content layer is fully typed TypeScript with modular event definitions and nested dynamic routing, so adding a new event is a data change, not a code change.",
     featured: true,
+    github: "https://github.com/DevNiru2704/auktave",
+    live: "https://www.auktave.co.in",
     status: "published",
     year: 2026,
     features: [
@@ -101,7 +106,8 @@ const projects: Prisma.ProjectCreateInput[] = [
       "A premium e-commerce platform for an international leather goods manufacturer, built at No Strategy Studios.",
     overview:
       "A production e-commerce site for an international leather manufacturer, built end to end during my time at No Strategy Studios: responsive storefront, security hardening, SEO, and the server it runs on.",
-    live: "https://www.afashions.net",
+    github: "https://github.com/DevNiru2704/a_fashions",
+    live: "https://afashions.net",
     status: "published",
     year: 2025,
     features: [
@@ -129,6 +135,8 @@ const projects: Prisma.ProjectCreateInput[] = [
       "A workflow automation platform that digitizes a glass manufacturing business, from WhatsApp sketch intake to production tracking.",
     overview:
       "Built for Modern Mahal, this platform replaces a paper-based glass manufacturing workflow. Customers send rough hand-drawn sketches over WhatsApp; the system ingests them automatically, converts them into structured, editable production diagrams with AI assistance, validates the geometry, generates quotations, and tracks every job through production.",
+    sourceNote: "Company confidential source, bound by NDA",
+    liveNote: "Deploying end of July 2026",
     status: "published",
     year: 2026,
     features: [
@@ -156,6 +164,8 @@ const projects: Prisma.ProjectCreateInput[] = [
       "A B2B corporate platform and internal management system for an agricultural inputs manufacturer, built as freelance work.",
     overview:
       "A corporate web presence and operations platform for VayitaGrow Bioorganics, an agricultural inputs company. The public site handles product showcase and dealer inquiries; the internal platform manages clients, orders, statements, and field reports. Built to be shown to investors as proof the company runs digitally.",
+    github: "https://github.com/DevNiru2704/vayita-grow",
+    live: "https://vayita-grow.vercel.app",
     status: "published",
     year: 2026,
     features: [

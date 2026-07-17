@@ -19,6 +19,10 @@ model Project {
   featured     Boolean  @default(false)
   github       String?
   live         String?
+  // Shown in place of a link when there is not one: NDA-bound source, or a
+  // launch still ahead. Keep them factual - they are read as commitments.
+  sourceNote   String?
+  liveNote     String?
   status       String   @default("draft")
   year         Int
   metrics      Json?

@@ -18,6 +18,8 @@ export interface Project {
   featured: boolean;
   github: string | null;
   live: string | null;
+  sourceNote: string | null;
+  liveNote: string | null;
   status: string;
   year: number;
   metrics: ProjectMetrics | null;

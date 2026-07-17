@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ComponentType, ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight, ExternalLink, Github, Star, GitFork, Users, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ExternalLink, Github, Star, GitFork, Users, ShieldCheck, Lock, Rocket } from "lucide-react";
 import { projectRepository } from "@/repositories/project-repository";
 import { GridBg } from "@/components/site/grid-bg";
 import { Badge } from "@/components/ui/badge";
@@ -128,6 +128,18 @@ export default async function ProjectPage({ params }: Params) {
                   <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-foreground hover:underline">
                     GitHub <ArrowUpRight className="h-3 w-3" />
                   </a>
+                </li>
+              )}
+              {project.liveNote && (
+                <li className="flex items-start gap-1.5 text-xs text-muted-foreground">
+                  <Rocket className="mt-0.5 h-3 w-3 shrink-0" />
+                  {project.liveNote}
+                </li>
+              )}
+              {project.sourceNote && (
+                <li className="flex items-start gap-1.5 text-xs text-muted-foreground">
+                  <Lock className="mt-0.5 h-3 w-3 shrink-0" />
+                  {project.sourceNote}
                 </li>
               )}
             </ul>
