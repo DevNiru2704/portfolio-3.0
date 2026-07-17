@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Command, Download, Github, Mail, Sparkles, Cpu, Activity, Zap, ChevronRight, CircleDot } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Command, Download, Github, Mail, Sparkles, Cpu, Activity, Zap, CircleDot } from "lucide-react";
 import { owner } from "@/config/owner";
 import { experience } from "@/config/content";
 import type { Project, Lab } from "@/types/content";
@@ -98,13 +98,7 @@ export function HomeView({ projects, labs, counts }: HomeViewProps) {
           eyebrow="Featured Work"
           title="Selected projects, engineered end to end."
           description="Real systems shipped to real users - architecture, tradeoffs, and the receipts."
-        >
-          <div className="absolute right-0 top-1">
-            <Link href="/projects" className="group inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground">
-              All projects <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </div>
-        </SectionHeading>
+        />
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
             <ProjectCard key={p.id} project={p} index={i} />
