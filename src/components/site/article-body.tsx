@@ -4,12 +4,16 @@ import { Fragment, useEffect, useState } from "react";
 import { Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const STORAGE_KEY = "bionic-reading";
+const STORAGE_KEY = "prefetch-reading";
 
 /**
- * Bionic reading bolds the opening letters of each word. The eye fixates on the
- * bold part and the brain completes the rest, so readers who lose their place in
- * flat text (common with ADHD and dyslexia) get an anchor on every word.
+ * Prefetch mode bolds the opening letters of each word. The eye lands on the
+ * bold part and the brain completes the rest before you finish looking, so
+ * readers who lose their place in flat text (common with ADHD and dyslexia) get
+ * an anchor on every word.
+ *
+ * The name is ours: the underlying technique is widely known under a trademarked
+ * brand we deliberately do not use.
  *
  * Roughly 40% of each word is bolded, always at least one letter. Leading
  * punctuation stays unbolded so quotes and brackets do not eat the fixation.
@@ -27,7 +31,7 @@ function fixate(token: string): { pre: string; bold: string; rest: string } | nu
   return { pre, bold: word.slice(0, boldLength), rest: word.slice(boldLength) + post };
 }
 
-function BionicText({ text }: { text: string }) {
+function PrefetchText({ text }: { text: string }) {
   // Keep the separators so spacing survives the split.
   return (
     <>
@@ -48,17 +52,17 @@ function BionicText({ text }: { text: string }) {
 }
 
 export function ArticleBody({ body }: { body: string }) {
-  const [bionic, setBionic] = useState(false);
+  const [prefetch, setPrefetch] = useState(false);
 
   // Read after mount: localStorage is not available while rendering on the
   // server, and seeding state from it directly would mismatch on hydration.
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setBionic(window.localStorage.getItem(STORAGE_KEY) === "true");
+    setPrefetch(window.localStorage.getItem(STORAGE_KEY) === "true");
   }, []);
 
   const toggle = () => {
-    setBionic((previous) => {
+    setPrefetch((previous) => {
       const next = !previous;
       window.localStorage.setItem(STORAGE_KEY, String(next));
       return next;
@@ -70,33 +74,33 @@ export function ArticleBody({ body }: { body: string }) {
   return (
     <>
       <div className="mb-8 flex items-center justify-between gap-4 rounded-xl border border-border bg-card/60 px-4 py-3">
-        <label htmlFor="bionic-toggle" className="flex cursor-pointer items-center gap-3">
+        <label htmlFor="prefetch-toggle" className="flex cursor-pointer items-center gap-3">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-border bg-background">
-            <Zap className={cn("h-4 w-4 transition-colors", bionic ? "text-[hsl(var(--glow-cyan))]" : "text-muted-foreground")} />
+            <Zap className={cn("h-4 w-4 transition-colors", prefetch ? "text-[hsl(var(--glow-cyan))]" : "text-muted-foreground")} />
           </span>
           <span className="flex flex-col leading-tight">
-            <span className="text-sm font-medium">Bionic reading</span>
+            <span className="text-sm font-medium">Prefetch</span>
             <span className="text-xs text-muted-foreground">
               Anchors your eye to the start of each word. Built for ADHD and dyslexic readers.
             </span>
           </span>
         </label>
         <button
-          id="bionic-toggle"
+          id="prefetch-toggle"
           type="button"
           role="switch"
-          aria-checked={bionic}
+          aria-checked={prefetch}
           onClick={toggle}
           className={cn(
             "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border transition-colors",
-            bionic ? "border-transparent bg-[hsl(var(--glow-cyan))]" : "border-border bg-secondary",
+            prefetch ? "border-transparent bg-[hsl(var(--glow-cyan))]" : "border-border bg-secondary",
           )}
         >
-          <span className="sr-only">Toggle bionic reading</span>
+          <span className="sr-only">Toggle prefetch reading mode</span>
           <span
             className={cn(
               "inline-block h-4 w-4 rounded-full bg-background shadow transition-transform",
-              bionic ? "translate-x-6" : "translate-x-1",
+              prefetch ? "translate-x-6" : "translate-x-1",
             )}
           />
         </button>
@@ -104,7 +108,7 @@ export function ArticleBody({ body }: { body: string }) {
 
       {paragraphs.map((paragraph, i) => (
         <p key={i} className="mb-5 text-balance leading-relaxed text-foreground/90">
-          {bionic ? <BionicText text={paragraph.trim()} /> : paragraph.trim()}
+          {prefetch ? <PrefetchText text={paragraph.trim()} /> : paragraph.trim()}
         </p>
       ))}
     </>
