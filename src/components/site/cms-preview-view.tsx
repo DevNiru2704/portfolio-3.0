@@ -275,9 +275,12 @@ function Panel({
   className?: string;
 }) {
   return (
+    // min-w-0: every Panel is a grid child, and grid children default to
+    // min-width:auto - so any long string inside would widen the column, widen
+    // the page, and make cards render at inconsistent widths.
     <section
       className={cn(
-        "rounded-2xl border border-border bg-card/60 p-5",
+        "min-w-0 rounded-2xl border border-border bg-card/60 p-5",
         className,
       )}
     >
@@ -464,7 +467,7 @@ function Overview() {
                 <span className="w-5 text-right font-mono text-[11px] text-muted-foreground">
                   {i + 1}
                 </span>
-                <span className="flex-1 truncate">{row.t}</span>
+                <span className="min-w-0 flex-1 truncate">{row.t}</span>
                 <span className="rounded-md border border-border bg-background px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                   {row.type}
                 </span>
@@ -594,12 +597,15 @@ function BlogManager({ posts }: { posts: BlogPost[] }) {
         }
       />
       <div className="grid gap-3 lg:grid-cols-2">
-        <Panel title="Editor" subtitle="markdown · mdx">
-          <pre className="scrollbar-thin h-105 overflow-auto rounded-xl border border-border bg-background p-4 font-mono text-[12px] leading-relaxed text-foreground/90">
+        <Panel title="Editor" subtitle="markdown · mdx" className="min-w-0">
+          {/* The body is long unwrapped paragraphs. A <pre> will not wrap them,
+              and min-width:auto meant the panel grew to fit the longest line and
+              dragged the whole page sideways. Wrap instead of scroll. */}
+          <pre className="scrollbar-thin h-105 overflow-y-auto whitespace-pre-wrap break-words rounded-xl border border-border bg-background p-4 font-mono text-[12px] leading-relaxed text-foreground/90">
             {`# ${post.title}\n\n> ${post.excerpt}\n\n## Background\n\n${post.body}\n\n\`\`\`bash\n# example install\nnpx create-next-app neural-cmd --typescript\n\`\`\`\n`}
           </pre>
         </Panel>
-        <Panel title="Live preview" subtitle="rendered">
+        <Panel title="Live preview" subtitle="rendered" className="min-w-0">
           <article className="prose prose-invert max-w-none">
             <h2 className="text-2xl font-semibold tracking-tight">
               {post.title}
@@ -1026,10 +1032,12 @@ function AssistantMini({ big = false }: { big?: boolean }) {
       </div>
       <div className="mt-3 flex items-center gap-2 rounded-full border border-border bg-background pr-1 pl-3">
         <Wand2 className="h-3.5 w-3.5 text-muted-foreground" />
+        {/* min-w-0: an input carries an intrinsic minimum width, so flex-1
+            alone will not let it shrink on a narrow screen. */}
         <input
           placeholder="Ask the AI assistant… (preview)"
           disabled
-          className="h-9 flex-1 bg-transparent text-sm placeholder:text-muted-foreground focus:outline-none"
+          className="h-9 min-w-0 flex-1 bg-transparent text-sm placeholder:text-muted-foreground focus:outline-none"
         />
         <button aria-label="Send message" className="inline-grid h-7 w-7 place-items-center rounded-full bg-foreground text-background opacity-60">
           <Send className="h-3 w-3" />

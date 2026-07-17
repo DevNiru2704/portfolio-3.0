@@ -9,8 +9,10 @@ export function SiteFooter() {
   return (
     <footer className="relative mt-24 border-t border-border">
       <div className="pointer-events-none absolute inset-0 bg-grid mask-radial opacity-30" />
-      <div className="container relative grid gap-10 py-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-        <div>
+      {/* Two columns on small screens so Site and More sit side by side rather
+          than stacking into a long scroll; brand and status span both. */}
+      <div className="container relative grid grid-cols-2 gap-x-6 gap-y-10 py-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="col-span-2 min-w-0 lg:col-span-1">
           <div className="flex items-center gap-2.5">
             {/* Bare, matching the nav: the footer sits on the dark background too.
                 Only the favicon keeps a plate, for light browser tab strips. */}
@@ -31,7 +33,7 @@ export function SiteFooter() {
         <FooterCol title="Site" items={navigation.slice(0, 4)} />
         <FooterCol title="More" items={[...navigation.slice(4), ...secondaryNav]} />
 
-        <div>
+        <div className="col-span-2 min-w-0 lg:col-span-1">
           <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Status</div>
           <ul className="mt-4 space-y-2 text-sm">
             <li className="flex items-center gap-2">
@@ -93,7 +95,7 @@ function SocialIcon({
 
 function FooterCol({ title, items }: { title: string; items: NavItem[] }) {
   return (
-    <div>
+    <div className="min-w-0">
       <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{title}</div>
       <ul className="mt-4 space-y-2 text-sm">
         {items.map((it) => (
