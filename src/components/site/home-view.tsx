@@ -298,9 +298,10 @@ function FactsPanel() {
 }
 
 function CommandPreview({ onOpen }: { onOpen: () => void }) {
+  // These mirror real palette entries - keep them in sync with command-palette.tsx.
   const rows = [
     { label: "View Projects", hint: "→ /projects", icon: "P" },
-    { label: "Toggle Dark Mode", hint: "theme", icon: "T" },
+    { label: "Download CV", hint: "pdf", icon: "D" },
     { label: "Open CMS Preview", hint: "→ /cms-preview", icon: "C" },
     { label: "Jump to terminal", hint: "section", icon: "$" },
   ];
@@ -312,7 +313,7 @@ function CommandPreview({ onOpen }: { onOpen: () => void }) {
     >
       <div className="flex items-center gap-2 border-b border-border px-3 py-2">
         <Command className="h-3.5 w-3.5 text-muted-foreground" />
-        <span className="text-xs text-muted-foreground">Search projects, switch theme, jump anywhere…</span>
+        <span className="text-xs text-muted-foreground">Search projects, download the CV, jump anywhere…</span>
         <kbd className="ml-auto rounded-md border border-border bg-background px-2 py-0.5 font-mono text-[10px]">⌘K</kbd>
       </div>
       <div className="divide-y divide-border">

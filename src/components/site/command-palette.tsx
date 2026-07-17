@@ -103,9 +103,9 @@ export function CommandPaletteProvider({ children, projects }: CommandPalettePro
           </div>
           <div className="text-[11px] text-muted-foreground">Neural Command Interface</div>
         </div>
-        <CommandInput placeholder="Type a command, search projects, switch theme…" />
+        <CommandInput placeholder="Type a command, search projects, jump anywhere…" />
         <CommandList className="max-h-105">
-          <CommandEmpty>No results. Try &lsquo;projects&rsquo;, &lsquo;contact&rsquo; or &lsquo;dark&rsquo;.</CommandEmpty>
+          <CommandEmpty>No results. Try &lsquo;projects&rsquo;, &lsquo;blog&rsquo; or &lsquo;contact&rsquo;.</CommandEmpty>
 
           {/* Order mirrors `navigation` in config/owner.ts - keep them in sync. */}
           <CommandGroup heading="Navigation">
