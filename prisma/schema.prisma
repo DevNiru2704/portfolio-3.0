@@ -31,7 +31,7 @@ model Project {
   challenges   String?
   tradeoffs    String?
   performance  String?
-  accent       String?
+  // No accent column: the site has one accent (--signal in globals.css).
   cover        String?
   createdAt    DateTime @default(now())
 

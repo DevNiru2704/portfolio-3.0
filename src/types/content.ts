@@ -28,7 +28,6 @@ export interface Project {
   challenges: string | null;
   tradeoffs: string | null;
   performance: string | null;
-  accent: string | null;
   cover: string | null;
 }
 

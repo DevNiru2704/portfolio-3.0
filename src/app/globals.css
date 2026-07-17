@@ -51,13 +51,23 @@
   --destructive-foreground: 0 0% 98%;
   --border: 0 0% 13%;
   --input: 0 0% 13%;
-  --ring: 199 89% 74%;
+  --ring: 38 92% 58%;
   --radius: 0.625rem;
 
-  /* Custom glow + surface tokens */
-  --glow-cyan: 199 89% 74%;
-  --glow-blue: 213 94% 78%;
-  --glow-purple: 250 91% 85%;
+  /* The single accent. Amber, flat, used sparingly.
+   *
+   * Named --signal rather than --accent because shadcn already owns --accent
+   * (the grey above) and Tailwind generates text-accent/bg-accent from it.
+   *
+   * Why amber, honestly: it is NOT more legible than the cyan it replaced
+   * (cyan scored 11.94:1 on this background, amber 9.76:1 - both clear AAA),
+   * and the "amber phosphor is easier on the eyes" claim is folklore with
+   * little scientific basis. It is chosen on taste: warm, far from the
+   * cyan/blue/violet palette every generated site ships, and it does not
+   * collide with the emerald used for status. Do not re-argue it as ergonomics,
+   * and do not "restore" a blue. */
+  --signal: 38 92% 58%;
+
   --surface-1: 0 0% 6.7%;
   --surface-2: 0 0% 9%;
   --surface-3: 0 0% 12%;
@@ -79,7 +89,7 @@
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: hsl(var(--glow-cyan) / 0.25);
+    background: hsl(var(--signal) / 0.25);
     color: hsl(var(--foreground));
   }
 }
@@ -146,39 +156,31 @@
 }
 
 /* Cinematic glow */
-@utility glow-cyan {
+@utility glow-signal {
   box-shadow:
-    0 0 0 1px hsl(var(--glow-cyan) / 0.15),
-    0 0 24px -4px hsl(var(--glow-cyan) / 0.35),
-    inset 0 0 24px -12px hsl(var(--glow-cyan) / 0.3);
+    0 0 0 1px hsl(var(--signal) / 0.15),
+    0 0 24px -4px hsl(var(--signal) / 0.35),
+    inset 0 0 24px -12px hsl(var(--signal) / 0.3);
 }
 @utility glow-soft {
   box-shadow:
     0 1px 0 0 hsl(var(--foreground) / 0.04) inset,
     0 -1px 0 0 hsl(var(--background) / 0.4) inset,
-    0 24px 48px -24px hsl(var(--glow-cyan) / 0.18);
+    0 24px 48px -24px hsl(var(--signal) / 0.18);
 }
 @utility text-glow {
-  text-shadow: 0 0 24px hsl(var(--glow-cyan) / 0.3);
+  text-shadow: 0 0 24px hsl(var(--signal) / 0.3);
 }
 
-/* Gradient text */
-@utility text-gradient {
-  background: linear-gradient(180deg, hsl(var(--foreground)) 0%, hsl(var(--foreground) / 0.55) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-@utility text-gradient-accent {
-  background: linear-gradient(
-    135deg,
-    hsl(var(--glow-cyan)) 0%,
-    hsl(var(--glow-blue)) 50%,
-    hsl(var(--glow-purple)) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Flat accent text.
+ *
+ * This replaced two gradient utilities. text-gradient faded headings from 100%
+ * to 55% opacity, which dropped glyph-bottom contrast from 19.08:1 to 6.08:1 -
+ * under WCAG AAA, and 68% of the available contrast thrown away for decoration.
+ * text-signal was a cyan-blue-purple sweep. Neither is coming back:
+ * hierarchy here comes from weight, scale, rules and mono labels. */
+@utility text-signal {
+  color: hsl(var(--signal));
 }
 
 /* Animated conic border */
@@ -190,12 +192,13 @@
     inset: 0;
     border-radius: inherit;
     padding: 1px;
+    /* Single-hue sweep: this was cyan into purple, which read as a rainbow. */
     background: conic-gradient(
       from 0deg,
       transparent 0%,
-      hsl(var(--glow-cyan) / 0.6) 25%,
+      hsl(var(--signal) / 0.6) 25%,
       transparent 50%,
-      hsl(var(--glow-purple) / 0.5) 75%,
+      hsl(var(--signal) / 0.35) 75%,
       transparent 100%
     );
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -229,7 +232,7 @@
 @utility spotlight {
   background: radial-gradient(
     600px circle at var(--mx, 50%) var(--my, 50%),
-    hsl(var(--glow-cyan) / 0.06),
+    hsl(var(--signal) / 0.06),
     transparent 50%
   );
 }

@@ -56,7 +56,7 @@ export default async function NowPage() {
               <ul className="mt-5 space-y-3">
                 {inCategory(s.key).map((it) => (
                   <li key={it.id} className="flex items-start gap-2 rounded-lg border border-border bg-background p-3 text-sm">
-                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[hsl(var(--glow-cyan))]" />
+                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[hsl(var(--signal))]" />
                     <span className="text-foreground/90">{it.body}</span>
                   </li>
                 ))}
@@ -97,7 +97,7 @@ export default async function NowPage() {
                   <div className="text-sm font-semibold">Single-objective focus</div>
                 </div>
               </div>
-              <p className="mt-4 text-lg font-medium text-gradient">{goal}</p>
+              <p className="mt-4 text-lg font-medium">{goal}</p>
             </div>
           )}
         </div>

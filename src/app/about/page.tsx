@@ -26,11 +26,11 @@ export default function AboutPage() {
         <div className="container relative grid gap-10 py-16 md:grid-cols-[1.4fr_1fr] md:items-center">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              <span className="h-1 w-1 rounded-full bg-[hsl(var(--glow-cyan))]" />
+              <span className="h-1 w-1 rounded-full bg-[hsl(var(--signal))]" />
               About · {owner.location}
             </div>
             <h1 className="mt-4 text-balance text-5xl font-semibold tracking-tight md:text-7xl">
-              <span className="text-gradient">Engineer, by intent.</span>
+              Engineer, by intent.
             </h1>
             <p className="mt-4 max-w-xl text-muted-foreground">
               I&apos;m a full stack developer based in Kolkata, India - currently CTO at DokLink Services, where I own
@@ -85,7 +85,7 @@ export default function AboutPage() {
           <ol className="space-y-4 md:space-y-0">
             {experience.map((e) => (
               <li key={e.title} className="relative rounded-2xl border border-border bg-card/60 p-6 md:ml-12">
-                <span className="absolute -left-11 top-7 hidden h-3 w-3 rounded-full bg-[hsl(var(--glow-cyan))] shadow-[0_0_10px_hsl(var(--glow-cyan))] md:block" />
+                <span className="absolute -left-11 top-7 hidden h-3 w-3 rounded-full bg-[hsl(var(--signal))] shadow-[0_0_10px_hsl(var(--signal))] md:block" />
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">{e.year}</span>
                 <span className="h-px flex-1 bg-border" />
@@ -107,7 +107,7 @@ export default function AboutPage() {
               <ul className="mt-3 space-y-1.5 text-sm">
                 {items.map((it) => (
                   <li key={it} className="flex items-center gap-2">
-                    <span className="h-1 w-1 rounded-full bg-[hsl(var(--glow-cyan))]" />
+                    <span className="h-1 w-1 rounded-full bg-[hsl(var(--signal))]" />
                     {it}
                   </li>
                 ))}

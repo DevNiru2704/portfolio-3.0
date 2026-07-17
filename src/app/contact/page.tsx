@@ -25,8 +25,8 @@ export default function ContactPage() {
               Available · Avg response 24h
             </div>
             <h1 className="mt-4 text-balance text-5xl font-semibold tracking-tight md:text-7xl">
-              <span className="text-gradient">Let&apos;s build</span>{" "}
-              <span className="text-gradient-accent">something</span>.
+              Let&apos;s build{" "}
+              <span className="text-signal">something</span>.
             </h1>
             <p className="mt-4 max-w-xl text-muted-foreground">
               Tell me about the system you&apos;re trying to build. Freelance, full-time, advisory, or open source - I read

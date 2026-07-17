@@ -12,7 +12,7 @@ export function SiteFooter() {
         <div>
           <div className="flex items-center gap-2.5">
             <span className="grid h-8 w-8 place-items-center rounded-lg border border-border bg-card text-[10px] font-bold">
-              <span className="text-gradient-accent">{owner.brand.initials}</span>
+              <span className="text-signal">{owner.brand.initials}</span>
             </span>
             <div className="leading-none">
               <div className="text-sm font-semibold">{owner.brand.name}</div>

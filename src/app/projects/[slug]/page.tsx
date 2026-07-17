@@ -8,7 +8,7 @@ import { GridBg } from "@/components/site/grid-bg";
 import { Badge } from "@/components/ui/badge";
 
 type Params = { params: Promise<{ slug: string }> };
-const DEFAULT_ACCENT = "199 89% 74%";
+const DEFAULT_ACCENT = "38 92% 58%";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +24,7 @@ export default async function ProjectPage({ params }: Params) {
   const projects = await projectRepository.findAll();
   const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
-  const accent = project.accent ?? DEFAULT_ACCENT;
+  const accent = DEFAULT_ACCENT;
   const others = projects.filter((p) => p.slug !== project.slug);
 
   return (
@@ -43,7 +43,7 @@ export default async function ProjectPage({ params }: Params) {
             </span>
           </div>
           <h1 className="mt-4 text-balance text-5xl font-semibold tracking-tight md:text-7xl">
-            <span className="text-gradient">{project.title}</span>
+            {project.title}
           </h1>
           <p className="mt-4 max-w-2xl text-balance text-lg text-muted-foreground">{project.description}</p>
           <div className="mt-6 flex flex-wrap items-center gap-2">
@@ -87,7 +87,7 @@ export default async function ProjectPage({ params }: Params) {
             <ul className="grid gap-2 md:grid-cols-2">
               {project.features.map((f) => (
                 <li key={f} className="flex items-start gap-2 rounded-xl border border-border bg-card/50 p-4 text-sm">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[hsl(var(--glow-cyan))]" />
+                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[hsl(var(--signal))]" />
                   <span>{f}</span>
                 </li>
               ))}
@@ -181,7 +181,7 @@ function Metric({ icon: Icon, label, value }: { icon: ComponentType<{ className?
 function SectionEyebrow({ children }: { children: ReactNode }) {
   return (
     <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-      <span className="h-1 w-1 rounded-full bg-[hsl(var(--glow-cyan))]" />
+      <span className="h-1 w-1 rounded-full bg-[hsl(var(--signal))]" />
       {children}
     </div>
   );

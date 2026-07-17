@@ -60,16 +60,17 @@ const systemStatus = {
 
 const githubStats = {
   topLanguages: [
-    { name: "TypeScript", percentage: 34, color: "199 89% 74%" },
-    { name: "Python", percentage: 28, color: "250 91% 85%" },
-    { name: "JavaScript", percentage: 18, color: "213 94% 78%" },
-    { name: "Java", percentage: 10, color: "30 80% 65%" },
-    { name: "C++", percentage: 6, color: "160 60% 55%" },
-    { name: "Other", percentage: 4, color: "0 0% 60%" },
+    // One hue, stepped by lightness - a categorical rainbow was the look we removed.
+    { name: "TypeScript", percentage: 34, color: "38 92% 58%" },
+    { name: "Python", percentage: 28, color: "38 80% 48%" },
+    { name: "JavaScript", percentage: 18, color: "38 70% 40%" },
+    { name: "Java", percentage: 10, color: "38 60% 32%" },
+    { name: "C++", percentage: 6, color: "38 50% 26%" },
+    { name: "Other", percentage: 4, color: "0 0% 40%" },
   ],
 };
 
-const DEFAULT_ACCENT = "199 89% 74%";
+const DEFAULT_ACCENT = "38 92% 58%";
 
 interface NavItem {
   id: string;
@@ -132,7 +133,7 @@ export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: 
           <div className="rounded-2xl border border-border bg-card/60 p-3">
             <div className="flex items-center gap-2 px-2 py-1.5">
               <span className="grid h-7 w-7 place-items-center rounded-md border border-border bg-background text-[10px] font-semibold">
-                <span className="text-gradient-accent">NM</span>
+                <span className="text-signal">NM</span>
               </span>
               <div className="leading-none">
                 <div className="text-xs font-semibold">NIRMALYA</div>
@@ -217,7 +218,7 @@ function TopBar({
         <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
           {subtitle}
         </div>
-        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-gradient">
+        <h2 className="mt-1 text-2xl font-semibold tracking-tight">
           {title}
         </h2>
       </div>
@@ -272,14 +273,14 @@ function Spark() {
       <polyline
         points={points}
         fill="none"
-        stroke="hsl(var(--glow-cyan))"
+        stroke="hsl(var(--signal))"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <polyline
         points={`${points} 112,32 0,32`}
-        fill="hsl(var(--glow-cyan) / 0.12)"
+        fill="hsl(var(--signal) / 0.12)"
         stroke="none"
       />
     </svg>
@@ -490,7 +491,7 @@ function ProjectsManager({ projects }: { projects: Project[] }) {
                     <span
                       className="h-1.5 w-1.5 rounded-full"
                       style={{
-                        background: `hsl(${p.accent ?? DEFAULT_ACCENT})`,
+                        background: `hsl(${DEFAULT_ACCENT})`,
                       }}
                     />
                     <span className="font-medium">{p.title}</span>
@@ -793,7 +794,7 @@ function MessagesPanel() {
                       {m.name}
                     </span>
                     {m.unread && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--glow-cyan))]" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--signal))]" />
                     )}
                   </div>
                   <span className="font-mono text-[10px] text-muted-foreground">
@@ -839,7 +840,7 @@ function LabPanel({ labs }: { labs: Lab[] }) {
             </p>
             <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-secondary">
               <div
-                className="h-full rounded-full bg-[hsl(var(--glow-cyan))]"
+                className="h-full rounded-full bg-[hsl(var(--signal))]"
                 style={{ width: `${l.progress}%` }}
               />
             </div>
@@ -869,7 +870,7 @@ function AnalyticsPanel() {
                 style={{
                   height: `${(b / max) * 100}%`,
                   background:
-                    "linear-gradient(to top, hsl(var(--glow-cyan) / 0.15), hsl(var(--glow-cyan) / 0.6))",
+                    "linear-gradient(to top, hsl(var(--signal) / 0.15), hsl(var(--signal) / 0.6))",
                 }}
               />
             ))}

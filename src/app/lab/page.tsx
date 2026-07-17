@@ -28,7 +28,7 @@ export default async function LabPage() {
           />
           <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em]">
-              <FlaskConical className="h-3.5 w-3.5 text-[hsl(var(--glow-cyan))]" />
+              <FlaskConical className="h-3.5 w-3.5 text-[hsl(var(--signal))]" />
               {labs.length} experiments
             </span>
             <span className="font-mono text-[10px] uppercase tracking-[0.18em]">{inProgress} in progress</span>

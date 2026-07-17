@@ -39,7 +39,7 @@ export default async function PhilosophyPage() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </div>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-gradient-accent">{p.title}</h3>
+              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-signal">{p.title}</h3>
               <p className="mt-3 max-w-prose text-sm leading-relaxed text-foreground/90">{p.body}</p>
               <span className="pointer-events-none absolute -right-10 -top-10 text-7xl font-bold text-muted/30">{i + 1}</span>
             </li>

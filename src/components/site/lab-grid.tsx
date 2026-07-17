@@ -50,7 +50,7 @@ export function LabGrid({ labs }: { labs: Lab[] }) {
                 whileInView={{ width: `${lab.progress}%` }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="h-full rounded-full bg-[hsl(var(--glow-cyan))]"
+                className="h-full rounded-full bg-[hsl(var(--signal))]"
               />
             </div>
           </div>

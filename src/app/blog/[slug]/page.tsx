@@ -52,7 +52,7 @@ export default async function BlogPostPage({ params }: Params) {
             </div>
           </div>
           <h1 className="mt-4 max-w-4xl text-balance text-4xl font-semibold tracking-tight md:text-6xl">
-            <span className="text-gradient">{post.title}</span>
+            {post.title}
           </h1>
           <p className="mt-4 max-w-2xl text-balance text-lg text-muted-foreground">{post.excerpt}</p>
         </div>
@@ -87,7 +87,7 @@ export default async function BlogPostPage({ params }: Params) {
                     href={`/blog/${p.slug}`}
                     className="group flex items-start gap-3 rounded-md border border-border bg-background px-3 py-2 transition-colors hover:border-foreground/20"
                   >
-                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[hsl(var(--glow-cyan))]" />
+                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[hsl(var(--signal))]" />
                     <span className="text-sm leading-tight">{p.title}</span>
                   </Link>
                 </li>

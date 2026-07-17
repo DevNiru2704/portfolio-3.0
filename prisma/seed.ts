@@ -35,7 +35,6 @@ const projects: Prisma.ProjectCreateInput[] = [
       "A single Django monolith instead of microservices. For a small team shipping fast in healthcare, one well-structured codebase with clear module boundaries beats a distributed system nobody has time to operate.",
     performance:
       "Booking-critical endpoints are kept lean: indexed geo-lookups for nearby hospitals and transaction-scoped writes for reservations. The app stays responsive on low-end Android devices, which is where emergencies actually happen.",
-    accent: "199 89% 74%",
   },
   {
     slug: "floatchat",
@@ -65,7 +64,6 @@ const projects: Prisma.ProjectCreateInput[] = [
       "A hosted 7B model instead of a frontier LLM. Slightly weaker generation, but predictable cost and latency, which matters when every chat message triggers inference.",
     performance:
       "The dataset is pre-processed once through the ETL pipeline, so queries hit indexed PostgreSQL tables instead of raw NetCDF files. Visualization data is shaped server-side to keep the client light.",
-    accent: "213 94% 78%",
   },
   {
     slug: "auktave-2k26",
@@ -95,7 +93,6 @@ const projects: Prisma.ProjectCreateInput[] = [
       "Static, typed content instead of a CMS. For a fest site with a fixed content window, type-checked data files beat CMS complexity.",
     performance:
       "SEO-first build with structured metadata and generated sitemaps. Animations are lazy and interruptible rather than blocking the first paint.",
-    accent: "250 91% 85%",
   },
   {
     slug: "afashions",
@@ -124,7 +121,6 @@ const projects: Prisma.ProjectCreateInput[] = [
       "A VPS instead of managed hosting. More operational responsibility, but full control over the stack and a fraction of the cost at this scale.",
     performance:
       "Perfect Lighthouse SEO score via structured metadata, Schema.org data, and optimized indexing. Image-heavy pages stay fast through aggressive optimization.",
-    accent: "30 80% 65%",
   },
   {
     slug: "glass-automation",
@@ -153,7 +149,6 @@ const projects: Prisma.ProjectCreateInput[] = [
       "Suggestions over automation. The system could auto-approve clean diagrams, but in manufacturing a wrong dimension is expensive, so final decisions stay with the administrator.",
     performance:
       "Validation runs synchronously on save so errors surface while the operator still has context, not after the job reaches the factory floor.",
-    accent: "160 60% 55%",
   },
   {
     slug: "vayita-grow",
@@ -182,7 +177,6 @@ const projects: Prisma.ProjectCreateInput[] = [
       "Shipped the highest-value internal modules first instead of the full ERP surface. An investor demo that works beats a feature list that does not.",
     performance:
       "Server components by default with client interactivity pushed to leaf components. Internal tables paginate server-side to stay fast as data grows.",
-    accent: "142 70% 60%",
   },
 ];
 

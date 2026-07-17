@@ -85,6 +85,9 @@ rule stops being true, delete it; do not leave it as "mostly right".
   `navigation` array, which is **the single source of nav order** for the desktop
   nav and the mobile drawer. The command palette's Navigation group is hand-written
   in `command-palette.tsx` - if you reorder `navigation`, reorder that to match.
+  `role` is **split on "·"** to render the hero chips, so keep the separator;
+  `shortRole` exists because the full role would push the page title past ~80 chars
+  and truncate in search results.
 - `src/config/content.ts` - experience timeline and skills by layer. These are
   **static config, not database rows**: they ship with the build and need no
   seeding. **Everything here must stay factually true** - fabricated demo content
@@ -118,6 +121,27 @@ Tailwind v4: all design tokens and custom utilities (`container`, `glass`,
 **The site is dark only.** Tokens sit in a single `:root` with `color-scheme: dark`;
 there is no `.dark` class, no `@custom-variant dark`, and no `dark:` utilities
 anywhere. A `dark:` class would compile to nothing, so do not write one.
+
+**One accent, no gradients.** The accent is `--signal` (amber, `38 92% 58%`), used
+flat via the `text-signal` utility. It is named `--signal` because shadcn already
+owns `--accent` (a grey) and Tailwind generates `text-accent` from it.
+
+- There are **no gradient text utilities**. `text-gradient` and
+  `text-gradient-accent` were deleted: the first faded headings to 55% opacity,
+  dropping glyph-bottom contrast from 19.08:1 to **6.08:1** (below AAA) purely for
+  decoration; the second was a cyan-blue-purple sweep. Hierarchy comes from weight,
+  scale, hairline rules and mono labels. Do not reintroduce either.
+- **Why amber, honestly**: not ergonomics. It is *less* contrasty than the cyan it
+  replaced (9.76:1 vs 11.94:1, both AAA), and the "amber phosphor is easier on the
+  eyes" claim has little scientific basis. It was chosen on taste: warm, far from the
+  cyan/violet palette every generated site ships, and it does not collide with the
+  emerald used for status dots or the red used for terminal errors. Do not re-argue
+  it as ergonomics and do not "restore" a blue.
+- Projects have **no per-project accent**. That column was dropped; six different
+  hues were the rainbow this replaced. Emerald (status) and red (errors) are the only
+  other colours in the system.
+- The grid-line `linear-gradient`s and `mask-*` rules are structural, not decorative
+  colour - leave them.
 
 Dynamic per-project accent colors use inline `style={{...}}` with HSL triplets
 (e.g. `"199 89% 74%"`) - the accepted pattern (webhint inline-style warnings are
@@ -223,7 +247,9 @@ depend on a live DB). After changing `prisma/seed.ts` or the schema:
 
 ### Static assets
 
-- `public/og.png` - 1200x630, generated with a PIL script; regenerate if branding changes.
+- `public/og.png` - 1200x630, generated with a PIL script (amber `#F5A524`, name-first,
+  chips mirroring the hero). It **bakes in the branding**, so regenerate it whenever the
+  accent, name treatment or `owner.role` changes - it will not update itself.
 - `public/resume.pdf` - **a copy** of the CV kept in the separate Resume project
   (`~/Personal Files/Programs/Resume`). Nothing syncs it: when the CV changes there,
   copy it across again. It is served by the Download CV buttons in the nav, hero,

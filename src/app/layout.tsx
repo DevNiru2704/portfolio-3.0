@@ -14,7 +14,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", 
 export const metadata: Metadata = {
   metadataBase: new URL(owner.url),
   title: {
-    default: `${owner.name} - ${owner.role}`,
+    default: `${owner.name} - ${owner.shortRole}`,
     template: `%s · ${owner.name}`,
   },
   description: owner.tagline,

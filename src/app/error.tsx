@@ -14,7 +14,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">error · 500</div>
         <h1 className="mt-3 text-5xl font-semibold tracking-tight md:text-7xl">
-          <span className="text-gradient">Something</span> <span className="text-gradient-accent">broke.</span>
+          Something <span className="text-signal">broke.</span>
         </h1>
         <p className="mt-3 max-w-md text-balance text-muted-foreground">
           An unexpected error occurred while rendering this page. You can retry or head back home.

@@ -114,7 +114,7 @@ export function Terminal() {
     <div
       id="terminal"
       onClick={focus}
-      className="group relative overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur shadow-[0_30px_120px_-40px_hsl(var(--glow-cyan)/0.25)]"
+      className="group relative overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur shadow-[0_30px_120px_-40px_hsl(var(--signal)/0.25)]"
     >
       {/* Header */}
       <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
@@ -135,7 +135,7 @@ export function Terminal() {
           <Line key={i} {...l} />
         ))}
         <div className="flex items-center gap-2">
-          <span className="text-[hsl(var(--glow-cyan))]">{PROMPT}</span>
+          <span className="text-[hsl(var(--signal))]">{PROMPT}</span>
           {/* The block cursor stands in for the caret, so the input is sized to
               its content (1ch per character in this monospace font) and the
               native caret is hidden. A flexible input would push the cursor to
@@ -167,7 +167,7 @@ function Line({ kind, text }: TermLine) {
   if (kind === "in") {
     return (
       <div className="flex items-start gap-2">
-        <span className="text-[hsl(var(--glow-cyan))]">{PROMPT}</span>
+        <span className="text-[hsl(var(--signal))]">{PROMPT}</span>
         <span>{text}</span>
       </div>
     );

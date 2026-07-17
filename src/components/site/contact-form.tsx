@@ -42,7 +42,7 @@ export function ContactForm() {
             transition={{ duration: 0.3 }}
             onSubmit={onSubmit}
             noValidate
-            className="relative rounded-2xl border border-border bg-card/70 p-6 backdrop-blur shadow-[0_30px_120px_-40px_hsl(var(--glow-cyan)/0.25)]"
+            className="relative rounded-2xl border border-border bg-card/70 p-6 backdrop-blur shadow-[0_30px_120px_-40px_hsl(var(--signal)/0.25)]"
           >
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">new message</div>
             <div className="mt-1 text-lg font-semibold">Open a conversation</div>

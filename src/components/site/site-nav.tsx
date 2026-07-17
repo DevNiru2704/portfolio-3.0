@@ -37,8 +37,8 @@ export function SiteNav() {
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="group flex items-center gap-2.5">
             <span className="relative grid h-8 w-8 place-items-center rounded-lg border border-border bg-card text-[10px] font-bold tracking-tight">
-              <span className="absolute inset-0 rounded-lg bg-linear-to-br from-[hsl(var(--glow-cyan)/0.25)] via-transparent to-[hsl(var(--glow-purple)/0.18)]" />
-              <span className="relative z-10 text-gradient-accent">{owner.brand.initials}</span>
+              <span className="absolute inset-0 rounded-lg bg-[hsl(var(--signal)/0.12)]" />
+              <span className="relative z-10 text-signal">{owner.brand.initials}</span>
             </span>
             <div className="hidden flex-col leading-none sm:flex">
               <span className="text-[13px] font-semibold tracking-tight">{owner.brand.name}</span>

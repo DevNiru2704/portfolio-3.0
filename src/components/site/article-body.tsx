@@ -76,7 +76,7 @@ export function ArticleBody({ body }: { body: string }) {
       <div className="mb-8 flex items-center justify-between gap-4 rounded-xl border border-border bg-card/60 px-4 py-3">
         <label htmlFor="prefetch-toggle" className="flex cursor-pointer items-center gap-3">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-border bg-background">
-            <Bold className={cn("h-4 w-4 transition-colors", prefetch ? "text-[hsl(var(--glow-cyan))]" : "text-muted-foreground")} />
+            <Bold className={cn("h-4 w-4 transition-colors", prefetch ? "text-[hsl(var(--signal))]" : "text-muted-foreground")} />
           </span>
           <span className="flex flex-col leading-tight">
             <span className="text-sm font-medium">Prefetch</span>
@@ -93,7 +93,7 @@ export function ArticleBody({ body }: { body: string }) {
           onClick={toggle}
           className={cn(
             "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border transition-colors",
-            prefetch ? "border-transparent bg-[hsl(var(--glow-cyan))]" : "border-border bg-secondary",
+            prefetch ? "border-transparent bg-[hsl(var(--signal))]" : "border-border bg-secondary",
           )}
         >
           <span className="sr-only">Toggle prefetch reading mode</span>

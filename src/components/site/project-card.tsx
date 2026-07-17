@@ -14,13 +14,13 @@ interface ProjectCardProps {
   featured?: boolean;
 }
 
-const DEFAULT_ACCENT = "199 89% 74%";
+const DEFAULT_ACCENT = "38 92% 58%";
 
 export function ProjectCard({ project, index = 0, featured = false }: ProjectCardProps) {
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const ref = useRef<HTMLDivElement>(null);
-  const accent = project.accent ?? DEFAULT_ACCENT;
+  const accent = DEFAULT_ACCENT;
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const r = ref.current?.getBoundingClientRect();

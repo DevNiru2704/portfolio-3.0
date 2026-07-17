@@ -39,14 +39,27 @@ export function HomeView({ projects, labs, counts }: HomeViewProps) {
         <div className="container relative pt-16 md:pt-24 pb-20 md:pb-28">
           <div className="flex flex-col items-start gap-6">
             <AvailabilityPill label="Available · Freelance + Full-time" />
-            <h1 className="font-display text-balance text-[clamp(2.5rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.04em]">
-              <span className="block text-gradient">FULL STACK</span>
-              <span className="block text-gradient">DEVELOPER · WEB</span>
-              <span className="block">
-                <span className="text-gradient-accent">+ MOBILE</span> <span className="text-muted-foreground/60">·</span>{" "}
-                <span className="text-gradient">AI SYSTEMS</span>
-              </span>
+
+            {/* The name leads. Designations sit under it as chips rather than as a
+                three-line headline, so the biggest type on the page is who this is. */}
+            <h1 className="font-display text-balance text-[clamp(2.75rem,8vw,6rem)] font-semibold leading-[0.92] tracking-[-0.045em]">
+              NIRMALYA
+              <br />
+              MANDAL
             </h1>
+
+            {/* Split from owner.role so config stays the single source of truth. */}
+            <ul className="-mt-1 flex flex-wrap items-center gap-2">
+              {owner.role.split("·").map((discipline) => (
+                <li
+                  key={discipline}
+                  className="rounded-full border border-border bg-card/60 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground"
+                >
+                  {discipline.trim()}
+                </li>
+              ))}
+            </ul>
+
             <p className="max-w-2xl text-balance text-base leading-relaxed text-muted-foreground md:text-lg">{owner.tagline}</p>
 
             <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -136,7 +149,7 @@ export function HomeView({ projects, labs, counts }: HomeViewProps) {
                 className="relative rounded-2xl border border-border bg-card/60 p-5"
               >
                 <div className="flex items-center gap-2">
-                  <CircleDot className="h-3.5 w-3.5 text-[hsl(var(--glow-cyan))]" />
+                  <CircleDot className="h-3.5 w-3.5 text-[hsl(var(--signal))]" />
                   <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{e.year}</span>
                 </div>
                 <div className="mt-2 text-sm font-semibold">{e.title}</div>
@@ -158,7 +171,7 @@ export function HomeView({ projects, labs, counts }: HomeViewProps) {
             <div className="relative flex items-start justify-between">
               <div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                  <Sparkles className="h-3 w-3 text-[hsl(var(--glow-cyan))]" />
+                  <Sparkles className="h-3 w-3 text-[hsl(var(--signal))]" />
                   CMS Preview
                 </div>
                 <h3 className="mt-4 text-2xl font-semibold tracking-tight md:text-3xl">A CMS concept, built in the open.</h3>
@@ -181,9 +194,9 @@ export function HomeView({ projects, labs, counts }: HomeViewProps) {
               ).map(([l, n], i) => (
                 <div key={l} className="rounded-xl border border-border bg-background p-3">
                   <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{l}</div>
-                  <div className="mt-1 text-xl font-semibold tabular-nums text-gradient-accent">{n}</div>
+                  <div className="mt-1 text-xl font-semibold tabular-nums text-signal">{n}</div>
                   <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-secondary">
-                    <div className="h-full rounded-full bg-[hsl(var(--glow-cyan))]" style={{ width: `${[60, 80, 45][i]}%` }} />
+                    <div className="h-full rounded-full bg-[hsl(var(--signal))]" style={{ width: `${[60, 80, 45][i]}%` }} />
                   </div>
                 </div>
               ))}
@@ -228,15 +241,15 @@ export function HomeView({ projects, labs, counts }: HomeViewProps) {
           <div className="absolute inset-0 bg-grid mask-radial opacity-30" />
           <div
             className="absolute -top-32 left-1/2 h-75 w-200 -translate-x-1/2 rounded-full blur-3xl opacity-50"
-            style={{ background: "radial-gradient(60% 60% at 50% 50%, hsl(var(--glow-cyan) / 0.18), transparent 60%)" }}
+            style={{ background: "radial-gradient(60% 60% at 50% 50%, hsl(var(--signal) / 0.18), transparent 60%)" }}
           />
           <div className="relative grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <div>
               <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">let&apos;s build</div>
               <h3 className="mt-4 text-balance text-3xl font-semibold tracking-tight md:text-5xl">
-                <span className="text-gradient">Have a system in mind?</span>
+                Have a system in mind?
                 <br />
-                <span className="text-gradient-accent">Let&apos;s engineer it together.</span>
+                <span className="text-signal">Let&apos;s engineer it together.</span>
               </h3>
               <p className="mt-3 max-w-xl text-muted-foreground">
                 Open to full-time roles and freelance work. Based in {owner.location} · working with teams worldwide.
@@ -282,7 +295,7 @@ function FactsPanel() {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-border bg-card/70 p-1 backdrop-blur">
       <div className="flex items-center gap-2 border-b border-border px-3 py-2">
-        <CircleDot className="h-3.5 w-3.5 text-[hsl(var(--glow-cyan))]" />
+        <CircleDot className="h-3.5 w-3.5 text-[hsl(var(--signal))]" />
         <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">quick facts</span>
       </div>
       <ul className="divide-y divide-border">
@@ -308,7 +321,7 @@ function CommandPreview({ onOpen }: { onOpen: () => void }) {
   return (
     <button
       onClick={onOpen}
-      className="group relative w-full overflow-hidden rounded-2xl border border-border bg-card/70 p-1 text-left backdrop-blur shadow-[0_30px_120px_-40px_hsl(var(--glow-cyan)/0.25)]"
+      className="group relative w-full overflow-hidden rounded-2xl border border-border bg-card/70 p-1 text-left backdrop-blur shadow-[0_30px_120px_-40px_hsl(var(--signal)/0.25)]"
       aria-label="Open command palette"
     >
       <div className="flex items-center gap-2 border-b border-border px-3 py-2">

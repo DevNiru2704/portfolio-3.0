@@ -12,7 +12,7 @@ const layerAccents: Record<string, string> = {
   Tools: "30 80% 65%",
 };
 
-const DEFAULT_ACCENT = "199 89% 74%";
+const DEFAULT_ACCENT = "38 92% 58%";
 
 export function StackOrbit() {
   const layers = Object.keys(stack);
@@ -47,7 +47,7 @@ export function StackOrbit() {
               boxShadow: `0 0 40px -8px hsl(${accent} / 0.6), inset 0 0 24px -10px hsl(${accent} / 0.45)`,
             }}
           >
-            <span className="text-gradient-accent">{active}</span>
+            <span className="text-signal">{active}</span>
             <span
               className="pointer-events-none absolute inset-0 animate-spin-slow rounded-full"
               style={{

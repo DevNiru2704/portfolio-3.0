@@ -25,7 +25,7 @@ export default function DashboardPage() {
               <Lock className="h-3 w-3" /> Protected route
             </div>
             <h1 className="mt-5 text-balance text-4xl font-semibold tracking-tight md:text-6xl">
-              <span className="text-gradient">Dashboard</span> <span className="text-gradient-accent">coming soon.</span>
+              Dashboard <span className="text-signal">coming soon.</span>
             </h1>
             <p className="mt-4 text-balance text-muted-foreground">
               A private admin area for managing this site is planned but not built yet. In the meantime, the public,

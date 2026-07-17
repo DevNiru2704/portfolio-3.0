@@ -9,8 +9,11 @@ export interface NavItem {
 export const owner = {
   name: "Nirmalya Mandal",
   fullName: "Nirmalya Mandal",
-  role: "Full Stack Developer · Web + Mobile · AI Integrations",
-  shortRole: "Full Stack · Web + Mobile · AI",
+  // `role` is split on "·" to render the hero chips - keep the separator.
+  role: "Full Stack Developer · Web & Mobile Applications · AI Integrations",
+  // Used for the page title: the full role runs ~83 chars with the name and
+  // would truncate in search results.
+  shortRole: "Full Stack Developer",
   tagline:
     "I build production web and mobile applications end to end - from design and APIs to deployment and monitoring - with a focus on performance, security and thoughtful design.",
   bio: "Nirmalya Mandal is a full stack developer based in Kolkata, India - CTO at DokLink Services, building production web and mobile applications, secure backend systems, and AI-integrated platforms.",
