@@ -60,12 +60,22 @@ draw.text((cx, 556), "devniru.in", font=f_url, fill=FG)
 bbox = draw.textbbox((0, 0), "KOLKATA, INDIA · IST", font=f_url)
 draw.text((W - 90 - (bbox[2] - bbox[0]), 556), "KOLKATA, INDIA · IST", font=f_url, fill=MUTED)
 
-# NM badge
+# NM monogram badge. Same geometry as src/components/site/brand-mark.tsx:
+# one continuous path on a 24x24 grid, N's right leg doubling as M's left leg.
+# Keep the two in step if either changes.
 bx, by, bs = W - 90 - 84, 128, 84
 draw.rounded_rectangle([bx, by, bx + bs, by + bs], radius=18, outline=(60, 64, 68), width=2, fill=(16, 17, 18))
-f_badge = ImageFont.truetype(mono_xb, 36)
-tb = draw.textbbox((0, 0), "NM", font=f_badge)
-draw.text((bx + (bs - (tb[2] - tb[0])) / 2 - tb[0], by + (bs - (tb[3] - tb[1])) / 2 - tb[1]), "NM", font=f_badge, fill=SIGNAL)
+
+MARK = [(4, 20), (4, 4), (12, 20), (12, 4), (16, 12), (20, 4), (20, 20)]
+scale = 2.6                      # 24u -> ~62px inside the 84px plate
+ox = bx + (bs - 24 * scale) / 2
+oy = by + (bs - 24 * scale) / 2
+draw.line(
+    [(ox + x * scale, oy + y * scale) for x, y in MARK],
+    fill=SIGNAL,
+    width=round(2.5 * scale),
+    joint="curve",               # PIL has no bevel; this keeps the peaks from spiking
+)
 
 img.save("/home/devniru2704/Personal Files/Programs/Github/portfolio-3.0/public/og.png", "PNG")
 print("og.png written", img.size)

@@ -32,6 +32,7 @@ import {
   Radio,
 } from "lucide-react";
 import type { Project, BlogPost, Lab, Principle, NowItem, NowCategory } from "@/types/content";
+import { BrandMark } from "@/components/site/brand-mark";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -132,8 +133,8 @@ export function CmsPreviewView({ projects, posts, labs, principles, nowItems }: 
         <aside className="sticky top-32 self-start">
           <div className="rounded-2xl border border-border bg-card/60 p-3">
             <div className="flex items-center gap-2 px-2 py-1.5">
-              <span className="grid h-7 w-7 place-items-center rounded-md border border-border bg-background text-[10px] font-semibold">
-                <span className="text-signal">NM</span>
+              <span className="grid h-7 w-7 place-items-center rounded-md border border-border bg-background">
+                <BrandMark className="h-4 w-4 text-signal" />
               </span>
               <div className="leading-none">
                 <div className="text-xs font-semibold">NIRMALYA</div>

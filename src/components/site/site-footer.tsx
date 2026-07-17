@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ComponentType } from "react";
 import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
 import { owner, navigation, secondaryNav, type NavItem } from "@/config/owner";
+import { BrandMark } from "./brand-mark";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -11,8 +12,8 @@ export function SiteFooter() {
       <div className="container relative grid gap-10 py-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-lg border border-border bg-card text-[10px] font-bold">
-              <span className="text-signal">{owner.brand.initials}</span>
+            <span className="grid h-8 w-8 place-items-center rounded-lg border border-border bg-card">
+              <BrandMark className="h-5 w-5 text-signal" />
             </span>
             <div className="leading-none">
               <div className="text-sm font-semibold">{owner.brand.name}</div>

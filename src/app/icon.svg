@@ -1,4 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#101112" stroke="#3c4044" stroke-width="2"/>
-  <text x="32" y="42" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="26" font-weight="800" fill="#F5A524">NM</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- The box is not decoration: bare amber on a light browser tab strip is
+       about 2:1 contrast and vanishes. The dark plate keeps the mark readable
+       whatever theme the tab is. Padding is kept tight (1.6u) because the box
+       otherwise eats a quarter of the linear space at 16px. -->
+  <rect width="32" height="32" rx="7" fill="#101112"/>
+  <g transform="translate(1.6 1.6) scale(1.2)">
+    <path d="M4 20 V4 L12 20 V4 L16 12 L20 4 V20"
+          fill="none" stroke="#F5A524" stroke-width="2.5"
+          stroke-linecap="butt" stroke-linejoin="bevel"/>
+  </g>
 </svg>
